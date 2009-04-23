@@ -45,83 +45,83 @@
             <h2>Methods</h2>
             <h3>public class</h3>
             <ol>
-              <li><a href="#M000796">new</a></li>
+              <li><a href="#M000798">new</a></li>
             </ol>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000798">failure_message</a></li>
-              <li><a href="#M000797">matches?</a></li>
-              <li><a href="#M000799">negative_failure_message</a></li>
-              <li><a href="#M000800">type</a></li>
+              <li><a href="#M000800">failure_message</a></li>
+              <li><a href="#M000799">matches?</a></li>
+              <li><a href="#M000801">negative_failure_message</a></li>
+              <li><a href="#M000802">type</a></li>
             </ol>
           </div>
           <div id='section'>
             <div id='methods'>
               <h2>Public class methods</h2>
-              <div class='public-class method' id='method-M000796'>
-                <a name='M000796'>      </a>
+              <div class='public-class method' id='method-M000798'>
+                <a name='M000798'>      </a>
                 <div class='synopsis'>
                   <span class='name'>new</span>
                   <span class='arguments'>(expected,extra=&quot;&quot;)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000796-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000796-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/matchers/have_package.rb, line 5</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">expected</span>,<span class="ruby-identifier">extra</span>=<span class="ruby-value str">&quot;&quot;</span>)&#x000A;          <span class="ruby-ivar">@expected</span> = <span class="ruby-identifier">expected</span>&#x000A;          <span class="ruby-ivar">@extra</span> = <span class="ruby-identifier">extra</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <h2>Public instance methods</h2>
-              <div class='public-instance method' id='method-M000798'>
-                <a name='M000798'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>failure_message</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000798-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000798-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/matchers/have_package.rb, line 13</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">failure_message</span>&#x000A;          <span class="ruby-node">&quot;expected #{@target.inspect} to have package #{@expected}&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000798-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/matchers/have_package.rb, line 5</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">expected</span>,<span class="ruby-identifier">extra</span>=<span class="ruby-value str">&quot;&quot;</span>)&#x000A;          <span class="ruby-ivar">@expected</span> = <span class="ruby-identifier">expected</span>&#x000A;          <span class="ruby-ivar">@extra</span> = <span class="ruby-identifier">extra</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000797'>
-                <a name='M000797'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>matches?</span>
-                  <span class='arguments'>(target)</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000797-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000797-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/matchers/have_package.rb, line 9</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">target</span>)&#x000A;          <span class="ruby-ivar">@target</span> = <span class="ruby-identifier">target</span>&#x000A;          <span class="ruby-identifier">is_present?</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='public-instance method' id='method-M000799'>
-                <a name='M000799'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>negative_failure_message</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000799-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000799-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/matchers/have_package.rb, line 16</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">negative_failure_message</span>&#x000A;          <span class="ruby-node">&quot;expected #{@target.inspect} not to have package #{@expected}&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
+              <h2>Public instance methods</h2>
               <div class='public-instance method' id='method-M000800'>
                 <a name='M000800'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>type</span>
+                  <span class='name'>failure_message</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000800-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000800-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/matchers/have_package.rb, line 19</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type</span>&#x000A;          <span class="ruby-value str">&quot;package&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000800-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/matchers/have_package.rb, line 13</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">failure_message</span>&#x000A;          <span class="ruby-node">&quot;expected #{@target.inspect} to have package #{@expected}&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000799'>
+                <a name='M000799'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>matches?</span>
+                  <span class='arguments'>(target)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000799-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000799-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/matchers/have_package.rb, line 9</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">target</span>)&#x000A;          <span class="ruby-ivar">@target</span> = <span class="ruby-identifier">target</span>&#x000A;          <span class="ruby-identifier">is_present?</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000801'>
+                <a name='M000801'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>negative_failure_message</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000801-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000801-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/matchers/have_package.rb, line 16</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">negative_failure_message</span>&#x000A;          <span class="ruby-node">&quot;expected #{@target.inspect} not to have package #{@expected}&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000802'>
+                <a name='M000802'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>type</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000802-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000802-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/matchers/have_package.rb, line 19</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type</span>&#x000A;          <span class="ruby-value str">&quot;package&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

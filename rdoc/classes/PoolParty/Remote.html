@@ -52,10 +52,10 @@
             <a href="../../files/lib/poolparty/net/remoter_bases/ec2/ec2_remote_instance_rb.html">lib/poolparty/net/remoter_bases/ec2/ec2_remote_instance.rb</a>
           </li>
           <li class='other'>
-            <a href="../../files/lib/poolparty/net/remoter_bases/vmrun/vmrun_rb.html">lib/poolparty/net/remoter_bases/vmrun/vmrun.rb</a>
+            <a href="../../files/lib/poolparty/net/remoter_bases/vmrun/vmrun_instance_rb.html">lib/poolparty/net/remoter_bases/vmrun/vmrun_instance.rb</a>
           </li>
           <li class='other'>
-            <a href="../../files/lib/poolparty/net/remoter_bases/vmrun/vmrun_instance_rb.html">lib/poolparty/net/remoter_bases/vmrun/vmrun_instance.rb</a>
+            <a href="../../files/lib/poolparty/net/remoter_bases/vmrun/vmrun_rb.html">lib/poolparty/net/remoter_bases/vmrun/vmrun.rb</a>
           </li>
           <li>
             <a class='show' href='#' onclick='this.parentNode.parentNode.className += " expanded"; this.parentNode.removeChild(this); return false'>show all</a>
@@ -68,6 +68,7 @@
             <h2>Methods</h2>
             <h3>public instance</h3>
             <ol>
+              <li><a href="#M000424">_list_of_instances</a></li>
               <li><a href="#M000420">_nodes</a></li>
               <li><a href="#M000407">are_any_nodes_exceeding_minimum_runtime?</a></li>
               <li><a href="#M000404">are_too_few_instances_running?</a></li>
@@ -80,30 +81,31 @@
               <li><a href="#M000418">master</a></li>
               <li><a href="#M000421">netssh</a></li>
               <li><a href="#M000419">nodes</a></li>
-              <li><a href="#M000434">remote_rsync_command</a></li>
-              <li><a href="#M000432">remote_ssh_array</a></li>
-              <li><a href="#M000433">remote_ssh_string</a></li>
-              <li><a href="#M000425">reset_remoter_base!</a></li>
+              <li><a href="#M000436">remote_rsync_command</a></li>
+              <li><a href="#M000434">remote_ssh_array</a></li>
+              <li><a href="#M000435">remote_ssh_string</a></li>
+              <li><a href="#M000427">reset_remoter_base!</a></li>
               <li><a href="#M000414">rsync</a></li>
-              <li><a href="#M000431">rsync_command</a></li>
-              <li><a href="#M000437">rsync_storage_files_to</a></li>
+              <li><a href="#M000433">rsync_command</a></li>
+              <li><a href="#M000439">rsync_storage_files_to</a></li>
               <li><a href="#M000423">rsync_storage_files_to_command</a></li>
-              <li><a href="#M000436">rsync_to</a></li>
-              <li><a href="#M000424">rsync_to_command</a></li>
-              <li><a href="#M000438">run_command_on</a></li>
-              <li><a href="#M000426">run_command_on_command</a></li>
-              <li><a href="#M000440">run_command_on_instance_number</a></li>
+              <li><a href="#M000438">rsync_to</a></li>
+              <li><a href="#M000426">rsync_to_command</a></li>
+              <li><a href="#M000440">run_command_on</a></li>
+              <li><a href="#M000428">run_command_on_command</a></li>
+              <li><a href="#M000442">run_command_on_instance_number</a></li>
               <li><a href="#M000415">run_local</a></li>
               <li><a href="#M000411">run_remote</a></li>
-              <li><a href="#M000430">scp_array</a></li>
-              <li><a href="#M000435">scp_to_command</a></li>
+              <li><a href="#M000432">scp_array</a></li>
+              <li><a href="#M000437">scp_to_command</a></li>
               <li><a href="#M000410">simplest_run_remote</a></li>
-              <li><a href="#M000429">ssh_array</a></li>
-              <li><a href="#M000427">ssh_command</a></li>
+              <li><a href="#M000431">ssh_array</a></li>
+              <li><a href="#M000429">ssh_command</a></li>
               <li><a href="#M000412">ssh_into</a></li>
-              <li><a href="#M000439">ssh_into_instance_number</a></li>
+              <li><a href="#M000441">ssh_into_instance_number</a></li>
               <li><a href="#M000413">ssh_options</a></li>
-              <li><a href="#M000428">ssh_string</a></li>
+              <li><a href="#M000430">ssh_string</a></li>
+              <li><a href="#M000425">started_instance</a></li>
               <li><a href="#M000409">target_host</a></li>
             </ol>
           </div>
@@ -127,6 +129,25 @@
             </div>
             <div id='methods'>
               <h2>Public instance methods</h2>
+              <div class='public-instance method' id='method-M000424'>
+                <a name='M000424'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>_list_of_instances</span>
+                  <span class='arguments'>(select={})</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  List the instances for the current key pair, regardless of their states If
+                  no keypair is passed, select them all
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000424-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000424-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/interactive.rb, line 39</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_list_of_instances</span>(<span class="ruby-identifier">select</span>={})&#x000A;      <span class="ruby-ivar">@describe_instances</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">remote_base</span>.<span class="ruby-identifier">describe_instances</span>(<span class="ruby-identifier">options</span>).<span class="ruby-identifier">select_with_hash</span>(<span class="ruby-identifier">select</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
               <div class='public-instance method' id='method-M000420'>
                 <a name='M000420'>      </a>
                 <div class='synopsis'>
@@ -468,47 +489,47 @@
                   <pre id='M000419-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/interactive.rb, line 16</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nodes</span>(<span class="ruby-identifier">hsh</span>={})&#x000A;      <span class="ruby-comment cmt"># _nodes[hsh] ||= </span>&#x000A;      <span class="ruby-identifier">list_of_instances</span>.<span class="ruby-identifier">select_with_hash</span>(<span class="ruby-identifier">hsh</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
+              <div class='public-instance method' id='method-M000436'>
+                <a name='M000436'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>remote_rsync_command</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000436-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000436-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 127</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remote_rsync_command</span>&#x000A;      <span class="ruby-node">&quot;rsync -azP --exclude cache -e '#{remote_ssh_string}'&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
               <div class='public-instance method' id='method-M000434'>
                 <a name='M000434'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>remote_rsync_command</span>
+                  <span class='name'>remote_ssh_array</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000434-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000434-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 127</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remote_rsync_command</span>&#x000A;      <span class="ruby-node">&quot;rsync -azP --exclude cache -e '#{remote_ssh_string}'&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000434-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 121</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remote_ssh_array</span>&#x000A;      [<span class="ruby-value str">&quot;-o StrictHostKeyChecking=no&quot;</span>, <span class="ruby-node">&quot;-l '#{Default.user}'&quot;</span>, <span class="ruby-value str">'-i &quot;'</span><span class="ruby-operator">+</span><span class="ruby-identifier">remote_keypair_path</span><span class="ruby-operator">+</span><span class="ruby-value str">'&quot;'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000432'>
-                <a name='M000432'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>remote_ssh_array</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000432-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000432-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 121</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remote_ssh_array</span>&#x000A;      [<span class="ruby-value str">&quot;-o StrictHostKeyChecking=no&quot;</span>, <span class="ruby-node">&quot;-l '#{Default.user}'&quot;</span>, <span class="ruby-value str">'-i &quot;'</span><span class="ruby-operator">+</span><span class="ruby-identifier">remote_keypair_path</span><span class="ruby-operator">+</span><span class="ruby-value str">'&quot;'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='public-instance method' id='method-M000433'>
-                <a name='M000433'>      </a>
+              <div class='public-instance method' id='method-M000435'>
+                <a name='M000435'>      </a>
                 <div class='synopsis'>
                   <span class='name'>remote_ssh_string</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000433-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000435-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000433-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 124</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remote_ssh_string</span>&#x000A;      ([<span class="ruby-value str">&quot;ssh&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">remote_ssh_array</span>).<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; &quot;</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000435-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 124</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remote_ssh_string</span>&#x000A;      ([<span class="ruby-value str">&quot;ssh&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">remote_ssh_array</span>).<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; &quot;</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000425'>
-                <a name='M000425'>      </a>
+              <div class='public-instance method' id='method-M000427'>
+                <a name='M000427'>      </a>
                 <div class='synopsis'>
                   <span class='name'>reset_remoter_base!</span>
                   <span class='arguments'>()</span>
@@ -519,10 +540,10 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000425-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000427-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000425-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/interactive.rb, line 51</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset_remoter_base!</span>&#x000A;      <span class="ruby-ivar">@_nodes</span> = <span class="ruby-ivar">@list_of_instances</span> = <span class="ruby-ivar">@describe_instances</span> = <span class="ruby-keyword kw">nil</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000427-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/interactive.rb, line 51</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset_remoter_base!</span>&#x000A;      <span class="ruby-ivar">@_nodes</span> = <span class="ruby-ivar">@list_of_instances</span> = <span class="ruby-ivar">@describe_instances</span> = <span class="ruby-keyword kw">nil</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='public-instance method' id='method-M000414'>
@@ -538,21 +559,21 @@
                   <pre id='M000414-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 39</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsync</span>( <span class="ruby-identifier">source_path</span>, <span class="ruby-identifier">destination_path</span>, <span class="ruby-identifier">rsync_opts</span>=[<span class="ruby-value str">'-v -a'</span>] )&#x000A;      <span class="ruby-identifier">dputs</span> <span class="ruby-node">&quot;rsync -e 'ssh #{ssh_options}' #{rsync_opts.join(' ')} #{source_path}  root@#{target_host}:#{destination_path}&quot;</span>&#x000A;      <span class="ruby-identifier">puts</span> <span class="ruby-node">%x{ rsync -e 'ssh #{ssh_options}' #{rsync_opts.join(' ')} #{source_path}  root@#{target_host}:#{destination_path} }</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000431'>
-                <a name='M000431'>      </a>
+              <div class='public-instance method' id='method-M000433'>
+                <a name='M000433'>      </a>
                 <div class='synopsis'>
                   <span class='name'>rsync_command</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000431-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000433-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000431-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 118</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsync_command</span>&#x000A;      <span class="ruby-node">&quot;rsync -azP --exclude cache -e '#{ssh_string} -l #{Default.user}'&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000433-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 118</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsync_command</span>&#x000A;      <span class="ruby-node">&quot;rsync -azP --exclude cache -e '#{ssh_string} -l #{Default.user}'&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000437'>
-                <a name='M000437'>      </a>
+              <div class='public-instance method' id='method-M000439'>
+                <a name='M000439'>      </a>
                 <div class='synopsis'>
                   <span class='name'>rsync_storage_files_to</span>
                   <span class='arguments'>(instance=nil)</span>
@@ -563,10 +584,10 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000437-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000439-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000437-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 144</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsync_storage_files_to</span>(<span class="ruby-identifier">instance</span>=<span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">hide_output</span> {<span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">system</span> <span class="ruby-node">&quot;#{rsync_storage_files_to_command(instance)}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">instance</span>}&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000439-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 144</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsync_storage_files_to</span>(<span class="ruby-identifier">instance</span>=<span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">hide_output</span> {<span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">system</span> <span class="ruby-node">&quot;#{rsync_storage_files_to_command(instance)}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">instance</span>}&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='public-instance method' id='method-M000423'>
@@ -587,8 +608,8 @@
                   <pre id='M000423-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 88</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsync_storage_files_to_command</span>(<span class="ruby-identifier">remote_instance</span>)&#x000A;      <span class="ruby-comment cmt">#TODO: rsync_to_command(&quot;#{Default.storage_directory}/&quot;, Default.remote_storage_path, remote_storage_path) if remote_instance</span>&#x000A;      <span class="ruby-node">&quot;#{rsync_command} #{Default.storage_directory}/ #{remote_instance.ip}:#{Default.remote_storage_path}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">remote_instance</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000436'>
-                <a name='M000436'>      </a>
+              <div class='public-instance method' id='method-M000438'>
+                <a name='M000438'>      </a>
                 <div class='synopsis'>
                   <span class='name'>rsync_to</span>
                   <span class='arguments'>(source, target=source, num=0)</span>
@@ -599,14 +620,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000436-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000438-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000436-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 137</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsync_to</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">target</span>=<span class="ruby-identifier">source</span>, <span class="ruby-identifier">num</span>=<span class="ruby-value">0</span>)&#x000A;      <span class="ruby-identifier">str</span> = <span class="ruby-node">&quot;#{rsync_to_command(source, target, get_instance_by_number( num ))}&quot;</span>&#x000A;      <span class="ruby-identifier">dputs</span> <span class="ruby-node">&quot;Running: #{str}&quot;</span>&#x000A;      <span class="ruby-identifier">verbose</span> <span class="ruby-value">? </span> <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">system</span>(<span class="ruby-identifier">str</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">hide_output</span> {<span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">system</span> <span class="ruby-identifier">str</span>}&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000438-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 137</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsync_to</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">target</span>=<span class="ruby-identifier">source</span>, <span class="ruby-identifier">num</span>=<span class="ruby-value">0</span>)&#x000A;      <span class="ruby-identifier">str</span> = <span class="ruby-node">&quot;#{rsync_to_command(source, target, get_instance_by_number( num ))}&quot;</span>&#x000A;      <span class="ruby-identifier">dputs</span> <span class="ruby-node">&quot;Running: #{str}&quot;</span>&#x000A;      <span class="ruby-identifier">verbose</span> <span class="ruby-value">? </span> <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">system</span>(<span class="ruby-identifier">str</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">hide_output</span> {<span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">system</span> <span class="ruby-identifier">str</span>}&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000424'>
-                <a name='M000424'>      </a>
+              <div class='public-instance method' id='method-M000426'>
+                <a name='M000426'>      </a>
                 <div class='synopsis'>
                   <span class='name'>rsync_to_command</span>
                   <span class='arguments'>(source, target=source, remote_instance=master)</span>
@@ -617,14 +638,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000424-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000426-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000424-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 93</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsync_to_command</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">target</span>=<span class="ruby-identifier">source</span>, <span class="ruby-identifier">remote_instance</span>=<span class="ruby-identifier">master</span>)&#x000A;      <span class="ruby-node">&quot;#{rsync_command} #{source} #{remote_instance.ip}:#{target}&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000426-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 93</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsync_to_command</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">target</span>=<span class="ruby-identifier">source</span>, <span class="ruby-identifier">remote_instance</span>=<span class="ruby-identifier">master</span>)&#x000A;      <span class="ruby-node">&quot;#{rsync_command} #{source} #{remote_instance.ip}:#{target}&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000438'>
-                <a name='M000438'>      </a>
+              <div class='public-instance method' id='method-M000440'>
+                <a name='M000440'>      </a>
                 <div class='synopsis'>
                   <span class='name'>run_command_on</span>
                   <span class='arguments'>(cmd, instance=nil)</span>
@@ -636,27 +657,27 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000438-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000440-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000438-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 149</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_command_on</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">instance</span>=<span class="ruby-keyword kw">nil</span>)        &#x000A;      <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">system</span> <span class="ruby-node">&quot;#{run_command_on_command(cmd, instance)}&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000440-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 149</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_command_on</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">instance</span>=<span class="ruby-keyword kw">nil</span>)        &#x000A;      <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">system</span> <span class="ruby-node">&quot;#{run_command_on_command(cmd, instance)}&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000426'>
-                <a name='M000426'>      </a>
+              <div class='public-instance method' id='method-M000428'>
+                <a name='M000428'>      </a>
                 <div class='synopsis'>
                   <span class='name'>run_command_on_command</span>
                   <span class='arguments'>(cmd=&quot;ls -l&quot;, remote_instance=nil)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000426-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000428-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000426-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 96</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_command_on_command</span>(<span class="ruby-identifier">cmd</span>=<span class="ruby-value str">&quot;ls -l&quot;</span>, <span class="ruby-identifier">remote_instance</span>=<span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">vputs</span> <span class="ruby-node">&quot;Running #{cmd} on #{remote_instance.name == %x[hostname].chomp ? &quot;self (master)&quot; : &quot;#{remote_instance.name}&quot;}&quot;</span>&#x000A;      (<span class="ruby-identifier">remote_instance</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">remote_instance</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value">%x[hostname]</span>.<span class="ruby-identifier">chomp</span>) <span class="ruby-operator">?</span> <span class="ruby-node">%x[#{cmd}]</span> <span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{ssh_command(remote_instance)} '#{cmd}'&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000428-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 96</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_command_on_command</span>(<span class="ruby-identifier">cmd</span>=<span class="ruby-value str">&quot;ls -l&quot;</span>, <span class="ruby-identifier">remote_instance</span>=<span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">vputs</span> <span class="ruby-node">&quot;Running #{cmd} on #{remote_instance.name == %x[hostname].chomp ? &quot;self (master)&quot; : &quot;#{remote_instance.name}&quot;}&quot;</span>&#x000A;      (<span class="ruby-identifier">remote_instance</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">remote_instance</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value">%x[hostname]</span>.<span class="ruby-identifier">chomp</span>) <span class="ruby-operator">?</span> <span class="ruby-node">%x[#{cmd}]</span> <span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{ssh_command(remote_instance)} '#{cmd}'&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000440'>
-                <a name='M000440'>      </a>
+              <div class='public-instance method' id='method-M000442'>
+                <a name='M000442'>      </a>
                 <div class='synopsis'>
                   <span class='name'>run_command_on_instance_number</span>
                   <span class='arguments'>(cmd=&quot;ls -l&quot;, num=0)</span>
@@ -667,10 +688,10 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000440-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000442-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000440-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 166</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_command_on_instance_number</span>(<span class="ruby-identifier">cmd</span>=<span class="ruby-value str">&quot;ls -l&quot;</span>, <span class="ruby-identifier">num</span>=<span class="ruby-value">0</span>)&#x000A;      <span class="ruby-identifier">run_command_on</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">get_instance_by_number</span>( <span class="ruby-identifier">num</span> ) )&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000442-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 166</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_command_on_instance_number</span>(<span class="ruby-identifier">cmd</span>=<span class="ruby-value str">&quot;ls -l&quot;</span>, <span class="ruby-identifier">num</span>=<span class="ruby-value">0</span>)&#x000A;      <span class="ruby-identifier">run_command_on</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">get_instance_by_number</span>( <span class="ruby-identifier">num</span> ) )&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='public-instance method' id='method-M000415'>
@@ -699,30 +720,30 @@
                   <pre id='M000411-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 22</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_remote</span>( <span class="ruby-identifier">hst</span>, <span class="ruby-identifier">cmds</span> )&#x000A;      <span class="ruby-identifier">netssh</span> <span class="ruby-identifier">hst</span>, <span class="ruby-identifier">cmds</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000430'>
-                <a name='M000430'>      </a>
+              <div class='public-instance method' id='method-M000432'>
+                <a name='M000432'>      </a>
                 <div class='synopsis'>
                   <span class='name'>scp_array</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000430-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000432-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000430-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 115</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scp_array</span>&#x000A;      [<span class="ruby-value str">&quot;-o StrictHostKeyChecking=no&quot;</span>, <span class="ruby-value str">'-i &quot;'</span><span class="ruby-operator">+</span><span class="ruby-identifier">full_keypair_path</span><span class="ruby-operator">+</span><span class="ruby-value str">'&quot;'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000432-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 115</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scp_array</span>&#x000A;      [<span class="ruby-value str">&quot;-o StrictHostKeyChecking=no&quot;</span>, <span class="ruby-value str">'-i &quot;'</span><span class="ruby-operator">+</span><span class="ruby-identifier">full_keypair_path</span><span class="ruby-operator">+</span><span class="ruby-value str">'&quot;'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000435'>
-                <a name='M000435'>      </a>
+              <div class='public-instance method' id='method-M000437'>
+                <a name='M000437'>      </a>
                 <div class='synopsis'>
                   <span class='name'>scp_to_command</span>
                   <span class='arguments'>(source, dest=target, remote_instance=master)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000435-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000437-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000435-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 131</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scp_to_command</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">dest</span>=<span class="ruby-identifier">target</span>, <span class="ruby-identifier">remote_instance</span>=<span class="ruby-identifier">master</span>)&#x000A;      <span class="ruby-comment cmt">#TODO: check if source is Directory and add -r if it is</span>&#x000A;      <span class="ruby-node">&quot;scp #{source} #{remote_instance.ip}:#{dest} #{scp_array.join(' ')}&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000437-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 131</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scp_to_command</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">dest</span>=<span class="ruby-identifier">target</span>, <span class="ruby-identifier">remote_instance</span>=<span class="ruby-identifier">master</span>)&#x000A;      <span class="ruby-comment cmt">#TODO: check if source is Directory and add -r if it is</span>&#x000A;      <span class="ruby-node">&quot;scp #{source} #{remote_instance.ip}:#{dest} #{scp_array.join(' ')}&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='public-instance method' id='method-M000410'>
@@ -744,8 +765,8 @@
                   <pre id='M000410-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 15</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">simplest_run_remote</span>(<span class="ruby-identifier">host</span>=<span class="ruby-identifier">target_host</span>, <span class="ruby-identifier">command</span>=[], <span class="ruby-identifier">extra_ssh_ops</span>={})&#x000A;      <span class="ruby-identifier">command</span> = <span class="ruby-identifier">command</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' &amp;&amp; '</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">command</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Array</span>&#x000A;      <span class="ruby-identifier">cmd</span> = <span class="ruby-node">&quot;ssh #{host} #{ssh_options(extra_ssh_ops)} '#{command}'&quot;</span>&#x000A;      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;\n--------------------------------\nrunning_remote:\n #{cmd}\n&quot;</span>&#x000A;      <span class="ruby-identifier">puts</span> <span class="ruby-node">%x{#{cmd}}</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000429'>
-                <a name='M000429'>      </a>
+              <div class='public-instance method' id='method-M000431'>
+                <a name='M000431'>      </a>
                 <div class='synopsis'>
                   <span class='name'>ssh_array</span>
                   <span class='arguments'>()</span>
@@ -759,23 +780,23 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000429-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000431-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000429-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 112</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssh_array</span>&#x000A;      [<span class="ruby-value str">&quot;-o StrictHostKeyChecking=no&quot;</span>, <span class="ruby-node">&quot;-l #{Default.user}&quot;</span>, <span class="ruby-value str">'-i &quot;'</span><span class="ruby-operator">+</span><span class="ruby-identifier">full_keypair_path</span><span class="ruby-operator">+</span><span class="ruby-value str">'&quot;'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000431-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 112</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssh_array</span>&#x000A;      [<span class="ruby-value str">&quot;-o StrictHostKeyChecking=no&quot;</span>, <span class="ruby-node">&quot;-l #{Default.user}&quot;</span>, <span class="ruby-value str">'-i &quot;'</span><span class="ruby-operator">+</span><span class="ruby-identifier">full_keypair_path</span><span class="ruby-operator">+</span><span class="ruby-value str">'&quot;'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000427'>
-                <a name='M000427'>      </a>
+              <div class='public-instance method' id='method-M000429'>
+                <a name='M000429'>      </a>
                 <div class='synopsis'>
                   <span class='name'>ssh_command</span>
                   <span class='arguments'>(remote_instance)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000427-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000429-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000427-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 100</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssh_command</span>(<span class="ruby-identifier">remote_instance</span>)&#x000A;      <span class="ruby-node">&quot;#{ssh_string} #{remote_instance.ip}&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000429-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 100</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssh_command</span>(<span class="ruby-identifier">remote_instance</span>)&#x000A;      <span class="ruby-node">&quot;#{ssh_string} #{remote_instance.ip}&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='public-instance method' id='method-M000412'>
@@ -791,8 +812,8 @@
                   <pre id='M000412-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 26</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssh_into</span>(<span class="ruby-identifier">inst</span>, <span class="ruby-identifier">extra_ssh_ops</span>={} )&#x000A;      <span class="ruby-identifier">ip</span> =  ((<span class="ruby-identifier">inst</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:has_key</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">inst</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:ip</span>)) <span class="ruby-operator">||</span> <span class="ruby-identifier">inst</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:ip</span>)) <span class="ruby-operator">?</span> <span class="ruby-identifier">inst</span>.<span class="ruby-identifier">ip</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">inst</span>&#x000A;      <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">system</span>(<span class="ruby-node">&quot;ssh #{ssh_options(extra_ssh_ops)} #{ip}&quot;</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000439'>
-                <a name='M000439'>      </a>
+              <div class='public-instance method' id='method-M000441'>
+                <a name='M000441'>      </a>
                 <div class='synopsis'>
                   <span class='name'>ssh_into_instance_number</span>
                   <span class='arguments'>(num=0)</span>
@@ -808,10 +829,10 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000439-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000441-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000439-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 161</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssh_into_instance_number</span>(<span class="ruby-identifier">num</span>=<span class="ruby-value">0</span>)&#x000A;      <span class="ruby-identifier">ssh_into</span>( <span class="ruby-identifier">get_instance_by_number</span>( <span class="ruby-identifier">num</span> ) )&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000441-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 161</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssh_into_instance_number</span>(<span class="ruby-identifier">num</span>=<span class="ruby-value">0</span>)&#x000A;      <span class="ruby-identifier">ssh_into</span>( <span class="ruby-identifier">get_instance_by_number</span>( <span class="ruby-identifier">num</span> ) )&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='public-instance method' id='method-M000413'>
@@ -827,8 +848,8 @@
                   <pre id='M000413-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 31</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssh_options</span>(<span class="ruby-identifier">opts</span>={})&#x000A;      <span class="ruby-identifier">o</span> = {<span class="ruby-value str">&quot;-i&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">keypair</span>.<span class="ruby-identifier">full_filepath</span>,&#x000A;           <span class="ruby-value str">&quot;-l&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user</span>,&#x000A;           <span class="ruby-value str">&quot;-o&quot;</span> =<span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;StrictHostKeyChecking=no&quot;</span>&#x000A;           }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">opts</span>)&#x000A;      <span class="ruby-identifier">o</span>.<span class="ruby-identifier">collect</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{k} #{v}&quot;</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' '</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000428'>
-                <a name='M000428'>      </a>
+              <div class='public-instance method' id='method-M000430'>
+                <a name='M000430'>      </a>
                 <div class='synopsis'>
                   <span class='name'>ssh_string</span>
                   <span class='arguments'>()</span>
@@ -839,10 +860,30 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000428-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000430-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000428-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 104</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssh_string</span>&#x000A;      ([<span class="ruby-value str">&quot;ssh&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">ssh_array</span>).<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; &quot;</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000430-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/connections.rb, line 104</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssh_string</span>&#x000A;      ([<span class="ruby-value str">&quot;ssh&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">ssh_array</span>).<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; &quot;</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000425'>
+                <a name='M000425'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>started_instance</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  If the cloud is starting an instance, it will not be listed in the running
+                  instances, so we need to keep track of the instance that is being started
+                  so we can add it to the neighborhood list
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000425-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000425-source'><span class="ruby-comment cmt"># File lib/poolparty/net/remoter/interactive.rb, line 46</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">started_instance</span>&#x000A;      <span class="ruby-ivar">@started_instance</span> <span class="ruby-operator">||=</span> []&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='public-instance method' id='method-M000409'>

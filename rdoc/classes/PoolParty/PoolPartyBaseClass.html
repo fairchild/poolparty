@@ -45,28 +45,28 @@
             <h2>Methods</h2>
             <h3>public class</h3>
             <ol>
-              <li><a href="#M000700">add_has_and_does_not_have_methods_for</a></li>
-              <li><a href="#M000683">new</a></li>
+              <li><a href="#M000702">add_has_and_does_not_have_methods_for</a></li>
+              <li><a href="#M000685">new</a></li>
             </ol>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000690">add_resource</a></li>
-              <li><a href="#M000687">add_service</a></li>
-              <li><a href="#M000685">add_to_parent_if_parent_exists_and_is_a_service</a></li>
-              <li><a href="#M000693">get_local_resource</a></li>
-              <li><a href="#M000686">get_name_from_options_and_extra_options</a></li>
-              <li><a href="#M000694">get_resource</a></li>
-              <li><a href="#M000701">handle_option_values</a></li>
-              <li><a href="#M000692">in_local_resources?</a></li>
-              <li><a href="#M000698">is_a_resource?</a></li>
-              <li><a href="#M000697">is_plugin?</a></li>
-              <li><a href="#M000699">method_missing</a></li>
-              <li><a href="#M000696">ordered_resources</a></li>
-              <li><a href="#M000695">resource</a></li>
-              <li><a href="#M000689">resources</a></li>
-              <li><a href="#M000684">run_in_context</a></li>
-              <li><a href="#M000688">services</a></li>
-              <li><a href="#M000691">store_in_local_resources</a></li>
+              <li><a href="#M000692">add_resource</a></li>
+              <li><a href="#M000689">add_service</a></li>
+              <li><a href="#M000687">add_to_parent_if_parent_exists_and_is_a_service</a></li>
+              <li><a href="#M000695">get_local_resource</a></li>
+              <li><a href="#M000688">get_name_from_options_and_extra_options</a></li>
+              <li><a href="#M000696">get_resource</a></li>
+              <li><a href="#M000703">handle_option_values</a></li>
+              <li><a href="#M000694">in_local_resources?</a></li>
+              <li><a href="#M000700">is_a_resource?</a></li>
+              <li><a href="#M000699">is_plugin?</a></li>
+              <li><a href="#M000701">method_missing</a></li>
+              <li><a href="#M000698">ordered_resources</a></li>
+              <li><a href="#M000697">resource</a></li>
+              <li><a href="#M000691">resources</a></li>
+              <li><a href="#M000686">run_in_context</a></li>
+              <li><a href="#M000690">services</a></li>
+              <li><a href="#M000693">store_in_local_resources</a></li>
             </ol>
           </div>
           <div id='context'>
@@ -82,8 +82,8 @@
           <div id='section'>
             <div id='methods'>
               <h2>Public class methods</h2>
-              <div class='public-class method' id='method-M000700'>
-                <a name='M000700'>      </a>
+              <div class='public-class method' id='method-M000702'>
+                <a name='M000702'>      </a>
                 <div class='synopsis'>
                   <span class='name'>add_has_and_does_not_have_methods_for</span>
                   <span class='arguments'>(typ=:file)</span>
@@ -99,20 +99,20 @@
                   <pre>does_not_have_</pre>
                   <p>
                   for the type passed for instance <a
-                  href="PoolPartyBaseClass.html#M000700">add_has_and_does_not_have_methods_for</a>(:file)
+                  href="PoolPartyBaseClass.html#M000702">add_has_and_does_not_have_methods_for</a>(:file)
                   gives you the methods has_file and does_not_have_file TODO: Refactor nicely
                   to include other types that don&#8217;t accept ensure
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000700-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000702-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000700-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 166</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">add_has_and_does_not_have_methods_for</span>(<span class="ruby-identifier">typ</span>=<span class="ruby-identifier">:file</span>)&#x000A;      <span class="ruby-identifier">method_name</span> = <span class="ruby-node">&quot;__#{typ}&quot;</span>&#x000A;      <span class="ruby-constant">PoolParty</span><span class="ruby-operator">::</span><span class="ruby-constant">PoolPartyBaseClass</span>.<span class="ruby-identifier">module_eval</span> <span class="ruby-value str">&quot;def has_\#{typ}(opts={}, extra={}, &amp;block)\n\#{method_name}({:ensures =&gt; :present}.merge(handle_option_values(opts).merge(extra)), &amp;block)\nend\ndef does_not_have_\#{typ}(opts={}, extra={}, &amp;block)\n\#{method_name}({:ensures =&gt; :absent}.merge(handle_option_values(opts).merge(extra)), &amp;block)\nend\n&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000702-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 166</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">add_has_and_does_not_have_methods_for</span>(<span class="ruby-identifier">typ</span>=<span class="ruby-identifier">:file</span>)&#x000A;      <span class="ruby-identifier">method_name</span> = <span class="ruby-node">&quot;__#{typ}&quot;</span>&#x000A;      <span class="ruby-constant">PoolParty</span><span class="ruby-operator">::</span><span class="ruby-constant">PoolPartyBaseClass</span>.<span class="ruby-identifier">module_eval</span> <span class="ruby-value str">&quot;def has_\#{typ}(opts={}, extra={}, &amp;block)\n\#{method_name}({:ensures =&gt; :present}.merge(handle_option_values(opts).merge(extra)), &amp;block)\nend\ndef does_not_have_\#{typ}(opts={}, extra={}, &amp;block)\n\#{method_name}({:ensures =&gt; :absent}.merge(handle_option_values(opts).merge(extra)), &amp;block)\nend\n&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-class method' id='method-M000683'>
-                <a name='M000683'>      </a>
+              <div class='public-class method' id='method-M000685'>
+                <a name='M000685'>      </a>
                 <div class='synopsis'>
                   <span class='name'>new</span>
                   <span class='arguments'>(opts={}, extra_opts={}, &amp;block)</span>
@@ -123,15 +123,15 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000683-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000685-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000683-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 15</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">opts</span>={}, <span class="ruby-identifier">extra_opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)      &#x000A;      <span class="ruby-identifier">add_to_parent_if_parent_exists_and_is_a_service</span>&#x000A;      &#x000A;      <span class="ruby-ivar">@init_block</span> = <span class="ruby-identifier">block</span>&#x000A;      <span class="ruby-ivar">@base_name</span> = <span class="ruby-identifier">get_name_from_options_and_extra_options</span>(<span class="ruby-identifier">opts</span>, <span class="ruby-identifier">extra_opts</span>)&#x000A;      &#x000A;      <span class="ruby-identifier">opts</span> = (<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">extra_opts</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">opts</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">extra_opts</span>).<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@base_name</span>)&#x000A;      &#x000A;      <span class="ruby-identifier">run_in_context</span>(<span class="ruby-identifier">opts</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">super</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000685-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 15</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">opts</span>={}, <span class="ruby-identifier">extra_opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)      &#x000A;      <span class="ruby-identifier">add_to_parent_if_parent_exists_and_is_a_service</span>&#x000A;      &#x000A;      <span class="ruby-ivar">@init_block</span> = <span class="ruby-identifier">block</span>&#x000A;      <span class="ruby-ivar">@base_name</span> = <span class="ruby-identifier">get_name_from_options_and_extra_options</span>(<span class="ruby-identifier">opts</span>, <span class="ruby-identifier">extra_opts</span>)&#x000A;      &#x000A;      <span class="ruby-identifier">opts</span> = (<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">extra_opts</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">opts</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">extra_opts</span>).<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@base_name</span>)&#x000A;      &#x000A;      <span class="ruby-identifier">run_in_context</span>(<span class="ruby-identifier">opts</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">super</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <h2>Public instance methods</h2>
-              <div class='public-instance method' id='method-M000690'>
-                <a name='M000690'>      </a>
+              <div class='public-instance method' id='method-M000692'>
+                <a name='M000692'>      </a>
                 <div class='synopsis'>
                   <span class='name'>add_resource</span>
                   <span class='arguments'>(ty, opts={}, extra_opts={}, &amp;block)</span>
@@ -153,14 +153,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000690-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000692-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000690-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 82</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">opts</span>={}, <span class="ruby-identifier">extra_opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)    &#x000A;      <span class="ruby-identifier">temp_name</span> = <span class="ruby-identifier">get_name_from_options_and_extra_options</span>(<span class="ruby-identifier">opts</span>, <span class="ruby-identifier">extra_opts</span>)&#x000A;      &#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">res</span> = <span class="ruby-identifier">get_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">temp_name</span>, <span class="ruby-identifier">opts</span>)        &#x000A;        <span class="ruby-identifier">res</span>&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-identifier">opts</span> = (<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">extra_opts</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">opts</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">extra_opts</span>).<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">temp_name</span>)&#x000A;        &#x000A;        <span class="ruby-comment cmt"># opts.merge!(:name =&gt; temp_name) unless opts.has_key?(:name)</span>&#x000A;        <span class="ruby-identifier">res</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-constant">PoolParty</span><span class="ruby-operator">::</span><span class="ruby-constant">Resources</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>.<span class="ruby-identifier">available_resources</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">ty</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">camelize</span>)&#x000A;          <span class="ruby-node">&quot;PoolParty::Resources::#{ty.to_s.camelize}&quot;</span>.<span class="ruby-identifier">camelize</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">opts</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;        <span class="ruby-keyword kw">else</span>&#x000A;          <span class="ruby-node">&quot;#{ty.to_s.camelize}&quot;</span>.<span class="ruby-identifier">camelize</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">:name</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;        <span class="ruby-identifier">res</span>.<span class="ruby-identifier">after_create</span>&#x000A;        <span class="ruby-identifier">store_in_local_resources</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">res</span>)&#x000A;        <span class="ruby-identifier">ordered_resources</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">res</span>&#x000A;        <span class="ruby-identifier">res</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000692-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 82</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">opts</span>={}, <span class="ruby-identifier">extra_opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)    &#x000A;      <span class="ruby-identifier">temp_name</span> = <span class="ruby-identifier">get_name_from_options_and_extra_options</span>(<span class="ruby-identifier">opts</span>, <span class="ruby-identifier">extra_opts</span>)&#x000A;      &#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">res</span> = <span class="ruby-identifier">get_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">temp_name</span>, <span class="ruby-identifier">opts</span>)        &#x000A;        <span class="ruby-identifier">res</span>&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-identifier">opts</span> = (<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">extra_opts</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">opts</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">extra_opts</span>).<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">temp_name</span>)&#x000A;        &#x000A;        <span class="ruby-comment cmt"># opts.merge!(:name =&gt; temp_name) unless opts.has_key?(:name)</span>&#x000A;        <span class="ruby-identifier">res</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-constant">PoolParty</span><span class="ruby-operator">::</span><span class="ruby-constant">Resources</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>.<span class="ruby-identifier">available_resources</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">ty</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">camelize</span>)&#x000A;          <span class="ruby-node">&quot;PoolParty::Resources::#{ty.to_s.camelize}&quot;</span>.<span class="ruby-identifier">camelize</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">opts</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;        <span class="ruby-keyword kw">else</span>&#x000A;          <span class="ruby-node">&quot;#{ty.to_s.camelize}&quot;</span>.<span class="ruby-identifier">camelize</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">:name</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;        <span class="ruby-identifier">res</span>.<span class="ruby-identifier">after_create</span>&#x000A;        <span class="ruby-identifier">store_in_local_resources</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">res</span>)&#x000A;        <span class="ruby-identifier">ordered_resources</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">res</span>&#x000A;        <span class="ruby-identifier">res</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000687'>
-                <a name='M000687'>      </a>
+              <div class='public-instance method' id='method-M000689'>
+                <a name='M000689'>      </a>
                 <div class='synopsis'>
                   <span class='name'>add_service</span>
                   <span class='arguments'>(serv, extra_name=&quot;&quot;)</span>
@@ -171,14 +171,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000687-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000689-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000687-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 54</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_service</span>(<span class="ruby-identifier">serv</span>, <span class="ruby-identifier">extra_name</span>=<span class="ruby-value str">&quot;&quot;</span>)&#x000A;      <span class="ruby-identifier">subclass</span> = <span class="ruby-node">&quot;#{serv.class.to_s.top_level_class.underscore.downcase}#{extra_name}&quot;</span>&#x000A;      <span class="ruby-identifier">lowercase_class_name</span> = <span class="ruby-identifier">subclass</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">subclass</span>.<span class="ruby-identifier">downcase</span>&#x000A;      &#x000A;      (<span class="ruby-identifier">services</span>[<span class="ruby-identifier">lowercase_class_name</span>.<span class="ruby-identifier">to_sym</span>] <span class="ruby-operator">||=</span> []) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">serv</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">serv</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">serv</span>.<span class="ruby-identifier">empty?</span>&#x000A;      <span class="ruby-comment cmt"># services.merge!({lowercase_class_name.to_sym =&gt; serv})</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000689-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 54</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_service</span>(<span class="ruby-identifier">serv</span>, <span class="ruby-identifier">extra_name</span>=<span class="ruby-value str">&quot;&quot;</span>)&#x000A;      <span class="ruby-identifier">subclass</span> = <span class="ruby-node">&quot;#{serv.class.to_s.top_level_class.underscore.downcase}#{extra_name}&quot;</span>&#x000A;      <span class="ruby-identifier">lowercase_class_name</span> = <span class="ruby-identifier">subclass</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">subclass</span>.<span class="ruby-identifier">downcase</span>&#x000A;      &#x000A;      (<span class="ruby-identifier">services</span>[<span class="ruby-identifier">lowercase_class_name</span>.<span class="ruby-identifier">to_sym</span>] <span class="ruby-operator">||=</span> []) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">serv</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">serv</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">serv</span>.<span class="ruby-identifier">empty?</span>&#x000A;      <span class="ruby-comment cmt"># services.merge!({lowercase_class_name.to_sym =&gt; serv})</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000685'>
-                <a name='M000685'>      </a>
+              <div class='public-instance method' id='method-M000687'>
+                <a name='M000687'>      </a>
                 <div class='synopsis'>
                   <span class='name'>add_to_parent_if_parent_exists_and_is_a_service</span>
                   <span class='arguments'>()</span>
@@ -190,27 +190,27 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000685-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000687-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000685-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 41</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_to_parent_if_parent_exists_and_is_a_service</span>      &#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parent</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">parent</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">PoolParty</span><span class="ruby-operator">::</span><span class="ruby-constant">Resources</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>)&#x000A;        <span class="ruby-identifier">dsl_options</span>(<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">dsl_options</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">PoolParty</span><span class="ruby-operator">::</span><span class="ruby-constant">Pool</span><span class="ruby-operator">::</span><span class="ruby-constant">Pool</span>)&#x000A;        <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">add_service</span>(<span class="ruby-keyword kw">self</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:add_service</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">is_a_resource?</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000687-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 41</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_to_parent_if_parent_exists_and_is_a_service</span>      &#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parent</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">parent</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">PoolParty</span><span class="ruby-operator">::</span><span class="ruby-constant">Resources</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>)&#x000A;        <span class="ruby-identifier">dsl_options</span>(<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">dsl_options</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">PoolParty</span><span class="ruby-operator">::</span><span class="ruby-constant">Pool</span><span class="ruby-operator">::</span><span class="ruby-constant">Pool</span>)&#x000A;        <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">add_service</span>(<span class="ruby-keyword kw">self</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:add_service</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">is_a_resource?</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000693'>
-                <a name='M000693'>      </a>
+              <div class='public-instance method' id='method-M000695'>
+                <a name='M000695'>      </a>
                 <div class='synopsis'>
                   <span class='name'>get_local_resource</span>
                   <span class='arguments'>(ty, k)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000693-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000695-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000693-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 108</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_local_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">k</span>)&#x000A;      <span class="ruby-identifier">resource</span>(<span class="ruby-identifier">ty</span>).<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">k</span> }.<span class="ruby-identifier">first</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000695-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 108</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_local_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">k</span>)&#x000A;      <span class="ruby-identifier">resource</span>(<span class="ruby-identifier">ty</span>).<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">k</span> }.<span class="ruby-identifier">first</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000686'>
-                <a name='M000686'>      </a>
+              <div class='public-instance method' id='method-M000688'>
+                <a name='M000688'>      </a>
                 <div class='synopsis'>
                   <span class='name'>get_name_from_options_and_extra_options</span>
                   <span class='arguments'>(opts={}, extra_opts={})</span>
@@ -221,131 +221,131 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000686-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000688-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000686-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 49</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_name_from_options_and_extra_options</span>(<span class="ruby-identifier">opts</span>={}, <span class="ruby-identifier">extra_opts</span>={})&#x000A;      <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> (<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:name</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:name</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">dsl_options</span>[<span class="ruby-identifier">:name</span>] = <span class="ruby-identifier">opts</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000688-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 49</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_name_from_options_and_extra_options</span>(<span class="ruby-identifier">opts</span>={}, <span class="ruby-identifier">extra_opts</span>={})&#x000A;      <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> (<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:name</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:name</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">dsl_options</span>[<span class="ruby-identifier">:name</span>] = <span class="ruby-identifier">opts</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000694'>
-                <a name='M000694'>      </a>
+              <div class='public-instance method' id='method-M000696'>
+                <a name='M000696'>      </a>
                 <div class='synopsis'>
                   <span class='name'>get_resource</span>
                   <span class='arguments'>(ty, n, opts={}, &amp;block)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000694-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000696-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000694-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 112</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">n</span>, <span class="ruby-identifier">opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">in_local_resources?</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">n</span>)&#x000A;        <span class="ruby-identifier">get_local_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">n</span>)&#x000A;      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">parent</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">parent</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">self</span>&#x000A;        <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">get_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">n</span>)&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-keyword kw">nil</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000696-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 112</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">n</span>, <span class="ruby-identifier">opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">in_local_resources?</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">n</span>)&#x000A;        <span class="ruby-identifier">get_local_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">n</span>)&#x000A;      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">parent</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">parent</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">self</span>&#x000A;        <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">get_resource</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">n</span>)&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-keyword kw">nil</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000701'>
-                <a name='M000701'>      </a>
+              <div class='public-instance method' id='method-M000703'>
+                <a name='M000703'>      </a>
                 <div class='synopsis'>
                   <span class='name'>handle_option_values</span>
                   <span class='arguments'>(o)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000701-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000703-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000701-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 179</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle_option_values</span>(<span class="ruby-identifier">o</span>)&#x000A;      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>&#x000A;      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;String&quot;</span>&#x000A;        {<span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">o</span>}&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-identifier">o</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000703-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 179</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle_option_values</span>(<span class="ruby-identifier">o</span>)&#x000A;      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>&#x000A;      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;String&quot;</span>&#x000A;        {<span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">o</span>}&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-identifier">o</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000692'>
-                <a name='M000692'>      </a>
+              <div class='public-instance method' id='method-M000694'>
+                <a name='M000694'>      </a>
                 <div class='synopsis'>
                   <span class='name'>in_local_resources?</span>
                   <span class='arguments'>(ty, k)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000692-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000694-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000692-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 105</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">in_local_resources?</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">k</span>)&#x000A;      <span class="ruby-operator">!</span><span class="ruby-identifier">resource</span>(<span class="ruby-identifier">ty</span>).<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">k</span> }.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">false</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000694-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 105</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">in_local_resources?</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">k</span>)&#x000A;      <span class="ruby-operator">!</span><span class="ruby-identifier">resource</span>(<span class="ruby-identifier">ty</span>).<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">k</span> }.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">false</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000700'>
+                <a name='M000700'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>is_a_resource?</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000700-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000700-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 134</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_a_resource?</span>&#x000A;      <span class="ruby-keyword kw">false</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000699'>
+                <a name='M000699'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>is_plugin?</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000699-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000699-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 130</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_plugin?</span>&#x000A;      <span class="ruby-keyword kw">false</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000701'>
+                <a name='M000701'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>method_missing</span>
+                  <span class='arguments'>(m,*a,&amp;block)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000701-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000701-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 138</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">m</span>,<span class="ruby-operator">*</span><span class="ruby-identifier">a</span>,<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)      &#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">this_context</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">this_context</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">this_context</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">m</span>)<span class="ruby-comment cmt"># &amp;&amp; !self.is_a?(PoolParty::Resources::Resource)</span>&#x000A;        <span class="ruby-identifier">this_context</span>.<span class="ruby-identifier">send</span> <span class="ruby-identifier">m</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">a</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>      &#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-comment cmt"># if dsl_options.has_key?(m)</span>&#x000A;        <span class="ruby-comment cmt">#          dsl_options[m]</span>&#x000A;        <span class="ruby-comment cmt">#        elsif parent &amp;&amp; parent.respond_to?(:dsl_options) &amp;&amp; parent.dsl_options.has_key?(m)</span>&#x000A;        <span class="ruby-comment cmt">#          parent.dsl_options[m]</span>&#x000A;        <span class="ruby-comment cmt">#        elsif self.class.default_options.has_key?(m)</span>&#x000A;        <span class="ruby-comment cmt">#          self.class.default_options[m]</span>&#x000A;        <span class="ruby-comment cmt">#        elsif parent &amp;&amp; parent.respond_to?(:dsl_options) &amp;&amp; parent.default_options.has_key?(m)</span>&#x000A;        <span class="ruby-comment cmt">#          parent.default_options[m]</span>&#x000A;        <span class="ruby-comment cmt">#        else</span>&#x000A;          <span class="ruby-keyword kw">super</span>&#x000A;        <span class="ruby-comment cmt"># end</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='public-instance method' id='method-M000698'>
                 <a name='M000698'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>is_a_resource?</span>
+                  <span class='name'>ordered_resources</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000698-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000698-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 134</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_a_resource?</span>&#x000A;      <span class="ruby-keyword kw">false</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000698-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 126</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ordered_resources</span>&#x000A;      <span class="ruby-ivar">@ordered_resources</span> <span class="ruby-operator">||=</span> []&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='public-instance method' id='method-M000697'>
                 <a name='M000697'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>is_plugin?</span>
-                  <span class='arguments'>()</span>
+                  <span class='name'>resource</span>
+                  <span class='arguments'>(type=:file)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000697-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000697-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 130</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_plugin?</span>&#x000A;      <span class="ruby-keyword kw">false</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000697-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 122</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">resource</span>(<span class="ruby-identifier">type</span>=<span class="ruby-identifier">:file</span>)&#x000A;      <span class="ruby-identifier">resources</span>[<span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>] <span class="ruby-operator">||=</span> []&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000699'>
-                <a name='M000699'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>method_missing</span>
-                  <span class='arguments'>(m,*a,&amp;block)</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000699-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000699-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 138</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">m</span>,<span class="ruby-operator">*</span><span class="ruby-identifier">a</span>,<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)      &#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">this_context</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">this_context</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">this_context</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">m</span>)<span class="ruby-comment cmt"># &amp;&amp; !self.is_a?(PoolParty::Resources::Resource)</span>&#x000A;        <span class="ruby-identifier">this_context</span>.<span class="ruby-identifier">send</span> <span class="ruby-identifier">m</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">a</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>      &#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-comment cmt"># if dsl_options.has_key?(m)</span>&#x000A;        <span class="ruby-comment cmt">#          dsl_options[m]</span>&#x000A;        <span class="ruby-comment cmt">#        elsif parent &amp;&amp; parent.respond_to?(:dsl_options) &amp;&amp; parent.dsl_options.has_key?(m)</span>&#x000A;        <span class="ruby-comment cmt">#          parent.dsl_options[m]</span>&#x000A;        <span class="ruby-comment cmt">#        elsif self.class.default_options.has_key?(m)</span>&#x000A;        <span class="ruby-comment cmt">#          self.class.default_options[m]</span>&#x000A;        <span class="ruby-comment cmt">#        elsif parent &amp;&amp; parent.respond_to?(:dsl_options) &amp;&amp; parent.default_options.has_key?(m)</span>&#x000A;        <span class="ruby-comment cmt">#          parent.default_options[m]</span>&#x000A;        <span class="ruby-comment cmt">#        else</span>&#x000A;          <span class="ruby-keyword kw">super</span>&#x000A;        <span class="ruby-comment cmt"># end</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='public-instance method' id='method-M000696'>
-                <a name='M000696'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>ordered_resources</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000696-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000696-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 126</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ordered_resources</span>&#x000A;      <span class="ruby-ivar">@ordered_resources</span> <span class="ruby-operator">||=</span> []&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='public-instance method' id='method-M000695'>
-                <a name='M000695'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>resource</span>
-                  <span class='arguments'>(type=:file)</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000695-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000695-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 122</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">resource</span>(<span class="ruby-identifier">type</span>=<span class="ruby-identifier">:file</span>)&#x000A;      <span class="ruby-identifier">resources</span>[<span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>] <span class="ruby-operator">||=</span> []&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='public-instance method' id='method-M000689'>
-                <a name='M000689'>      </a>
+              <div class='public-instance method' id='method-M000691'>
+                <a name='M000691'>      </a>
                 <div class='synopsis'>
                   <span class='name'>resources</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000689-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000691-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000689-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 66</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">resources</span>&#x000A;      <span class="ruby-ivar">@resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OrderedHash</span>.<span class="ruby-identifier">new</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000691-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 66</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">resources</span>&#x000A;      <span class="ruby-ivar">@resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OrderedHash</span>.<span class="ruby-identifier">new</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000684'>
-                <a name='M000684'>      </a>
+              <div class='public-instance method' id='method-M000686'>
+                <a name='M000686'>      </a>
                 <div class='synopsis'>
                   <span class='name'>run_in_context</span>
                   <span class='arguments'>(opts={}, &amp;block)</span>
@@ -353,18 +353,18 @@
                 <div class='description'>
                   <p>
                   Overloading the parent <a
-                  href="PoolPartyBaseClass.html#M000684">run_in_context</a>
+                  href="PoolPartyBaseClass.html#M000686">run_in_context</a>
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000684-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000686-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000684-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 28</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_in_context</span>(<span class="ruby-identifier">opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">opts</span>&#x000A;        <span class="ruby-identifier">context_stack</span>.<span class="ruby-identifier">push</span> <span class="ruby-keyword kw">self</span>&#x000A;        <span class="ruby-identifier">set_vars_from_options</span>(<span class="ruby-identifier">opts</span>)&#x000A;        <span class="ruby-identifier">instance_eval</span> <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block</span>&#x000A;        <span class="ruby-identifier">context_stack</span>.<span class="ruby-identifier">pop</span>&#x000A;        <span class="ruby-identifier">head</span>&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-keyword kw">super</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000686-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 28</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_in_context</span>(<span class="ruby-identifier">opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">opts</span>&#x000A;        <span class="ruby-identifier">context_stack</span>.<span class="ruby-identifier">push</span> <span class="ruby-keyword kw">self</span>&#x000A;        <span class="ruby-identifier">set_vars_from_options</span>(<span class="ruby-identifier">opts</span>)&#x000A;        <span class="ruby-identifier">instance_eval</span> <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block</span>&#x000A;        <span class="ruby-identifier">context_stack</span>.<span class="ruby-identifier">pop</span>&#x000A;        <span class="ruby-identifier">head</span>&#x000A;      <span class="ruby-keyword kw">else</span>&#x000A;        <span class="ruby-keyword kw">super</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000688'>
-                <a name='M000688'>      </a>
+              <div class='public-instance method' id='method-M000690'>
+                <a name='M000690'>      </a>
                 <div class='synopsis'>
                   <span class='name'>services</span>
                   <span class='arguments'>()</span>
@@ -375,23 +375,23 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000688-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000690-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000688-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 62</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">services</span>&#x000A;      <span class="ruby-ivar">@services</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OrderedHash</span>.<span class="ruby-identifier">new</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000690-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 62</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">services</span>&#x000A;      <span class="ruby-ivar">@services</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OrderedHash</span>.<span class="ruby-identifier">new</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000691'>
-                <a name='M000691'>      </a>
+              <div class='public-instance method' id='method-M000693'>
+                <a name='M000693'>      </a>
                 <div class='synopsis'>
                   <span class='name'>store_in_local_resources</span>
                   <span class='arguments'>(ty, obj)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000691-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000693-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000691-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 102</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">store_in_local_resources</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">obj</span>)&#x000A;      <span class="ruby-identifier">resource</span>(<span class="ruby-identifier">ty</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">obj</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000693-source'><span class="ruby-comment cmt"># File lib/poolparty/poolparty/poolparty_base_class.rb, line 102</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">store_in_local_resources</span>(<span class="ruby-identifier">ty</span>, <span class="ruby-identifier">obj</span>)&#x000A;      <span class="ruby-identifier">resource</span>(<span class="ruby-identifier">ty</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">obj</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

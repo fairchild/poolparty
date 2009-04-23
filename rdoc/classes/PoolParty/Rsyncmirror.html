@@ -45,16 +45,16 @@
             <h2>Methods</h2>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000620">class_type_name</a></li>
-              <li><a href="#M000621">key</a></li>
-              <li><a href="#M000619">loaded</a></li>
+              <li><a href="#M000622">class_type_name</a></li>
+              <li><a href="#M000623">key</a></li>
+              <li><a href="#M000621">loaded</a></li>
             </ol>
           </div>
           <div id='section'>
             <div id='methods'>
               <h2>Public instance methods</h2>
-              <div class='public-instance method' id='method-M000620'>
-                <a name='M000620'>      </a>
+              <div class='public-instance method' id='method-M000622'>
+                <a name='M000622'>      </a>
                 <div class='synopsis'>
                   <span class='name'>class_type_name</span>
                   <span class='arguments'>()</span>
@@ -66,14 +66,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000620-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000622-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000620-source'><span class="ruby-comment cmt"># File lib/poolparty/plugins/rsyncmirror.rb, line 15</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">class_type_name</span>&#x000A;        <span class="ruby-value str">&quot;exec&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000622-source'><span class="ruby-comment cmt"># File lib/poolparty/plugins/rsyncmirror.rb, line 15</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">class_type_name</span>&#x000A;        <span class="ruby-value str">&quot;exec&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000621'>
-                <a name='M000621'>      </a>
+              <div class='public-instance method' id='method-M000623'>
+                <a name='M000623'>      </a>
                 <div class='synopsis'>
                   <span class='name'>key</span>
                   <span class='arguments'>()</span>
@@ -86,23 +86,23 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000621-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000623-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000621-source'><span class="ruby-comment cmt"># File lib/poolparty/plugins/rsyncmirror.rb, line 21</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">key</span>&#x000A;        <span class="ruby-node">&quot;rsync-#{name}&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000623-source'><span class="ruby-comment cmt"># File lib/poolparty/plugins/rsyncmirror.rb, line 21</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">key</span>&#x000A;        <span class="ruby-node">&quot;rsync-#{name}&quot;</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000619'>
-                <a name='M000619'>      </a>
+              <div class='public-instance method' id='method-M000621'>
+                <a name='M000621'>      </a>
                 <div class='synopsis'>
                   <span class='name'>loaded</span>
                   <span class='arguments'>(opts={})</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000619-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000621-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000619-source'><span class="ruby-comment cmt"># File lib/poolparty/plugins/rsyncmirror.rb, line 6</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">loaded</span>(<span class="ruby-identifier">opts</span>={})&#x000A;        <span class="ruby-identifier">execute_on_node</span> <span class="ruby-keyword kw">do</span>&#x000A;          <span class="ruby-ivar">@dir</span> = <span class="ruby-identifier">dir</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">name</span>&#x000A;          <span class="ruby-identifier">has_exec</span>(<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">merge</span>({<span class="ruby-identifier">:command</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{cloud.remote_rsync_command} --no-implied-dirs --delete-excluded #{Default.user}@master:#{@dir}/ #{@dir}/&quot;</span>.<span class="ruby-identifier">safe_quote</span>, <span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;rsync-#{name}&quot;</span>}))&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000621-source'><span class="ruby-comment cmt"># File lib/poolparty/plugins/rsyncmirror.rb, line 6</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">loaded</span>(<span class="ruby-identifier">opts</span>={})&#x000A;        <span class="ruby-identifier">execute_on_node</span> <span class="ruby-keyword kw">do</span>&#x000A;          <span class="ruby-ivar">@dir</span> = <span class="ruby-identifier">dir</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">name</span>&#x000A;          <span class="ruby-identifier">has_exec</span>(<span class="ruby-identifier">opts</span>.<span class="ruby-identifier">merge</span>({<span class="ruby-identifier">:command</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{cloud.remote_rsync_command} --no-implied-dirs --delete-excluded #{Default.user}@master:#{@dir}/ #{@dir}/&quot;</span>.<span class="ruby-identifier">safe_quote</span>, <span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;rsync-#{name}&quot;</span>}))&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

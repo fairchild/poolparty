@@ -45,15 +45,15 @@
             <h2>Methods</h2>
             <h3>public class</h3>
             <ol>
-              <li><a href="#M000679">compile</a></li>
-              <li><a href="#M000677">new</a></li>
-              <li><a href="#M000680">permitted_resource_options</a></li>
+              <li><a href="#M000681">compile</a></li>
+              <li><a href="#M000679">new</a></li>
+              <li><a href="#M000682">permitted_resource_options</a></li>
             </ol>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000678">compile</a></li>
-              <li><a href="#M000681">permitted_resource_options</a></li>
-              <li><a href="#M000682">tf</a></li>
+              <li><a href="#M000680">compile</a></li>
+              <li><a href="#M000683">permitted_resource_options</a></li>
+              <li><a href="#M000684">tf</a></li>
             </ol>
           </div>
           <div id='section'>
@@ -76,48 +76,48 @@
             </div>
             <div id='methods'>
               <h2>Public class methods</h2>
+              <div class='public-class method' id='method-M000681'>
+                <a name='M000681'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>compile</span>
+                  <span class='arguments'>(hsh, contxt=nil)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000681-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000681-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 25</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">compile</span>(<span class="ruby-identifier">hsh</span>, <span class="ruby-identifier">contxt</span>=<span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">new</span>(<span class="ruby-identifier">hsh</span>, <span class="ruby-identifier">contxt</span>).<span class="ruby-identifier">compile</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
               <div class='public-class method' id='method-M000679'>
                 <a name='M000679'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>compile</span>
+                  <span class='name'>new</span>
                   <span class='arguments'>(hsh, contxt=nil)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000679-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000679-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 25</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">compile</span>(<span class="ruby-identifier">hsh</span>, <span class="ruby-identifier">contxt</span>=<span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">new</span>(<span class="ruby-identifier">hsh</span>, <span class="ruby-identifier">contxt</span>).<span class="ruby-identifier">compile</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000679-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 13</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hsh</span>, <span class="ruby-identifier">contxt</span>=<span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-constant">DependencyResolverException</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'must pass a hash'</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hsh</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">hsh</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">OrderedHash</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">hsh</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">Hash</span>))&#x000A;      <span class="ruby-ivar">@properties_hash</span> = <span class="ruby-identifier">hsh</span>&#x000A;      <span class="ruby-ivar">@the_cloud</span> = <span class="ruby-identifier">contxt</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-class method' id='method-M000677'>
-                <a name='M000677'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>new</span>
-                  <span class='arguments'>(hsh, contxt=nil)</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000677-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000677-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 13</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hsh</span>, <span class="ruby-identifier">contxt</span>=<span class="ruby-keyword kw">nil</span>)&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-constant">DependencyResolverException</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'must pass a hash'</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hsh</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">hsh</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">OrderedHash</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">hsh</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">Hash</span>))&#x000A;      <span class="ruby-ivar">@properties_hash</span> = <span class="ruby-identifier">hsh</span>&#x000A;      <span class="ruby-ivar">@the_cloud</span> = <span class="ruby-identifier">contxt</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='public-class method' id='method-M000680'>
-                <a name='M000680'>      </a>
+              <div class='public-class method' id='method-M000682'>
+                <a name='M000682'>      </a>
                 <div class='synopsis'>
                   <span class='name'>permitted_resource_options</span>
                   <span class='arguments'>(rules={})</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000680-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000682-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000680-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 29</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">permitted_resource_options</span>(<span class="ruby-identifier">rules</span>={})&#x000A;      <span class="ruby-ivar">@permitted_resource_options</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">rules</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000682-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 29</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">permitted_resource_options</span>(<span class="ruby-identifier">rules</span>={})&#x000A;      <span class="ruby-ivar">@permitted_resource_options</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">rules</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <h2>Public instance methods</h2>
-              <div class='public-instance method' id='method-M000678'>
-                <a name='M000678'>      </a>
+              <div class='public-instance method' id='method-M000680'>
+                <a name='M000680'>      </a>
                 <div class='synopsis'>
                   <span class='name'>compile</span>
                   <span class='arguments'>()</span>
@@ -130,36 +130,36 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000678-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000680-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000678-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 21</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compile</span>()&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Not Implemented&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000680-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 21</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compile</span>()&#x000A;      <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Not Implemented&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000681'>
-                <a name='M000681'>      </a>
+              <div class='public-instance method' id='method-M000683'>
+                <a name='M000683'>      </a>
                 <div class='synopsis'>
                   <span class='name'>permitted_resource_options</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000681-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000683-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000681-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 33</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">permitted_resource_options</span>&#x000A;      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">permitted_resource_options</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000683-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 33</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">permitted_resource_options</span>&#x000A;      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">permitted_resource_options</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000682'>
-                <a name='M000682'>      </a>
+              <div class='public-instance method' id='method-M000684'>
+                <a name='M000684'>      </a>
                 <div class='synopsis'>
                   <span class='name'>tf</span>
                   <span class='arguments'>(count)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000682-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000684-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000682-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 37</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tf</span>(<span class="ruby-identifier">count</span>)&#x000A;      <span class="ruby-value str">&quot;\t&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">count</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000684-source'><span class="ruby-comment cmt"># File lib/poolparty/dependency_resolver/dependency_resolver.rb, line 37</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tf</span>(<span class="ruby-identifier">count</span>)&#x000A;      <span class="ruby-value str">&quot;\t&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">count</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

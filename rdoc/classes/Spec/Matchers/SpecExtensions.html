@@ -55,16 +55,16 @@
             <a href="../../../files/lib/poolparty/spec/matchers/have_host_rb.html">lib/poolparty/spec/matchers/have_host.rb</a>
           </li>
           <li class='other'>
-            <a href="../../../files/lib/poolparty/spec/matchers/have_package_rb.html">lib/poolparty/spec/matchers/have_package.rb</a>
-          </li>
-          <li class='other'>
             <a href="../../../files/lib/poolparty/spec/matchers/have_mount_rb.html">lib/poolparty/spec/matchers/have_mount.rb</a>
           </li>
           <li class='other'>
-            <a href="../../../files/lib/poolparty/spec/matchers/have_rsyncmirror_rb.html">lib/poolparty/spec/matchers/have_rsyncmirror.rb</a>
+            <a href="../../../files/lib/poolparty/spec/matchers/have_package_rb.html">lib/poolparty/spec/matchers/have_package.rb</a>
           </li>
           <li class='other'>
             <a href="../../../files/lib/poolparty/spec/matchers/have_remotefile_rb.html">lib/poolparty/spec/matchers/have_remotefile.rb</a>
+          </li>
+          <li class='other'>
+            <a href="../../../files/lib/poolparty/spec/matchers/have_rsyncmirror_rb.html">lib/poolparty/spec/matchers/have_rsyncmirror.rb</a>
           </li>
           <li class='other'>
             <a href="../../../files/lib/poolparty/spec/matchers/have_service_rb.html">lib/poolparty/spec/matchers/have_service.rb</a>
@@ -73,10 +73,10 @@
             <a href="../../../files/lib/poolparty/spec/matchers/have_sshkey_rb.html">lib/poolparty/spec/matchers/have_sshkey.rb</a>
           </li>
           <li class='other'>
-            <a href="../../../files/lib/poolparty/spec/matchers/have_variable_rb.html">lib/poolparty/spec/matchers/have_variable.rb</a>
+            <a href="../../../files/lib/poolparty/spec/matchers/have_symlink_rb.html">lib/poolparty/spec/matchers/have_symlink.rb</a>
           </li>
           <li class='other'>
-            <a href="../../../files/lib/poolparty/spec/matchers/have_symlink_rb.html">lib/poolparty/spec/matchers/have_symlink.rb</a>
+            <a href="../../../files/lib/poolparty/spec/matchers/have_variable_rb.html">lib/poolparty/spec/matchers/have_variable.rb</a>
           </li>
           <li class='other'>
             <a href="../../../files/lib/poolparty/spec/templates/have_base_rb.html">lib/poolparty/spec/templates/have_base.rb</a>
@@ -92,14 +92,14 @@
             <h2>Methods</h2>
             <h3>public class</h3>
             <ol>
-              <li><a href="#M000781">new</a></li>
+              <li><a href="#M000783">new</a></li>
             </ol>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000783">failure_message</a></li>
-              <li><a href="#M000782">matches?</a></li>
-              <li><a href="#M000784">negative_failure_message</a></li>
-              <li><a href="#M000785">type</a></li>
+              <li><a href="#M000785">failure_message</a></li>
+              <li><a href="#M000784">matches?</a></li>
+              <li><a href="#M000786">negative_failure_message</a></li>
+              <li><a href="#M000787">type</a></li>
             </ol>
           </div>
           <div id='section'>
@@ -124,70 +124,70 @@
             </div>
             <div id='methods'>
               <h2>Public class methods</h2>
-              <div class='public-class method' id='method-M000781'>
-                <a name='M000781'>      </a>
+              <div class='public-class method' id='method-M000783'>
+                <a name='M000783'>      </a>
                 <div class='synopsis'>
                   <span class='name'>new</span>
                   <span class='arguments'>(expected,extra=&quot;&quot;)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000781-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000781-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/templates/have_base.rb, line 5</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">expected</span>,<span class="ruby-identifier">extra</span>=<span class="ruby-value str">&quot;&quot;</span>)&#x000A;          <span class="ruby-ivar">@expected</span> = <span class="ruby-identifier">expected</span>&#x000A;          <span class="ruby-ivar">@extra</span> = <span class="ruby-identifier">extra</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <h2>Public instance methods</h2>
-              <div class='public-instance method' id='method-M000783'>
-                <a name='M000783'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>failure_message</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000783-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000783-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/templates/have_base.rb, line 13</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">failure_message</span>&#x000A;          <span class="ruby-node">&quot;expected #{@target.inspect} to have :type #{@expected}&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000783-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/templates/have_base.rb, line 5</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">expected</span>,<span class="ruby-identifier">extra</span>=<span class="ruby-value str">&quot;&quot;</span>)&#x000A;          <span class="ruby-ivar">@expected</span> = <span class="ruby-identifier">expected</span>&#x000A;          <span class="ruby-ivar">@extra</span> = <span class="ruby-identifier">extra</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000782'>
-                <a name='M000782'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>matches?</span>
-                  <span class='arguments'>(target)</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000782-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000782-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/templates/have_base.rb, line 9</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">target</span>)&#x000A;          <span class="ruby-ivar">@target</span> = <span class="ruby-identifier">target</span>&#x000A;          <span class="ruby-identifier">:matches</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='public-instance method' id='method-M000784'>
-                <a name='M000784'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>negative_failure_message</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000784-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000784-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/templates/have_base.rb, line 16</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">negative_failure_message</span>&#x000A;          <span class="ruby-node">&quot;expected #{@target.inspect} not to have :type #{@expected}&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
+              <h2>Public instance methods</h2>
               <div class='public-instance method' id='method-M000785'>
                 <a name='M000785'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>type</span>
+                  <span class='name'>failure_message</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000785-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000785-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/templates/have_base.rb, line 19</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type</span>&#x000A;          <span class="ruby-value str">&quot;:type&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000785-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/templates/have_base.rb, line 13</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">failure_message</span>&#x000A;          <span class="ruby-node">&quot;expected #{@target.inspect} to have :type #{@expected}&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000784'>
+                <a name='M000784'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>matches?</span>
+                  <span class='arguments'>(target)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000784-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000784-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/templates/have_base.rb, line 9</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">target</span>)&#x000A;          <span class="ruby-ivar">@target</span> = <span class="ruby-identifier">target</span>&#x000A;          <span class="ruby-identifier">:matches</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000786'>
+                <a name='M000786'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>negative_failure_message</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000786-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000786-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/templates/have_base.rb, line 16</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">negative_failure_message</span>&#x000A;          <span class="ruby-node">&quot;expected #{@target.inspect} not to have :type #{@expected}&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000787'>
+                <a name='M000787'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>type</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000787-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000787-source'><span class="ruby-comment cmt"># File lib/poolparty/spec/templates/have_base.rb, line 19</span>&#x000A;        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type</span>&#x000A;          <span class="ruby-value str">&quot;:type&quot;</span>&#x000A;        <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

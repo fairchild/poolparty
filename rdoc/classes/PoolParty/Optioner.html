@@ -45,22 +45,22 @@
             <h2>Methods</h2>
             <h3>public class</h3>
             <ol>
-              <li><a href="#M000622">new</a></li>
+              <li><a href="#M000624">new</a></li>
             </ol>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000627">boolean_args</a></li>
-              <li><a href="#M000624">cloudnames</a></li>
-              <li><a href="#M000623">daemonizeable</a></li>
-              <li><a href="#M000626">flagged_args</a></li>
-              <li><a href="#M000633">output_options</a></li>
-              <li><a href="#M000634">output_version</a></li>
-              <li><a href="#M000629">parent</a></li>
-              <li><a href="#M000628">parse_args</a></li>
-              <li><a href="#M000630">parse_options</a></li>
-              <li><a href="#M000632">process_options</a></li>
-              <li><a href="#M000631">reject_junk_options!</a></li>
-              <li><a href="#M000625">unflagged_args</a></li>
+              <li><a href="#M000629">boolean_args</a></li>
+              <li><a href="#M000626">cloudnames</a></li>
+              <li><a href="#M000625">daemonizeable</a></li>
+              <li><a href="#M000628">flagged_args</a></li>
+              <li><a href="#M000635">output_options</a></li>
+              <li><a href="#M000636">output_version</a></li>
+              <li><a href="#M000631">parent</a></li>
+              <li><a href="#M000630">parse_args</a></li>
+              <li><a href="#M000632">parse_options</a></li>
+              <li><a href="#M000634">process_options</a></li>
+              <li><a href="#M000633">reject_junk_options!</a></li>
+              <li><a href="#M000627">unflagged_args</a></li>
             </ol>
           </div>
           <div id='context'>
@@ -74,100 +74,100 @@
           <div id='section'>
             <div id='methods'>
               <h2>Public class methods</h2>
-              <div class='public-class method' id='method-M000622'>
-                <a name='M000622'>      </a>
+              <div class='public-class method' id='method-M000624'>
+                <a name='M000624'>      </a>
                 <div class='synopsis'>
                   <span class='name'>new</span>
                   <span class='arguments'>(args=[], opts={}, &amp;block)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000622-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000624-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000622-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 17</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">args</span>=[], <span class="ruby-identifier">opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)      &#x000A;      <span class="ruby-identifier">boolean_args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:boolean_args</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:boolean_args</span>)&#x000A;      &#x000A;      <span class="ruby-ivar">@arguments</span> = <span class="ruby-identifier">parse_args</span>(<span class="ruby-identifier">args</span>)&#x000A;      <span class="ruby-ivar">@extra_help</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:extra_help</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:extra_help</span>] <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;&quot;</span>&#x000A;      <span class="ruby-ivar">@abstract</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:abstract</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:abstract</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">false</span>&#x000A;      <span class="ruby-ivar">@load_pools</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:load_pools</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:load_pools</span>] <span class="ruby-operator">:</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@abstract</span>&#x000A;      <span class="ruby-ivar">@parse_options</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:parse_options</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:parse_options</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">true</span>&#x000A;      <span class="ruby-ivar">@command</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:command</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:command</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">false</span>&#x000A;      &#x000A;      <span class="ruby-identifier">parse_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@parse_options</span>&#x000A;      <span class="ruby-keyword kw">self</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000624-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 17</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">args</span>=[], <span class="ruby-identifier">opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)      &#x000A;      <span class="ruby-identifier">boolean_args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:boolean_args</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:boolean_args</span>)&#x000A;      &#x000A;      <span class="ruby-ivar">@arguments</span> = <span class="ruby-identifier">parse_args</span>(<span class="ruby-identifier">args</span>)&#x000A;      <span class="ruby-ivar">@extra_help</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:extra_help</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:extra_help</span>] <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;&quot;</span>&#x000A;      <span class="ruby-ivar">@abstract</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:abstract</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:abstract</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">false</span>&#x000A;      <span class="ruby-ivar">@load_pools</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:load_pools</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:load_pools</span>] <span class="ruby-operator">:</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@abstract</span>&#x000A;      <span class="ruby-ivar">@parse_options</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:parse_options</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:parse_options</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">true</span>&#x000A;      <span class="ruby-ivar">@command</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:command</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:command</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">false</span>&#x000A;      &#x000A;      <span class="ruby-identifier">parse_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@parse_options</span>&#x000A;      <span class="ruby-keyword kw">self</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <h2>Public instance methods</h2>
-              <div class='public-instance method' id='method-M000627'>
-                <a name='M000627'>      </a>
+              <div class='public-instance method' id='method-M000629'>
+                <a name='M000629'>      </a>
                 <div class='synopsis'>
                   <span class='name'>boolean_args</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000627-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000629-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000627-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 42</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">boolean_args</span>&#x000A;      <span class="ruby-ivar">@boolean_args</span> <span class="ruby-operator">||=</span> [<span class="ruby-value str">'-V'</span>, <span class="ruby-value str">'-h'</span>, <span class="ruby-value str">'-t'</span>, <span class="ruby-value str">'-v'</span>, <span class="ruby-value str">'--debug'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='public-instance method' id='method-M000624'>
-                <a name='M000624'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>cloudnames</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000624-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000624-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 33</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cloudnames</span>&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-n cloudname'</span>, <span class="ruby-value str">'--name name'</span>, <span class="ruby-value str">'Start cloud by this name'</span>)    { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">cloudname</span> <span class="ruby-identifier">c</span> }&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='public-instance method' id='method-M000623'>
-                <a name='M000623'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>daemonizeable</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000623-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000623-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 30</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">daemonizeable</span>&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-D'</span>, <span class="ruby-value str">'--daemonize'</span>, <span class="ruby-value str">'Daemonize starting the cloud'</span>)    { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">daemon</span> <span class="ruby-keyword kw">true</span> }&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000629-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 42</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">boolean_args</span>&#x000A;      <span class="ruby-ivar">@boolean_args</span> <span class="ruby-operator">||=</span> [<span class="ruby-value str">'-V'</span>, <span class="ruby-value str">'-h'</span>, <span class="ruby-value str">'-t'</span>, <span class="ruby-value str">'-v'</span>, <span class="ruby-value str">'--debug'</span>]&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='public-instance method' id='method-M000626'>
                 <a name='M000626'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>flagged_args</span>
+                  <span class='name'>cloudnames</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000626-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000626-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 39</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">flagged_args</span>&#x000A;      <span class="ruby-ivar">@flagged_args</span> <span class="ruby-operator">||=</span> []&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000626-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 33</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cloudnames</span>&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-n cloudname'</span>, <span class="ruby-value str">'--name name'</span>, <span class="ruby-value str">'Start cloud by this name'</span>)    { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">cloudname</span> <span class="ruby-identifier">c</span> }&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000633'>
-                <a name='M000633'>      </a>
+              <div class='public-instance method' id='method-M000625'>
+                <a name='M000625'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>daemonizeable</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000625-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000625-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 30</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">daemonizeable</span>&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-D'</span>, <span class="ruby-value str">'--daemonize'</span>, <span class="ruby-value str">'Daemonize starting the cloud'</span>)    { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">daemon</span> <span class="ruby-keyword kw">true</span> }&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000628'>
+                <a name='M000628'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>flagged_args</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000628-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000628-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 39</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">flagged_args</span>&#x000A;      <span class="ruby-ivar">@flagged_args</span> <span class="ruby-operator">||=</span> []&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000635'>
+                <a name='M000635'>      </a>
                 <div class='synopsis'>
                   <span class='name'>output_options</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000633-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000635-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000633-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 136</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output_options</span>&#x000A;      <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000635-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 136</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output_options</span>&#x000A;      <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;&quot;</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000634'>
-                <a name='M000634'>      </a>
+              <div class='public-instance method' id='method-M000636'>
+                <a name='M000636'>      </a>
                 <div class='synopsis'>
                   <span class='name'>output_version</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000634-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000636-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000634-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 140</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output_version</span>&#x000A;      <span class="ruby-identifier">puts</span> <span class="ruby-operator">::</span><span class="ruby-constant">PoolParty</span><span class="ruby-operator">::</span><span class="ruby-constant">Version</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000636-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 140</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output_version</span>&#x000A;      <span class="ruby-identifier">puts</span> <span class="ruby-operator">::</span><span class="ruby-constant">PoolParty</span><span class="ruby-operator">::</span><span class="ruby-constant">Version</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000629'>
-                <a name='M000629'>      </a>
+              <div class='public-instance method' id='method-M000631'>
+                <a name='M000631'>      </a>
                 <div class='synopsis'>
                   <span class='name'>parent</span>
                   <span class='arguments'>()</span>
@@ -182,14 +182,14 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000629-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000631-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000629-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 73</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent</span>&#x000A;      <span class="ruby-keyword kw">self</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000631-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 73</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent</span>&#x000A;      <span class="ruby-keyword kw">self</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000628'>
-                <a name='M000628'>      </a>
+              <div class='public-instance method' id='method-M000630'>
+                <a name='M000630'>      </a>
                 <div class='synopsis'>
                   <span class='name'>parse_args</span>
                   <span class='arguments'>(args=[])</span>
@@ -204,62 +204,62 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000628-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000628-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 50</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_args</span>(<span class="ruby-identifier">args</span>=[])&#x000A;      <span class="ruby-identifier">i</span>=<span class="ruby-value">0</span>&#x000A;      <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">length</span>&#x000A;        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">boolean_args</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>])&#x000A;          <span class="ruby-identifier">flagged_args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>]&#x000A;        <span class="ruby-keyword kw">else</span>&#x000A;          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">0</span>].<span class="ruby-identifier">chr</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;-&quot;</span>&#x000A;            <span class="ruby-identifier">flagged_args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>]&#x000A;            <span class="ruby-identifier">flagged_args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>].<span class="ruby-identifier">nil?</span>)&#x000A;            <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>&#x000A;          <span class="ruby-keyword kw">else</span>&#x000A;            <span class="ruby-identifier">unflagged_args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>]&#x000A;          <span class="ruby-keyword kw">end</span>&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;        <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-identifier">args</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='public-instance method' id='method-M000630'>
-                <a name='M000630'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>parse_options</span>
-                  <span class='arguments'>(&amp;blk)</span>
-                </div>
-                <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000630-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000630-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 77</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)&#x000A;      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">spec</span> = <span class="ruby-keyword kw">nil</span>&#x000A;      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">num</span> = <span class="ruby-keyword kw">nil</span>&#x000A;      &#x000A;      <span class="ruby-identifier">progname</span> = <span class="ruby-identifier">$0</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">&quot;-&quot;</span>) <span class="ruby-operator">?</span> <span class="ruby-node">&quot;#{::File.basename($0[/(\w+)-/, 1])} #{::File.basename($0[/-(.*)/, 1])}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">$0</span>)&#x000A;      <span class="ruby-ivar">@opts</span> = <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span>&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">Dslify</span>)&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">banner</span> = <span class="ruby-node">&quot;Usage: #{progname} #{@abstract ? &quot;[command] &quot; : &quot;&quot;}[options]&quot;</span>&#x000A;&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;&quot;</span>&#x000A;      &#x000A;      <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@abstract</span>&#x000A;        <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;Options:&quot;</span>&#x000A;        &#x000A;        <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-v'</span>, <span class="ruby-value str">'--verbose'</span>, <span class="ruby-value str">'Be verbose'</span>) { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">verbose</span> <span class="ruby-keyword kw">true</span> }  &#x000A;        <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-d'</span>, <span class="ruby-value str">&quot;--debug&quot;</span>, <span class="ruby-value str">&quot;Debug setting&quot;</span>) { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">debugging</span> <span class="ruby-keyword kw">true</span> }&#x000A;        <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-s [file]'</span>, <span class="ruby-value str">'--spec-file [file]'</span>, <span class="ruby-value str">'Set the spec file'</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">spec</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">chomp</span> }&#x000A;        <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-t'</span>, <span class="ruby-value str">'--test'</span>, <span class="ruby-value str">'Testing mode'</span>) { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">testing</span> <span class="ruby-keyword kw">true</span> }&#x000A;        &#x000A;        <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span>(<span class="ruby-ivar">@opts</span>, <span class="ruby-keyword kw">self</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">blk</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      &#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-V'</span>, <span class="ruby-value str">'--version'</span>, <span class="ruby-value str">'Display the version'</span>)    { <span class="ruby-identifier">output_version</span> ; <span class="ruby-identifier">exit</span> <span class="ruby-value">0</span> }&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">&quot;-h&quot;</span>, <span class="ruby-value str">&quot;--help&quot;</span>, <span class="ruby-value str">&quot;Show this message&quot;</span>) <span class="ruby-keyword kw">do</span>&#x000A;        <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@opts</span>&#x000A;        <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@extra_help</span>&#x000A;        <span class="ruby-identifier">exit</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      &#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@arguments</span>.<span class="ruby-identifier">dup</span>)&#x000A;      &#x000A;      <span class="ruby-identifier">process_options</span>&#x000A;      <span class="ruby-identifier">output_options</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">verbose</span>&#x000A;      &#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@load_pools</span>&#x000A;        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">loaded_pool</span> <span class="ruby-identifier">load_pool</span>( <span class="ruby-identifier">spec?</span> <span class="ruby-value">? </span><span class="ruby-identifier">spec</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Binary</span>.<span class="ruby-identifier">get_existing_spec_location</span>)&#x000A;        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">loaded_clouds</span> <span class="ruby-identifier">extract_cloud_from_options</span>(<span class="ruby-keyword kw">self</span>)&#x000A;        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">loaded_pools</span> <span class="ruby-identifier">extract_pool_from_options</span>(<span class="ruby-keyword kw">self</span>)&#x000A;&#x000A;        <span class="ruby-identifier">reject_junk_options!</span>&#x000A;        <span class="ruby-identifier">raise</span> <span class="ruby-constant">CloudNotFoundException</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Please specify your cloud with -s, move it to ./clouds.rb or in your POOL_SPEC environment variable&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">loaded_clouds</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">loaded_clouds</span>.<span class="ruby-identifier">empty?</span>&#x000A;        <span class="ruby-identifier">loaded_pools</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pl</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-identifier">pl</span>.<span class="ruby-identifier">options</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">options</span>)&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;        <span class="ruby-identifier">loaded_clouds</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cl</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-identifier">cl</span>.<span class="ruby-identifier">options</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">options</span>)&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000630-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 50</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_args</span>(<span class="ruby-identifier">args</span>=[])&#x000A;      <span class="ruby-identifier">i</span>=<span class="ruby-value">0</span>&#x000A;      <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">length</span>&#x000A;        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">boolean_args</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>])&#x000A;          <span class="ruby-identifier">flagged_args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>]&#x000A;        <span class="ruby-keyword kw">else</span>&#x000A;          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">0</span>].<span class="ruby-identifier">chr</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;-&quot;</span>&#x000A;            <span class="ruby-identifier">flagged_args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>]&#x000A;            <span class="ruby-identifier">flagged_args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>].<span class="ruby-identifier">nil?</span>)&#x000A;            <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>&#x000A;          <span class="ruby-keyword kw">else</span>&#x000A;            <span class="ruby-identifier">unflagged_args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">args</span>[<span class="ruby-identifier">i</span>]&#x000A;          <span class="ruby-keyword kw">end</span>&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;        <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-identifier">args</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='public-instance method' id='method-M000632'>
                 <a name='M000632'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>process_options</span>
-                  <span class='arguments'>()</span>
+                  <span class='name'>parse_options</span>
+                  <span class='arguments'>(&amp;blk)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000632-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000632-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 133</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">process_options</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000632-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 77</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)&#x000A;      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">spec</span> = <span class="ruby-keyword kw">nil</span>&#x000A;      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">num</span> = <span class="ruby-keyword kw">nil</span>&#x000A;      &#x000A;      <span class="ruby-identifier">progname</span> = <span class="ruby-identifier">$0</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">&quot;-&quot;</span>) <span class="ruby-operator">?</span> <span class="ruby-node">&quot;#{::File.basename($0[/(\w+)-/, 1])} #{::File.basename($0[/-(.*)/, 1])}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">$0</span>)&#x000A;      <span class="ruby-ivar">@opts</span> = <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span>&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">Dslify</span>)&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">banner</span> = <span class="ruby-node">&quot;Usage: #{progname} #{@abstract ? &quot;[command] &quot; : &quot;&quot;}[options]&quot;</span>&#x000A;&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;&quot;</span>&#x000A;      &#x000A;      <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@abstract</span>&#x000A;        <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;Options:&quot;</span>&#x000A;        &#x000A;        <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-v'</span>, <span class="ruby-value str">'--verbose'</span>, <span class="ruby-value str">'Be verbose'</span>) { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">verbose</span> <span class="ruby-keyword kw">true</span> }  &#x000A;        <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-d'</span>, <span class="ruby-value str">&quot;--debug&quot;</span>, <span class="ruby-value str">&quot;Debug setting&quot;</span>) { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">debugging</span> <span class="ruby-keyword kw">true</span> }&#x000A;        <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-s [file]'</span>, <span class="ruby-value str">'--spec-file [file]'</span>, <span class="ruby-value str">'Set the spec file'</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">spec</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">chomp</span> }&#x000A;        <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-t'</span>, <span class="ruby-value str">'--test'</span>, <span class="ruby-value str">'Testing mode'</span>) { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">testing</span> <span class="ruby-keyword kw">true</span> }&#x000A;        &#x000A;        <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span>(<span class="ruby-ivar">@opts</span>, <span class="ruby-keyword kw">self</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">blk</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      &#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'-V'</span>, <span class="ruby-value str">'--version'</span>, <span class="ruby-value str">'Display the version'</span>)    { <span class="ruby-identifier">output_version</span> ; <span class="ruby-identifier">exit</span> <span class="ruby-value">0</span> }&#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">&quot;-h&quot;</span>, <span class="ruby-value str">&quot;--help&quot;</span>, <span class="ruby-value str">&quot;Show this message&quot;</span>) <span class="ruby-keyword kw">do</span>&#x000A;        <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@opts</span>&#x000A;        <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@extra_help</span>&#x000A;        <span class="ruby-identifier">exit</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;      &#x000A;      <span class="ruby-ivar">@opts</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@arguments</span>.<span class="ruby-identifier">dup</span>)&#x000A;      &#x000A;      <span class="ruby-identifier">process_options</span>&#x000A;      <span class="ruby-identifier">output_options</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">verbose</span>&#x000A;      &#x000A;      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@load_pools</span>&#x000A;        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">loaded_pool</span> <span class="ruby-identifier">load_pool</span>( <span class="ruby-identifier">spec?</span> <span class="ruby-value">? </span><span class="ruby-identifier">spec</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Binary</span>.<span class="ruby-identifier">get_existing_spec_location</span>)&#x000A;        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">loaded_clouds</span> <span class="ruby-identifier">extract_cloud_from_options</span>(<span class="ruby-keyword kw">self</span>)&#x000A;        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">loaded_pools</span> <span class="ruby-identifier">extract_pool_from_options</span>(<span class="ruby-keyword kw">self</span>)&#x000A;&#x000A;        <span class="ruby-identifier">reject_junk_options!</span>&#x000A;        <span class="ruby-identifier">raise</span> <span class="ruby-constant">CloudNotFoundException</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Please specify your cloud with -s, move it to ./clouds.rb or in your POOL_SPEC environment variable&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">loaded_clouds</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">loaded_clouds</span>.<span class="ruby-identifier">empty?</span>&#x000A;        <span class="ruby-identifier">loaded_pools</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pl</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-identifier">pl</span>.<span class="ruby-identifier">options</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">options</span>)&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;        <span class="ruby-identifier">loaded_clouds</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cl</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-identifier">cl</span>.<span class="ruby-identifier">options</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">options</span>)&#x000A;        <span class="ruby-keyword kw">end</span>&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000631'>
-                <a name='M000631'>      </a>
+              <div class='public-instance method' id='method-M000634'>
+                <a name='M000634'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>process_options</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000634-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000634-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 133</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">process_options</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='public-instance method' id='method-M000633'>
+                <a name='M000633'>      </a>
                 <div class='synopsis'>
                   <span class='name'>reject_junk_options!</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000631-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000633-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000631-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 127</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reject_junk_options!</span>&#x000A;      <span class="ruby-node">%w(loaded_pool cloudname extract_pool_from_options)</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">opt</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-ivar">@dsl_options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">opt</span>.<span class="ruby-identifier">to_sym</span>)&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000633-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 127</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reject_junk_options!</span>&#x000A;      <span class="ruby-node">%w(loaded_pool cloudname extract_pool_from_options)</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">opt</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-ivar">@dsl_options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">opt</span>.<span class="ruby-identifier">to_sym</span>)&#x000A;      <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='public-instance method' id='method-M000625'>
-                <a name='M000625'>      </a>
+              <div class='public-instance method' id='method-M000627'>
+                <a name='M000627'>      </a>
                 <div class='synopsis'>
                   <span class='name'>unflagged_args</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000625-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000627-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000625-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 36</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unflagged_args</span>&#x000A;      <span class="ruby-ivar">@unflagged_args</span> <span class="ruby-operator">||=</span> []&#x000A;    <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000627-source'><span class="ruby-comment cmt"># File lib/poolparty/helpers/optioner.rb, line 36</span>&#x000A;    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unflagged_args</span>&#x000A;      <span class="ruby-ivar">@unflagged_args</span> <span class="ruby-operator">||=</span> []&#x000A;    <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>
