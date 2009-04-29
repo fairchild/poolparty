@@ -81,8 +81,8 @@ module PoolParty
         @cloud_name.freeze
         
         plugin_directory "#{pool_specfile ? ::File.dirname(pool_specfile) : Dir.pwd}/plugins"        
+        before_create
         super
-        
         after_create
       end
       
@@ -91,23 +91,28 @@ module PoolParty
         @cloud_name ||= @cloud_name ? @cloud_name : (args.empty? ? :default_cloud : args.first)
       end
       
+      def before_create     
+        context_stack.push self
+        (parent ? parent : self).add_poolparty_base_requirements
+        context_stack.pop
+      end
+      
       # Callback
       # called after the cloud has been created, everything has run and is set at this point
       # here the base requirements are added as well as an empty chef recipe is called
       # Also, the after_create hook on the plugins used by the cloud are called here
       def after_create
         ::FileUtils.mkdir_p("#{Default.tmp_path}/dr_configure")
-        run_in_context do
-          add_poolparty_base_requirements
-          chef do
-          end
-        end
-        plugin_store.each {|a| a.after_create }
-        setup_defaults
         
         run_in_context do
           add_optional_enabled_services
+          chef do
+          end
         end
+        
+        plugin_store.each {|a| a.call_after_create_callbacks }
+        setup_defaults
+        
         setup_callbacks
       end
       
@@ -119,6 +124,10 @@ module PoolParty
         options[:rules] = {:expand => dsl_options[:expand_when], :contract => dsl_options[:contract_when]}
         dependency_resolver 'chef'        
         # enable :haproxy unless dsl_options[:haproxy] == :disabled
+      end
+      
+      def after_launch_instance(inst=nil)
+        remote_base.send :after_launch_instance, inst
       end
       
       # provide list of public ips to get into the cloud

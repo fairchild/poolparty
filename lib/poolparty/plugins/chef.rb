@@ -7,6 +7,8 @@ module PoolParty
   class Chef
     define_resource :chef_recipe do
     end
+    define_resource :chef_library do
+    end
     
     plugin :include_chef_recipe do
       def loaded(opts={}, &block)
@@ -58,7 +60,7 @@ module PoolParty
         end
       end
       
-      def templates templates=[]
+      def templates(templates=[])
         if templates
           ::FileUtils.mkdir_p "#{basedir}/templates/default/"
           templates.each do |f|
@@ -146,7 +148,7 @@ file_cache_path  "/etc/chef"
       def before_bootstrap
         bootstrap_gems "chef", "ohai"
         bootstrap_commands [
-          "mkdir -p /etc/chef/cookbooks /etc/chef/cache"
+          "mkdir -p /etc/chef/cookbooks /etc/chef/cache"          
         ]
       end
       def before_configure

@@ -98,7 +98,7 @@ module PoolParty
       # ===================================
       
       # return or create a new base EC2 connection object that will actually connect to ec2
-      def ec2(o)
+      def ec2(o={})
         @ec2 ||= EC2::Base.new( :access_key_id => o[:access_key], 
                                 :secret_access_key => o[:secret_access_key]
                               )
@@ -131,26 +131,11 @@ module PoolParty
         end
         [@access_key, @secret_access_key]
       end
-
-      # TODO: Deprecate for 1.3
-      def after_launch_master(inst=nil)
-        instance = master
-        vputs "Running tasks after launching the master"
-        begin
-          # when_no_pending_instances do
-            if instance
-              attach_volume(instance)
-              # Let's associate the address LAST so that we can still connect to the instance
-              # for the other tasks here
-              associate_address(instance)
-              reset_remoter_base!
-            end
-          # end
-        rescue Exception => e        
-          vputs "Error in after_launch_master: #{e}"
+      
+      def after_launch_instance(inst)
+        if inst
+          associate_address(inst)
         end
-        reset_remoter_base!
-        when_all_assigned_ips {wait "5.seconds"}
       end
     
       # Attach a volume to the instance
@@ -162,13 +147,41 @@ module PoolParty
           ec2.attach_volume(:volume_id => ebs_volume_id, :instance_id => instance.instance_id, :device => ebs_volume_device) if ebs_volume_id && ebs_volume_mount_point
         end
       end
+      
       # Associate an address with the instance using ec2
-      # DEPRECATE relies on master
+      # Get the next_unused_elastic_ip
+      # and if there is one, associate the instance to the 
+      # public ip
       def associate_address(instance=nil)
-        if set_master_ip_to
-          dputs "Associating master with #{set_master_ip_to}"
-          instance = master
-          ec2.associate_address(:instance_id => instance.instance_id, :public_ip => set_master_ip_to) if set_master_ip_to
+        if ip = next_unused_elastic_ip
+          vputs "Associating #{instance.instance_id} with #{ip}"
+          ec2.associate_address(:instance_id => instance.instance_id, :public_ip => ip)
+        end
+      end
+      
+      # Get the next usable elastic ip
+      # First, get the list of addresses from ec2 that the client
+      # has access to, then select only the ones that are not associated
+      # with an instance.
+      # If the cloud has set elastic_ips to use, then, using the 
+      # intersection of the unused ips and those, find the first one available
+      # and return that, otherwise, return the first elastic ip available
+      def next_unused_elastic_ip
+        # [{"instanceId"=>nil, "publicIp"=>"174.129.212.93"}, {"instanceId"=>nil, "publicIp"=>"174.129.212.94"}]
+        if addressesSet = ec2(options).describe_addresses["addressesSet"]
+          begin
+            empty_addresses = addressesSet["item"].select {|i| i["instanceId"].nil? }
+            ips = empty_addresses.map {|addr| addr["publicIp"]}
+            if cloud.elastic_ips?
+              ips_to_use = cloud.elastic_ips & ips
+              ips_to_use.first
+            else
+              ips.first
+            end
+          rescue Exception => e
+            puts "Error: #{e}"
+            nil
+          end          
         end
       end
 
@@ -189,20 +202,6 @@ module PoolParty
         ec2.create_snapshot(:volume_id => ebs_volume_id)
       end
     
-      # These are tasks that run before the configuration runs
-      def before_configuration_tasks
-        if set_master_ip_to && master.ip && master.ip.to_s != set_master_ip_to.to_s
-          associate_address(master)
-          reset_remoter_base!
-      
-          when_no_pending_instances do
-            when_all_assigned_ips do
-              vputs "Associated master with #{set_master_ip_to}"
-            end
-          end
-        end
-      
-      end
       def has_cert_and_key?
         pub_key && private_key
       end
