@@ -37,7 +37,7 @@ module PoolParty
         :default_cli_options => 'gui',
         :terminate_options => 'soft',
         :vmx_hash => 'need to specify vmx_files to use'
-      )
+      ).to_mash
       
       def initialize(par, opts={}, &block)
         dsl_options opts
@@ -103,8 +103,11 @@ module PoolParty
       end
       
       private
+      # handle the case where a cloud is not passed in
       def self.new_instance(o={})
-        Vmrun.new((cloud rescue o), o)
+        inst = Vmrun.new((cloud rescue o), o)
+        inst.dsl_options.merge! o
+        inst
       end
       
       def running_instances(o={})
@@ -141,7 +144,7 @@ module PoolParty
       end
       
       def vmx_files
-        vmx_hash.keys
+        options[:vmx_files] || vmx_hash.keys
       end
       
       def id(vfile)

@@ -2,6 +2,20 @@
   Hash extentions
 =end
 class Hash
+  
+  alias_method :_reader, :[]
+  # Treat string and symbols the same
+  def [](key)
+    return _reader(key) if _reader(key)
+    if key.is_a? Symbol
+      _reader(key.to_s)
+    elsif key.is_a? String
+      _reader(key.to_sym) rescue _reader(key)
+    else
+      _reader(key)
+    end
+  end
+  
   def choose(&block)
     Hash[*self.select(&block).inject([]){|res,(k,v)| res << k << v}]
   end

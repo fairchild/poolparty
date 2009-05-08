@@ -205,6 +205,10 @@ module PoolParty
         true
       end
       
+      def to_json
+        to_properties_hash.to_json
+      end
+      
       # Add all the poolparty requirements here
       # NOTE: These are written as plugins in the lib/poolparty/base_packages directory
       # for examples. 

@@ -16,7 +16,7 @@ module PoolParty
       def to_hash
         {
           :status => status,
-          :mac_addresses => mac_address,
+          :mac_address => mac_address,
           :ip => ip,
           :instance_id => vmx_file,
           :internal_ip => ip,
