@@ -30,5 +30,27 @@ class TestHashClass < Test::Unit::TestCase
     end
   end
   
+  context "[] accessor" do
+    setup do
+      @mash = {:a=>'A', 'b'=>'Bob', 'nothing'=>nil}
+    end
+    should "returns same value with key or symbol as string" do
+      assert @mash['a'] =='A'
+      assert @mash[:a] == 'A'
+      assert @mash[:a] == @mash['a']
+      assert @mash['b'] == 'Bob'
+      assert @mash[:b] == 'Bob'
+      assert @mash[:b] == @mash['b']
+    end
+    should "return nil if key is set, and value is nil" do
+      assert @mash['nothing'].nil?
+      assert @mash[:nothing].nil?
+    end
+    should "be able to access values thru .key notation" do
+      assert_equal @mash.b, 'Bob'
+      assert @mash.nothing == nil
+    end
+  end
+  
   
 end

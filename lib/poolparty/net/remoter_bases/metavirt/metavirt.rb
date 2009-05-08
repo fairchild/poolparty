@@ -8,11 +8,14 @@ module PoolParty
   module Remote
     class Metavirt < Remote::RemoterBase
       include Dslify
-      REMOTER_BASE = 
+
 
       default_options(
         # :machine_image => 'ubuntu-kvm',
-        :keypair=> 'id_rsa'
+        :keypair=> 'id_rsa',
+        :public_key => nil,
+        :server_config => {:host=>'localhost', :port=>3000},
+        :vmx_files => []
       ) 
       
       attr_accessor :id, :rank
@@ -93,7 +96,7 @@ module PoolParty
          cloud.dputs "   waiting for it to respond"
          # Try for 10 minutes to pint port 22 
          500.times do |i|
-           cloud.vprint "."
+           print "."
            if (@inst[:public_ip] && ping_port(@inst[:public_ip], 22)) 
              #TODO make work with internal_ip|| (@inst[:internal_ip] && ping_port(@inst[:internal_ip], 22 ))
              cloud.started_instance = @inst
