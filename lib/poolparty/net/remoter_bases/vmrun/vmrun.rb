@@ -36,8 +36,9 @@ module PoolParty
         :images_repo_path => ::File.expand_path("~/Documents/Virtual_Machines.localized/"),
         :default_cli_options => 'gui',
         :terminate_options => 'soft',
-        :vmx_hash => 'need to specify vmx_files to use'
-      ).to_mash
+        :vmx_files => [],
+        :vmx_hash => {'need to specify vmx_files to use'=>'ip'}
+      )
       
       def initialize(par, opts={}, &block)
         dsl_options opts
@@ -46,6 +47,7 @@ module PoolParty
       end
 
       def self.launch_new_instance!(o={})
+        # puts "launch_new_instance 0 = #{o.inspect}"
         new_instance(o).launch_new_instance!
       end
       def launch_new_instance!(o={})

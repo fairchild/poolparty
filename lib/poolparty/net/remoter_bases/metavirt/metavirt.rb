@@ -12,44 +12,46 @@ module PoolParty
 
       default_options(
         # :machine_image => 'ubuntu-kvm',
-        :keypair=> 'id_rsa',
-        :public_key => nil,
+        :keypair       => nil,  #TODO lambda{ keypair.to_s  },
+        :public_key    => nil, #TODO lambda{ keypair.public_key.to_s  }
         :server_config => {:host=>'localhost', :port=>3000},
-        :vmx_files => []
+        :vmx_files     => []
       ) 
       
       attr_accessor :id, :rank
+      def key
+        keypair.to_s
+      end
       
       def initialize(par, opts={}, &block)
         dsl_options opts
         instance_eval &block if block
         dsl_options[:cloud] = par.name
         setup_server opts
+        puts "MetaVirt setup with: #{dsl_options.inspect}"
         super(par, &block)    
       end
       
+      private
       def setup_server(opts)
         opts[:server_config] = opts[:server_config] || {}
-        server_config =  {:content_type=>'application/json', 
-                           :accept => 'application/json',
-                           :host => 'http://localhost',
-                           :port => '3000'
+        server_config =  {:content_type =>'application/json', 
+                           :accept      => 'application/json',
+                           :host        => 'http://localhost',
+                           :port        => '3000'
                            }.merge(opts[:server_config])
         uri = "#{server_config.delete(:host)}:#{server_config.delete(:port)}"
         @server = RestClient::Resource.new( uri, server_config)
       end
 
+      public
       def self.launch_new_instance!(o={})
         new_instance(o).launch_new_instance!
       end
       def launch_new_instance!(o={})
-        useable_opts = Mash.new
+        useable_opts = Hash.new
         options.keys.each {|k| useable_opts[k]=o[k]}
-        # useable_opts.keypair = o[:keypair].basename
-        # useable_opts.cloud = o[:name]
-        # useable_opts.vmx_files = o[:vmx_files]
-        # require 'rubygems'; require 'ruby-debug'; debugger
-        result = JSON.parse(@server['run-instance'].put(options.to_json)).to_mash
+        result = JSON.parse(@server['/run-instance'].put(options.to_json)).symbolize_keys
         @id = result['id']
         result
       end
@@ -68,14 +70,14 @@ module PoolParty
       end
       def describe_instance(o={})
         raise "id or instance_id must be set before calling describe_instace" if !id(o)
-        JSON.parse(@server["/instance/#{id(o)}"].get).to_mash
+        JSON.parse(@server["/instance/#{id(o)}"].get).symbolize_keys!
       end
 
       def self.describe_instances(o={})
         new_instance(o).describe_instances
       end
       def describe_instances(o={})
-        JSON.parse( @server["/instances/"].get ).collect{|i| i.to_mash}
+        JSON.parse( @server["/instances/"].get ).collect{|i| i.symbolize_keys}
       end
       
       # TODO: Rename and modularize the @inst.status =~ /pending/ so that it works on all 
@@ -113,11 +115,6 @@ module PoolParty
       def id(o={})
         @id || o[:id] || options[:id] || o[:instance_id] || options[:instance_id]
       end
-      
-      #FIXME override ping port to return true for testing purposes
-      # def self.ping_port(host, port=22, retry_times=400)
-      #   true
-      # end
       
     end
   end

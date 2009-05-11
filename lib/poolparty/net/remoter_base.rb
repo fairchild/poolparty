@@ -97,6 +97,7 @@ module PoolParty
         # Wait for 10 minutes for the instance to gain an ip if it doesn't already have one
         500.times do |i|
           break if @inst[:ip] =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+          break if @inst[:public_ip] =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
           sleep(2)
           @inst = describe_instance(@inst)
           cloud.dprint "."
