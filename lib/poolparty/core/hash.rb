@@ -17,6 +17,7 @@ class Hash
   #   end
   # end
   
+  # Return a hash of all the elements where the block evaluates to true
   def choose(&block)
     Hash[*self.select(&block).inject([]){|res,(k,v)| res << k << v}]
   end

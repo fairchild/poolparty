@@ -47,10 +47,22 @@ module PoolParty
       
       alias :name :cloud_name
       
-      # Call the remoter commands on the cloud if they don't exist on the cloud itself
-      # This gives the cloud access to the remote_base's methods
+      # Call the remoter commands on the remoter_base if they don't exist on the cloud itself.
+      # This gives the cloud access to the remote_base's methods.
       def method_missing(m, *args, &block)
-        remote_base.respond_to?(m) ? remote_base.send(m, *args, &block) : super
+        if remote_base.respond_to?(m)
+          remoter_opts = dsl_options.merge(remote_base.dsl_options).choose do |k,v|
+             remote_base.dsl_options.has_key?(k)
+          end
+          if args.size==1 && args.first.respond_to?(:merge)
+            new_args = [remoter_opts.merge args.first]
+          else
+            new_args = args.push(remoter_opts)
+          end
+          remote_base.send(m, *(new_args), &block)
+        else
+          super
+        end
       end
       
       # Default set of options. Most take the Default options from the default class

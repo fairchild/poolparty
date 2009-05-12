@@ -14,7 +14,10 @@ module PoolParty
         # :machine_image => 'ubuntu-kvm',
         :keypair       => nil,  #TODO lambda{ keypair.to_s  },
         :public_key    => nil, #TODO lambda{ keypair.public_key.to_s  }
-        :server_config => {:host=>'localhost', :port=>3000},
+        :server_config => {:content_type =>'application/json', 
+                           :accept      => 'application/json',
+                           :host        => 'http://localhost',
+                           :port        => '3000'},
         :vmx_files     => []
       ) 
       
@@ -29,18 +32,15 @@ module PoolParty
         dsl_options[:cloud] = par.name
         setup_server opts
         puts "MetaVirt setup with: #{dsl_options.inspect}"
-        super(par, &block)    
+        
+        super(par, &block)
       end
       
       private
       def setup_server(opts)
-        opts[:server_config] = opts[:server_config] || {}
-        server_config =  {:content_type =>'application/json', 
-                           :accept      => 'application/json',
-                           :host        => 'http://localhost',
-                           :port        => '3000'
-                           }.merge(opts[:server_config])
-        uri = "#{server_config.delete(:host)}:#{server_config.delete(:port)}"
+        server_config.merge!(opts[:server_config] || {})
+        puts 'server config='
+        p uri = "#{server_config.delete(:host)}:#{server_config.delete(:port)}"
         @server = RestClient::Resource.new( uri, server_config)
       end
 

@@ -12,14 +12,10 @@ o.loaded_clouds.each do |cld|
     puts header("Starting cloud #{cld.name} (#{cld.keypair})")
     puts "#{cld.nodes(:status => "running").size} running instances (#{cld.minimum_instances} - #{cld.maximum_instances})"
     
-    cld.launch_instance!(cld.dsl_options) do |node|
-      
+    cld.launch_instance! do |node|
       ::PoolParty::Provision::BootStrapper.new(node.ip, :cloud => cld)
       ::PoolParty::Provision::DrConfigure.new(node.ip,  :cloud => cld)
-      
-      puts <<-EOM
-        Your cloud has started. Your ip is #{node.ip}
-      EOM
+      puts "\nYour cloud has started. Your ip is #{node.ip}\n"
     end
   
   else

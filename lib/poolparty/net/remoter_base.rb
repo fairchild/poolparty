@@ -28,10 +28,12 @@ module PoolParty
       
       attr_reader :cloud
       
-      dsl_methods :keypair          # Name of the keypair we'll be using
+      dsl_methods :keypair,         # Name of the keypair we'll be using
+                  :image_id
       
       def initialize(prnt, opts={}, &block)
         set_vars_from_options prnt.dsl_options.merge(opts) if prnt && prnt.respond_to?(:dsl_options)
+        opts.each{|op| op.call if op.respond_to?(:call)}  #ensure that any lamdas are called
         instance_eval &block if block
         @cloud = prnt
       end
@@ -98,8 +100,8 @@ module PoolParty
         
         # Wait for 10 minutes for the instance to gain an ip if it doesn't already have one
         500.times do |i|
-          break if @inst[:ip] =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
-          break if @inst[:public_ip] =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+          break if @inst[:ip] && @inst[:ip] =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+          break if @inst[:public_ip] && @inst[:public_ip] =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
           sleep(2)
           @inst = describe_instance(@inst)
           cloud.dprint "."

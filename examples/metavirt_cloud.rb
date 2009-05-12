@@ -1,8 +1,8 @@
 require File.dirname(__FILE__)+"/../lib/poolparty"
 
 pool :poolparty do
-  verbose true
-  debug true
+  # verbose true
+  # debug true
   
   cloud :metavirt do
     keypair "~/.ec2oncourse/r_and_d"

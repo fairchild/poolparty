@@ -32,16 +32,17 @@ module PoolParty
       include Dslify
 
       default_options(
-        :path_to_binary => 'vmrun',
-        :images_repo_path => ::File.expand_path("~/Documents/Virtual_Machines.localized/"),
+        :path_to_binary      => 'vmrun',
         :default_cli_options => 'gui',
-        :terminate_options => 'soft',
-        :vmx_files => [],
-        :vmx_hash => {'need to specify vmx_files to use'=>'ip'}
+        :terminate_options   => 'soft',
+        :vmx_files           => lambda {vmx_files_array},
+        :vmx_hash            => {},  # hash of vmx_filename => ip
+        :images_repo_path    => ::File.expand_path("~/Documents/Virtual_Machines.localized/")
       )
       
       def initialize(par, opts={}, &block)
         set_vars_from_options opts
+        vmx_files
         instance_eval &block if block
         super(par, &block)    
       end
@@ -51,9 +52,11 @@ module PoolParty
         new_instance(o).launch_new_instance!
       end
       def launch_new_instance!(o={})
-        VmwareInstance.new( :vmx_file => next_unused_vmx_file, 
-                            :ip => vmx_hash[next_unused_vmx_file], 
-                            :keypair => cloud.keypair
+        raise "No available vmx files given!" unless next_unused_vmx_file
+        VmwareInstance.new( {:vmx_file => next_unused_vmx_file, 
+                             :ip => ip, 
+                             :keypair => o[:keypair]
+                            }.merge(o)
                           ).launch!
       end
       # Terminate an instance by id
@@ -63,8 +66,8 @@ module PoolParty
       def terminate_instance!(o={})
         dsl_options o
         VmwareInstance.new( :vmx_file => last_unused_vmx_file, 
-                            :ip => vmx_hash[last_unused_vmx_file], 
-                            :keypair => cloud.keypair
+                            :ip => ip,
+                            :keypair => o[:keypair]
                           ).terminate!(terminate_options)
       end
 
@@ -117,7 +120,7 @@ module PoolParty
         lines = output.split("\n")
         lines.shift
         lines.map {|vmx_file| VmwareInstance.new( :vmx_file => vmx_file, 
-                                                  :ip => vmx_hash[vmx_file], 
+                                                  :ip => ip, 
                                                   :keypair => cloud.keypair
                                                 ) }
       end
@@ -145,8 +148,10 @@ module PoolParty
         running_instances.last.vmx_file
       end
       
-      def vmx_files
-        options[:vmx_files] || vmx_hash.keys
+      def vmx_files_array
+        return @vmx_files_array if @vmx_files_array
+        @vmx_files_array = dsl_options[:vmx_files].is_a?(Array) ? dsl_options[:vmx_files] : vmx_hash.keys
+        dsl_options[:vmx_files] = @vmx_files_array
       end
       
       def id(vfile)
@@ -156,6 +161,11 @@ module PoolParty
       ## method's to override default RemoteInstance
       def instance_id
         vmx_file
+      end
+      
+      def ip(vmx_file_string=nil)
+        return dsl_options[:ip] if dsl_options[:ip]
+        vmx_file_string ? vmx_hash[vmx_file_string] : nil
       end
       
     end
