@@ -72,6 +72,12 @@ module PoolParty
         @available_resources ||= []
       end
       
+      dsl_methods :action, 
+                  :not_if, 
+                  :if_not, 
+                  :only_if, 
+                  :calls
+      
       # This is set in order of descending precedence
       # The options are overwritten from the bottom up
       # and the resource will use those as the values
@@ -80,11 +86,12 @@ module PoolParty
       # Finally, it uses the parent's options as the lowest priority
       def initialize(opts={}, extra_opts={}, &block)
         super(opts, extra_opts, &block)
-                
-        @resource_name = @base_name
-        dsl_options[:name] = resource_name unless dsl_options.has_key?(:name)
         
-        loaded(opts, &block)
+        @resource_name = @base_name
+        # dsl_options[:name] = @init_opts[:name] unless dsl_options.has_key?(:name) && dsl_options[:name]
+        
+        # p [:name, name, dsl_options, init_opts] # methods.sort.join(", ")
+        loaded(init_opts, &block)
         
         after_create
       end
@@ -98,13 +105,13 @@ module PoolParty
       def resource_name
         @resource_name ||= nil
       end
-      
-      def name(*args)
-        resource_name
-      end
-      
+            
       # After create callback
       def after_create
+      end
+      def before_load(o={}, &block)
+      end
+      def after_load(o={}, &block)
       end
       
       # We don't want to inherit the services on a resource, as resources
@@ -128,33 +135,6 @@ module PoolParty
       # This way we can subclass resources without worry
       def class_type_name
         self.class.to_s.top_level_class.underscore.downcase
-      end
-      def self.custom_function(str)
-        custom_functions << str
-      end
-      def self.custom_functions
-        @custom_functions ||= []
-      end
-      def custom_function(str)
-        self.class.custom_functions << str
-      end
-            
-      def self.custom_functions_to_string(pre="")
-        returning Array.new do |output|
-          PoolParty::Resources.available_custom_resources.each do |resource|
-            resource.custom_functions.each do |func|
-              output << "#{pre*2}#{func}"
-            end
-          end
-        end.join("\n")
-      end
-      # Some things in puppet aren't allowed, so let's override them here
-      def disallowed_options
-        []
-      end
-
-      def key
-        name
       end
       # def virtual_resource?
       #   false

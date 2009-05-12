@@ -32,8 +32,18 @@ To write a file to the template directory, use:
     class File < Resource
       has_searchable_paths(:dir => "templates")
       
+      dsl_methods :name,            # The name, the full path of the file
+                  :owner,           # String that describes the owner of the file
+                  :content,         # A string that describes the content of the file
+                  :template,        # The file that describes the content of the file
+                  :render_as        # Render the content (Erb) (default: Erb)
+                  
+      default_options(
+        :mode => "644"              # A string indicating the mode of the file
+      )
+      
       def loaded(o={}, &block)
-        parent.has_directory ::File.dirname(name) if parent
+        has_directory ::File.dirname(name)
       end
       
       def present
@@ -47,7 +57,7 @@ To write a file to the template directory, use:
       def after_create
         run_render = dsl_options.include?(:render_as) ? dsl_options.delete(:render_as) : false
         
-        if dsl_options.include?(:template)          
+        if dsl_options[:template]
           filename = find_file(dsl_options.delete(:template))
           file = ::File.basename( filename )
           raise TemplateNotFound.new("no template given") unless file
@@ -63,8 +73,12 @@ To write a file to the template directory, use:
         end
       end
       
-      def method_missing m, *a, &block
-        super rescue ::File.send(m, *a, &block)
+      # def method_missing m, *a, &block
+      #   super rescue ::File.send(m, *a, &block)
+      # end
+      
+      def variable(k,v)
+        dsl_option(k,v)
       end
 
     end

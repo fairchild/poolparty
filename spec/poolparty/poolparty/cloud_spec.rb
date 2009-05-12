@@ -38,7 +38,7 @@ describe "Cloud" do
         @cloud1.using_remoter?.should_not == nil
       end
       it "should say the remoter_base is ec2 (by default)" do
-        @cloud1.remote_base.class.should == Kernel::Ec2
+        @cloud1.remote_base.class.should == ::PoolParty::Remote::Ec2
       end
     end
     it "should return the cloud if the cloud key is already in the clouds list" do
@@ -51,7 +51,6 @@ describe "Cloud" do
         setup
         pool :options do
           user "bob"
-          pop_stick true
           minimum_instances 100
           access_key "pool_access_key"
           cloud :apple do
@@ -67,9 +66,6 @@ describe "Cloud" do
       end
       it "should take the access_key option set from the cloud" do
         clouds[:apple].access_key.should == "cloud_access_key"
-      end
-      it "should take the option pop_stick from the superclass" do
-        clouds[:apple].pop_stick.should == true
       end
       it "should take the option testing true from the superclass" do
         pools[:options].user.should == "bob"
@@ -190,7 +186,7 @@ describe "Cloud" do
                 EOE
               end
               enable :haproxy
-              has_gempackage(:name => "poolparty")
+              has_gem_package(:name => "poolparty")
               has_package(:name => "dummy")            
             end
             context_stack.push @cloud

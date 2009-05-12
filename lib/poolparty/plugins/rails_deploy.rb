@@ -17,10 +17,14 @@ module PoolParty
     
     plugin :rails_deploy do
       
+      dsl_methods :shared, :database_yml, :repo, :user, :user_dir
+      
       default_options(
         :dir => "/var/www",
         :owner => "www-data",
-        :group => "root"
+        :group => "root",
+        :install_sqlite => false,
+        :migration_command => "rake db:migrate"
       )
       
       def loaded(o={}, &block)
@@ -28,7 +32,7 @@ module PoolParty
         raise "You must include the repo to deploy the rails app" unless repo?
         
         require_rails_gems
-        install_sqlite if o.has_key?(:install_sqlite)
+        install_sqlite if o[:install_sqlite]
         
         create_directory_tree
         setup_database_yml        
@@ -47,9 +51,9 @@ module PoolParty
         has_gem_package "sqlite3-ruby"
       end
       def add_user(o)
-        has_user o[:user] do
-          comment "Rails Deploy user #{o[:user]}"
-          home o[:user_dir] || "/var/www"
+        has_user user do
+          comment "Rails Deploy user #{user}"
+          home user_dir || "/var/www"
           shell "/sbin/nologin"
           password "x"
         end

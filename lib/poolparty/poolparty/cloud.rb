@@ -80,6 +80,8 @@ module PoolParty
         @cloud_name = name
         @cloud_name.freeze
         
+        setup_callbacks
+        
         plugin_directory "#{pool_specfile ? ::File.dirname(pool_specfile) : Dir.pwd}/plugins"        
         before_create
         super
@@ -91,10 +93,14 @@ module PoolParty
         @cloud_name ||= @cloud_name ? @cloud_name : (args.empty? ? :default_cloud : args.first)
       end
       
-      def before_create     
-        context_stack.push self
-        (parent ? parent : self).add_poolparty_base_requirements
-        context_stack.pop
+      def before_create
+        using Default.remoter_base
+        # context_stack.push self
+        # TODO: PUT BACK IN
+        # (parent ? parent : self).
+        add_poolparty_base_requirements
+        # this can be overridden in the spec, but ec2 is the default        
+        # context_stack.pop
       end
       
       # Callback
@@ -112,18 +118,13 @@ module PoolParty
         
         plugin_store.each {|a| a.call_after_create_callbacks }
         setup_defaults
-        
-        setup_callbacks
       end
       
       # setup defaults for the cloud
-      def setup_defaults
-        # this can be overridden in the spec, but ec2 is the default
-        using :ec2
+      def setup_defaults        
         options[:keypair] ||= keypair rescue nil
         options[:rules] = {:expand => dsl_options[:expand_when], :contract => dsl_options[:contract_when]}
-        dependency_resolver 'chef'        
-        # enable :haproxy unless dsl_options[:haproxy] == :disabled
+        set_dependency_resolver 'chef'
       end
       
       def after_launch_instance(inst=nil)

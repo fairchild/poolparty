@@ -8,11 +8,11 @@ class TestBaseClassTest < Test::Unit::TestCase
     setup do
       reset!
       @tbc = TestBaseClass.new do
-        has_git_repos :name => "test git", :at => "/var/www/google", :source => "git://pop.git"
+        has_git_repo :name => "git://pop.git", :to => "/var/www/google"
       end
     end
     should "should add a service when a service is called" do
-      @tbc.ordered_resources.size.should == 1
+      @tbc.ordered_resources.size.should > 1
     end
   end
   context "context_stack" do

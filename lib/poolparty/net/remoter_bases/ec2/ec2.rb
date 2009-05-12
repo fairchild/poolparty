@@ -36,13 +36,16 @@ module PoolParty
   module Remote
     class Ec2 < Remote::RemoterBase
       
+      dsl_methods :elastic_ips,         # An array of the elastic ips
+                  :ebs_volume_id        # The volume id of an ebs volume
+      
       default_options({
         :image_id => 'ami-bf5eb9d6',
         # :key_name => ::File.basename(keypair.is_a?(String) ? keypair : keypair.full_filepath),
         :instance_type => 'm1.small', # or 'm1.large', 'm1.xlarge', 'c1.medium', or 'c1.xlarge'
         :addressing_type => "public",
         :availabilty_zone => "us-east-1a",
-        :security_group => ["default"]
+        :security_group => ["default"],
         })
       
       # Requires a hash of options
@@ -119,11 +122,7 @@ module PoolParty
       def get_descriptions(o={})
         self.class.get_descriptions(o)
       end
-      
-      def keypair
-        cloud.keypair
-      end
-      
+            
       # Class method helpers
       def aws_keys
         unless @access_key && @secret_access_key          

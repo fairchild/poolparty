@@ -11,7 +11,7 @@ describe "Option Parser" do
       @op.options.class.should == Hash
     end
     it "should have the verbose option set to false by default" do
-      @op.verbose.should == false
+      @op.verbose?.should == false
     end
     it "should call a method called on it that is not defined on the options if they exist" do
       @op.dsl_options.should_receive(:[]).with(:verbose).at_least(1).and_return true
@@ -43,8 +43,9 @@ describe "Option Parser" do
   
   it "should be able to take a block and set some options on the block" do
     PoolParty::Optioner.new(["-w"], {:abstract => false, :load_pools => false}) do |opts, optioner|
-      opts.on('-w', '--wee')    { optioner.wee "wee" }
-      opts.on('-t t', '--teatime tea')    { optioner.tea "time" }
+      optioner.add_args :wee, :tea
+      opts.on('-w', '--wee')    { optioner.wee = "wee" }
+      opts.on('-t t', '--teatime tea')    { optioner.tea = "time" }
     end.wee.should == "wee"
   end
 end

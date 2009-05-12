@@ -9,22 +9,25 @@ module PoolParty
       include PoolParty::DependencyResolverCloudExtensions
       include PoolParty::Callbacks
       
-      def initialize(opts={}, prnt=nil, &block)
+      default_options(
+        :name => nil
+      )
+      
+      def initialize(opts={}, extra_opts={}, prnt=nil, &block)        
         setup_callbacks
-
+        
         run_in_context do
           before_load(opts, &block)
         end
         
-        block = Proc.new {enable} unless block
+        block = Proc.new {enable} unless block        
         
-        @opts = (opts.is_a?(Hash) ? opts : {:name => opts})
         super(opts, &block)
         
         run_in_context do
-          loaded @opts, &block
+          loaded opts, &block
         end
-                
+        
         after_create
       end
       

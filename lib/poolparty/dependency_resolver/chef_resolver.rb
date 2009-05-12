@@ -211,9 +211,23 @@ module PoolParty
       when PoolParty::Resources::Resource
         "resources(:#{handle_chef_types(obj.class.to_s.top_level_class.downcase.to_sym)} => \"#{obj.name}\")"
       when Fixnum
-        "#{obj.to_i}"
+        case obj
+        when /^\d{3}$/
+          "0#{obj.to_i}"
+        else
+          "#{obj.to_i}"
+        end        
       when String
-        "\"#{obj}\""
+        case obj
+        when /^\d{4}$/
+          "#{obj}"
+        when /^\d{3}$/
+          "0#{obj}"
+        else
+          "\"#{obj}\""
+        end
+      when Proc
+        obj.call # eh
       when Array
         # If we are sending a notifies with a second argument
         if obj[1] && [:immediately, :delayed].include?(obj[1])

@@ -1,16 +1,21 @@
 module PoolParty    
   class GitResource
     
-    virtual_resource(:git) do
+    plugin :git do
       def loaded(*args)
         has_package(:name => "git-core")
       end
     end
     
-    virtual_resource(:git_repos) do
-      
-      def loaded(opts={}, &block)        
-        raise(Exception.new("You must include a directory for the git repos set by :at")) if at?.nil?
+    plugin :git_repo do
+      dsl_methods :name, 
+                  :dir, 
+                  :owner, 
+                  :requires_user,
+                  :deploy_key
+            
+      def loaded(opts={}, &block)
+        raise(StandardError.new("You must include a directory for the git repos set by to")) unless dir?
         # opts.has_key?(:at) ? at(opts.delete(:at)) : raise(Exception.new("You must include a directory for the git repos set by :at"))
         # opts.has_key?(:source) ? git_repos(opts.delete(:source) || opts[:name]) : raise(Exception.new("You must include the git source set by :source"))
         has_package("git-core")
@@ -19,21 +24,21 @@ module PoolParty
 
       def has_git_repository
         
-        has_directory(::File.dirname(working_dir))
-        has_directory(:name => "#{working_dir}", :requires => get_directory("#{::File.dirname(working_dir)}"))
+        has_directory(::File.dirname(dir))
+        has_directory(:name => "#{dir}", :requires => get_directory("#{::File.dirname(dir)}"))
         
-        has_exec(:name => "git-#{name}", :requires => [get_directory("#{working_dir}"), get_package("git-core")] ) do
+        has_exec(:name => "git-#{name}", :creates => creates_dir ) do
           # Cloud, GitRepos, Exec
-          command parent.requires_user? ? "git clone #{requires_user}@#{source} #{working_dir}" : "cd #{working_dir} && git clone #{source}"
-          cwd "#{working_dir if working_dir}"
-          creates creates_dir
+          command(requires_user? ? "git clone #{requires_user}@#{repos} #{dir}" : "cd #{dir} && git clone #{repos}")
+          cwd "#{dir if dir}"          
+          requires [get_directory("#{dir}"), get_package("git-core")]
         end
-        has_exec(:name => "update-#{name}", :cwd => ::File.dirname( creates_dir )) do          
-          command "git pull"
+        has_exec(:name => "update-#{name}") do
+          command "cd #{::File.dirname( creates_dir )} && git pull"
         end
         
         if owner?
-          has_exec(:name => "chown-#{name}", :cwd => ::File.dirname( creates_dir )) do
+          has_exec(:name => "chown-#{name}", :cwd => ::File.dirname( creates_dir )) do            
             command "chown #{owner} * -R"
           end
         end
@@ -46,20 +51,16 @@ module PoolParty
         
       end
       
-      def git_repos(src)
-        source src
+      def to(d)
+        dir d
       end
       
-      def at(dir)
-        working_dir dir
-      end
-      
-      def to(dir)
-        at(dir)
+      def repos(r=nil)
+        name
       end
       
       def creates_dir
-        "#{::File.join( working_dir, ::File.basename(source, ::File.extname(source)) )}/.git"
+        "#{::File.join( dir, ::File.basename(name, ::File.extname(name)) )}/.git"
       end
       
     end
