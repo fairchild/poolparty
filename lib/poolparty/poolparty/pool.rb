@@ -82,7 +82,6 @@ module PoolParty
     # If a pool_spec_file has not already loaded, attempt to load one
     # Useful in server binaries and monitors.
     def my_cloud
-      return @my_cloud if @my_cloud
       if $pool_specfile.nil?
         if ENV['POOL_SPEC']
           require ENV['POOL_SPEC']
@@ -90,15 +89,18 @@ module PoolParty
           require '/etc/poolparty/clouds.rb'
         end
       end
-      cld_name = ENV['MY_CLOUD'] 
+      cld_name = ENV['MY_CLOUD']
       if cld_name && clouds[cld_name.to_sym]
         @my_cloud = clouds[cld_name.to_sym]
       elsif ::File.file?('/etc/poolparty/cloud_name')
-        @my_cloud = cld_name = ::File.read('/etc/poolparty/cloud_name').to_sym
+        cld_name  = ::File.read('/etc/poolparty/cloud_name')
+        @my_cloud = clouds[cld_name.to_sym]
       else
         raise "Could not find your cloud"
       end
       return @my_cloud
     end
+  
   end
+  
 end
