@@ -1,24 +1,35 @@
 #!/usr/bin/env ruby
+require 'rubygems'
+require 'pp'
 $:.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
-require "poolparty/lite"
-require "poolparty/core/array"
+$:.unshift '/etc/poolparty'
+require "poolparty"
+if ENV['POOL_SPEC']
+  require ENV["POOL_SPEC"]
+else
+  require "clouds.rb"
+end
 
 list_type = ARGV.shift || "ip"
 
-json_file = ARGV[0] || PoolParty::Default.properties_hash_file
-raise "ERROR: no json_file given" if !json_file
-schema = PoolParty::Schema.new( ::File.read(json_file) )
-
-inst_array = PoolParty::Neighborhoods.load_default.instances
-
-if !inst_array || inst_array.empty?
-  remote_base = PoolParty::Remote.module_eval( schema.options.remoter_base.camelcase )
-  instances = remote_base.send :describe_instances, schema.options
-  inst_array = instances.map {|inst| inst.send list_type.to_sym }.compact
-  if ['ip', 'public_id', 'internal_ip'].include? list_type
-    inst_array.delete_if{|n| !n.match(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/) }
-  end
-  print inst_array.compact.join("\t")
-else
-  print inst_array.instances.map {|inst| inst.send list_type.to_sym }.compact
+clds = {}
+clouds.each do |k,v|
+  clds[k] = clouds[k].nodes
 end
+puts clds.to_yaml
+
+# YAML.laod ` server-list-active`  if you want these results in another script
+
+#
+
+# if !inst_array || inst_array.empty?
+#   remote_base = PoolParty::Remote.module_eval( schema.options.remoter_base.camelcase )
+#   instances = remote_base.send :describe_instances, schema.options
+#   inst_array = instances.map {|inst| inst.send list_type.to_sym }.compact
+#   if ['ip', 'public_id', 'internal_ip'].include? list_type
+#     # inst_array.delete_if{|n| !n.match(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/) }
+#   end
+#   print inst_array.compact.join("\t")
+# else
+#   print inst_array.instances.map {|inst| inst.send list_type.to_sym }.join("\t").compact
+# end
