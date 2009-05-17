@@ -7,7 +7,7 @@ module Monitors
   
   class Neighborhood < BaseMonitor
     
-    def get(data=nil)
+    def get(_data=nil)
       neighborhood
     end
     

@@ -53,6 +53,9 @@ describe "Cloud" do
           end
         end
       end
+      it "should have inspect method" do
+        lambda{clouds[:apple].inspect}.should_not raise_error
+      end
       it "should be able to grab the cloud from the pool" do
         clouds[:apple].should == pools[:options].cloud(:apple)
       end
@@ -314,6 +317,7 @@ describe "Cloud" do
           clouds[:stratus].to_json.class.should == String
         end
       end
+      
 
       # describe "instances" do
       #   before(:each) do

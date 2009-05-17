@@ -148,4 +148,4 @@ module PoolParty
 end
 
 PoolParty.reset!
-dputs "duration = #{Time.now-t}"
+dputs "load duration = #{Time.now-t}"

@@ -31,7 +31,7 @@ if ips.size < minimum_instances
   exit(0)
 elsif ips.size > maximum_instances
   puts "Cloud is too big, need to contract"
- %x[n/server-cloud-elections contract]
+ %x[server-cloud-elections contract]
   exit(0)
 end
 

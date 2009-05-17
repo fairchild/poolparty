@@ -22,15 +22,15 @@ EOS
         puts header("Starting cloud #{cld.name} (#{cld.keypair})")
         puts "#{cld.nodes(:status => "running").size} running instances (#{cld.minimum_instances} - #{cld.maximum_instances})"
         
-        cld.launch_instance!(:cloud_name => cld.name) do |node|
-          
-          ::PoolParty::Provision::BootStrapper.new(node.ip, :cloud => cld)
-          ::PoolParty::Provision::DrConfigure.new(node.ip,  :cloud => cld)
-          
-          puts <<-EOM
-            Your cloud has started. Your ip is #{node.ip}
-          EOM
-        end
+        # (1..cld.minimum_instances).each do |_index|
+          cld.launch_instance!(:cloud_name => cld.name) do |node|
+            ::PoolParty::Provision::BootStrapper.new(node.ip, :cloud => cld)
+            ::PoolParty::Provision::DrConfigure.new(node.ip,  :cloud => cld)
+            puts <<-EOM
+              Your cloud has started. Your ip is #{node.ip}
+            EOM
+          end
+        # end
       
       else
         puts <<-EOE

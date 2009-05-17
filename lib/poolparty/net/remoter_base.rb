@@ -149,6 +149,7 @@ module PoolParty
         new(o, &block).launch_instance!
       end
 
+      #TODO: make this ann array of callbacks that can be added to from within the clouds.rb
       # Called after an instance is launched
       def after_launch_instance(instance=nil)
         puts "after_launch_instance in remoter_base"

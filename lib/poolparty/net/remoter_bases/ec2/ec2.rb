@@ -90,16 +90,20 @@ module PoolParty
         id = 0
         set_vars_from_options(dsl_options.merge(o))
         get_instances_description(dsl_options).each_with_index do |h,i|
+          
+          #TODO: deprecate this if block, just use the index
           if h[:status] == "running"
             inst_name = id == 0 ? "master" : "node#{id}"
             id += 1
           else
             inst_name = "#{h[:status]}_node#{i}"
           end
+          
           h.merge!({
             :name => inst_name,
             :hostname => h[:ip],
             :ip => h[:ip].convert_from_ec2_to_ip,
+            :public_ip => h[:ip].convert_from_ec2_to_ip,
             :index => i,  #TODO get the instance id from the aws result instead
             :launching_time => (h[:launching_time])
           })

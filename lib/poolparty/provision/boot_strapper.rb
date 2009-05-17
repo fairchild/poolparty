@@ -131,6 +131,8 @@ module PoolParty
         
         commands << [
           "mkdir -p /etc/poolparty",
+          "echo -n '#{cloud_name}' > /etc/poolparty/cloud_name",
+          "echo -n '#{@cloud.pool.name}' > /etc/poolparty/pool_name",
           "mkdir -p /var/log/poolparty",
           "groupadd -f poolparty",
           # "useradd poolparty  --home-dir /var/poolparty  --groups poolparty  --create-home",

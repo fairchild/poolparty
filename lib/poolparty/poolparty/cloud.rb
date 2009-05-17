@@ -107,6 +107,14 @@ module PoolParty
         @cloud_name ||= @cloud_name ? @cloud_name : (args.empty? ? :default_cloud : args.first)
       end
       
+      # shows the default options and name.  This avoids the huge output when the entire properties hash is included
+      def inspect
+        hsh=Hash.new
+        self.class.default_options.each{|k,v| hsh[k]=dsl_options[k]}
+        hsh.merge!(:name=>name)
+        hsh
+      end
+      
       def before_create
         add_poolparty_base_requirements
       end
@@ -189,6 +197,12 @@ module PoolParty
       
       def ip
         ips.first
+      end
+      
+      # grab internal ips, and dont use Interactive
+      def internal_ips(conditions={})
+        conditions.merge!( :keypair => key.basename)
+        remote_base.describe_instances.select_with_hash(conditions)
       end
             
       # Build the new poolparty manifest

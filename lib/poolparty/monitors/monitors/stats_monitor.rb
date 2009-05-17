@@ -36,7 +36,7 @@ module Monitors
       # log << "#{::Time.now.strftime("%Y-%m-%d-%H-%M")}, #{stats.to_json}\n"
     end
     
-    def get(data=nil)
+    def get(_data=nil)
       begin
         if !request.params || request.params.empty?
           default_stats
