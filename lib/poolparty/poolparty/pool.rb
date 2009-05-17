@@ -81,7 +81,7 @@ module PoolParty
     # Utility method to be used when on an instance to select a cloud based on keypair name
     # If a pool_spec_file has not already loaded, attempt to load one
     # Useful in server binaries and monitors.
-    def my_cloud(cld_name= ENV['MY_CLOUD'] )
+    def my_cloud
       return @my_cloud if @my_cloud
       if $pool_specfile.nil?
         if ENV['POOL_SPEC']
@@ -90,6 +90,7 @@ module PoolParty
           require '/etc/poolparty/clouds.rb'
         end
       end
+      cld_name = ENV['MY_CLOUD'] 
       if cld_name && clouds[cld_name.to_sym]
         @my_cloud = clouds[cld_name.to_sym]
       elsif ::File.file?('/etc/poolparty/cloud_name')

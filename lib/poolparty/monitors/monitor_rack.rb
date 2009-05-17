@@ -40,17 +40,16 @@ module Monitors
       @data = env['rack.input'].read rescue nil
       @request = Rack::Request.new env
       @response = Rack::Response.new
-      @instance = nil
       begin
         path_array= path_map(env['REQUEST_PATH']) || []
         verb = env['REQUEST_METHOD'].downcase
         @response.write map_to_method(path_array, verb).to_json
         
-        if instance.respond_to? :before_close_callbacks
-          @response.before_close_callbacks << instance.before_close_callbacks
+        if monitor_instance.respond_to? :before_close_callbacks
+          @response.before_close_callbacks << monitor_instance.before_close_callbacks
         end
-        if instance.respond_to?(:after_close_callbacks)
-          @response.after_close_callbacks << instance.after_close_callbacks
+        if monitor_instance.respond_to?(:after_close_callbacks)
+          @response.after_close_callbacks << monitor_instance.after_close_callbacks
         end
       # rescue Exception=>e
       #   @response.write e
@@ -60,9 +59,11 @@ module Monitors
     end
     
     private
-    def instance
+    # return an instance of the object matching the first part of the path, if it exists
+    def monitor_instance
       return nil if path_map.nil?
-      @instance ||= constantize( path_map.first ).new(env)
+      m_instance = Monitors.constants.grep(/#{camelcase(path_map.first)}/).pop
+      Monitors.const_get(m_instance).new(env) if m_instance
     end
     
     def env
@@ -81,38 +82,39 @@ module Monitors
     end
   
     # Find class and call method from the pattern /class_name/method/args
+    # GET / will return a list of available monitors
     # GET /neighborhood => ::Monitors::Neighboorhood.get
     # POST /neighborhood => ::Monitors::Neighboorhood.post(params)
     # GET /neighborhood/size => ::Monitors::Neighboorhood.get_size
     def map_to_method(path, verb='get')
       if !path or path.empty? or path[0].nil?
-        response.write 'cannot map an empty path' 
-        response.status='404'
+        BaseMonitor.available_monitors if verb='get'
+        # response.status ='200'
       else
-        raise "#{path[0]} did not map to a Constant" if !instance
+        raise "#{path[0]} did not map to a Constant" if !monitor_instance
         case path.size
         when 0 # usefull if you want to subclass from MonitorRack
           self.respond_to?(verb.to_sym) ? self.send(verb.to_sym) : response.status='404'
         when 1 # example: /stats
-          instance.send(verb.to_sym, @data)
+          monitor_instance.send(verb.to_sym, @data)
         when 2 # example: /stats/load
-          instance.send("#{verb}_#{path[1]}".to_sym, @data) rescue instance.send("#{path[1]}".to_sym, @data)
+          monitor_instance.send("#{verb}_#{path[1]}".to_sym, @data) rescue monitor_instance.send("#{path[1]}".to_sym, @data)
         else # example: /stats/load/average/5/minutes
-          instance.send("#{verb}_#{path[1]}".to_sym, env['rack.input'].read, *path[2..-1])
+          monitor_instance.send("#{verb}_#{path[1]}".to_sym, env['rack.input'].read, *path[2..-1])
         end
       end
     end
     
-    # Take a string and return a ruby object if a match is found in the base_objects namespace.
-    def constantize(name, base_object=Monitors)
-      begin
-        const = base_object.constants.find{|cnst| cnst == camelcase(name)}
-        base_object.module_eval const
-      rescue Exception => e
-        puts "#{name.camelcase} is not defined. #{e}"
-        nil
-      end
-    end
+    # # Take a string and return a ruby object if a match is found in the base_objects namespace.
+    # def constantize(name, base_object=Monitors)
+    #   begin
+    #     const = base_object.constants.grep(/#{camelcase(name)}/).pop
+    #     base_object.module_eval const
+    #   rescue Exception => e
+    #     puts "#{name.camelcase} is not defined. #{e}"
+    #     nil
+    #   end
+    # end
     
     def camelcase(str)
       str.gsub(/(^|_|-)(.)/) { $2.upcase }
