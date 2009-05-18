@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 $:.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
-
+:
 require "poolparty"
 if ENV['POOL_SPEC']
   require ENV["POOL_SPEC"]
@@ -13,7 +13,7 @@ end
 list_type = ARGV.shift || "ip"
 
 # cld = clouds[ ::File.read('/etc/poolparty/cloud_name').to_sym ]
-conditions= {:status=>'running', :keypair=>my_cloud.key.basename}
-inst_array = my_cloud.describe_instances.select_with_hash(conditions)
+conditions= {:status=>'running', :keypair=>Pool.my_cloud.key.basename}
+inst_array = Pool.my_cloud.describe_instances.select_with_hash(conditions)
 
 puts inst_array.collect{|n| n[list_type] || n[list_type.to_sym]}.join("\t")

@@ -13,5 +13,10 @@ module PoolParty
       end
     end
     
+    def self.inherited(arg)
+      base_name = "#{arg}".downcase.top_level_class.to_sym
+      (verifiers << base_name) unless verifiers.include?(base_name)
+    end
+    
   end
 end

@@ -70,14 +70,19 @@ module PoolParty
         end
       end
       
-    end
+      #make my_cloud method available as a Pool class method
+      def self.my_cloud
+        my_cloud
+      end
+      
+    end #end of Pool class
     
     # Helpers
     def remove_pool(name)
       pools.delete(name) if pools.has_key?(name)
     end
     
-    
+    #TODO: move this to Pool.my_cloud class method once dependent code is updated
     # Utility method to be used when on an instance to select a cloud based on keypair name
     # If a pool_spec_file has not already loaded, attempt to load one
     # Useful in server binaries and monitors.
@@ -91,14 +96,14 @@ module PoolParty
       end
       cld_name = ENV['MY_CLOUD']
       if cld_name && clouds[cld_name.to_sym]
-        @my_cloud = clouds[cld_name.to_sym]
+        my_cld = clouds[cld_name.to_sym]
       elsif ::File.file?('/etc/poolparty/cloud_name')
         cld_name  = ::File.read('/etc/poolparty/cloud_name')
-        @my_cloud = clouds[cld_name.to_sym]
+        my_cld = clouds[cld_name.to_sym]
       else
         raise "Could not find your cloud"
       end
-      return @my_cloud
+      return my_cld
     end
   
   end

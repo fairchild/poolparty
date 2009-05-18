@@ -31,6 +31,10 @@ Dir[::File.dirname(__FILE__)+"/monitors/*"].each {|m| require m}
 # PoolParty.require_user_directory "monitors"
 
 module Monitors
+  @available_monitors = []
+  def available_monitors(monitor_name=nil)
+    monitor_name ? @available_monitors.select{|m| m.class == monitor_name} : @available_monitors
+  end
 
   class MonitorRack
     
@@ -43,8 +47,15 @@ module Monitors
       begin
         path_array= path_map(env['REQUEST_PATH']) || []
         verb = env['REQUEST_METHOD'].downcase
-        @response.write map_to_method(path_array, verb).to_json
-        
+        begin
+          @response.write(map_to_method(path_array, verb)).to_json
+        rescue  Exception => e
+          puts  err_msg="Error: #{e}"
+          err_msg<<"\n\n------\n ERROR with json method \n--------\n#{map_to_method(path_array, verb).inspect}"
+          puts err_msg
+          @response.write err_msg
+          @response.status = '500'
+        end
         if monitor_instance.respond_to? :before_close_callbacks
           @response.before_close_callbacks << monitor_instance.before_close_callbacks
         end
@@ -55,6 +66,8 @@ module Monitors
       #   @response.write e
       #   @response.status = 500
       end
+      require 'ruby-debug'; debugger
+      
       @response.finish # this is [response.status, response.headers, response.body]
     end
     
@@ -88,7 +101,7 @@ module Monitors
     # GET /neighborhood/size => ::Monitors::Neighboorhood.get_size
     def map_to_method(path, verb='get')
       if !path or path.empty? or path[0].nil?
-        BaseMonitor.available_monitors if verb='get'
+        BaseMonitor.available_monitors if verb=='get'
         # response.status ='200'
       else
         raise "#{path[0]} did not map to a Constant" if !monitor_instance
@@ -104,17 +117,6 @@ module Monitors
         end
       end
     end
-    
-    # # Take a string and return a ruby object if a match is found in the base_objects namespace.
-    # def constantize(name, base_object=Monitors)
-    #   begin
-    #     const = base_object.constants.grep(/#{camelcase(name)}/).pop
-    #     base_object.module_eval const
-    #   rescue Exception => e
-    #     puts "#{name.camelcase} is not defined. #{e}"
-    #     nil
-    #   end
-    # end
     
     def camelcase(str)
       str.gsub(/(^|_|-)(.)/) { $2.upcase }

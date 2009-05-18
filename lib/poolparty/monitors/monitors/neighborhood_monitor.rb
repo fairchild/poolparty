@@ -30,6 +30,10 @@ module Monitors
       save
     end
     
+    def list
+      `server-list-active`
+    end
+    
     private
     def myself
       @myself ||= @neighborhood.instance.select_with_hash('ip'=>@env['REQUEST_IP'])
@@ -39,7 +43,7 @@ module Monitors
       @neighborhood ||= {        
         :instances => instances,
         :stats => stats
-      } #rescue [{"instance_id"=>"1000", "ip"=>"172.16.68.128"}, {"instance_id"=>"456", "ip"=>"172.16.68.130"}]
+      }
     end
     
     def save(filepath='/etc/poolparty/neighborhood.json')

@@ -1,6 +1,15 @@
 module PoolParty
   module Remote
     
+    #TODO: move this to cloud.rb file
+    #TODO tests for this, cloud.list
+    #return list of nodes from remote_base, filtered by key and optional other paramters
+    def list(conditions={})  
+      conditions.merge!( :keypair => key.basename)
+      remote_base.describe_instances.select_with_hash(conditions)
+    end
+
+    
     # Select a list of instances based on their status
     def nodes(hsh={}, with_neighborhood_default=true)
       list_of_instances(with_neighborhood_default).select_with_hash(hsh)

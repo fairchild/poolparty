@@ -16,6 +16,10 @@ module Monitors
       @env=env
     end
     
+    def env(env=@env)
+      @env=env
+    end
+    
     %w(close).each do |event|
       %w(before after).each do |time|
         module_eval <<-EOE

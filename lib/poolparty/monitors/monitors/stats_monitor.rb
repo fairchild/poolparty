@@ -2,10 +2,12 @@
   Stats returns the basic node metrics and checks to see if any actions should be taken based
   on the default expand and contract rules defined in the clouds.rb file.
 =end
+require 'poolparty'
 
 module Monitors
   
   class Stats < BaseMonitor
+    
     attr_reader :stats, :request
     attr_accessor :response
     
@@ -13,27 +15,10 @@ module Monitors
       @env = env
       @request = Rack::Request.new env
       @response = Rack::Response.new
-      
-      begin
-        @cloud = JSON.parse( open('/etc/poolparty/clouds.json' ).read )
-      rescue 
-        @cloud = ::PoolParty::Default.dsl_options.merge({"options" =>
-          {"rules" => {"expand"   => PoolParty::Default.expand_when,
-                       "contract" => PoolParty::Default.contract_when
-                      }
-          }
-        })
-      end
-      # Our cloud.dsl_options.rules looks like
-      #  {"expand_when" => "load > 0.9", "contract_when" => "load < 0.4"}
-      # We set these as rules on ourselves so we can use aska to parse the rules.
-      # Later, we can call vote_rules on ourself and we'll get back Aska::Rule(s)
-      # which we'll call valid_rule? for each Rule and return the result
-      @cloud["options"]["rules"].each do |name, rul|
-        r = Aska::Rule.new(rul)
-        rule(name) << r
-      end
-      # log << "#{::Time.now.strftime("%Y-%m-%d-%H-%M")}, #{stats.to_json}\n"
+    end
+    
+    def my_cloud
+      @my_cloud || Pool.my_cloud
     end
     
     def get(_data=nil)
@@ -59,6 +44,7 @@ module Monitors
         "boom"
       end
     end
+    
     alias :update :put
     
     protected
@@ -105,14 +91,6 @@ module Monitors
       @elected_action ||= nil
     end
 
-    def rules(_n=nil)
-      @rules ||= {}
-    end
-
-    def rule(name)
-      rules[name] ||= []
-    end
-
     def default_stats
       %w(load nominations).each do |var|
         stats[my_ip][var] ||= self.send(var.to_sym)
@@ -128,41 +106,20 @@ module Monitors
       %x{"uptime"}.split[-3].to_f
     end
 
-    def instances(_n=nil)
-      # res = PoolParty::Neighborhoods.load_default.instances
-      res ||= %x[server-list-active internal_ip].split("\t")
-      res
-    end
-
-    def can_expand?(_n=nil)
-      instances.size < max_instances
-    end
-
-    def can_contract?(_n=nil)
-      instances.size > min_instances
-    end
-
-    def min_instances(_n=nil)
-      (@cloud["options"]["minimum_instances"] || PoolParty::Default.minimum_instances).to_i
-    end
-
-    def max_instances(_n=nil)
-      (@cloud["options"]["maximum_instances"] || PoolParty::Default.maximum_instances).to_i
-    end
-
     def nominations(_n=nil)
-      return ['expand'] if instances.size<min_instances
+      instances = Pool.my_cloud.list
+      return ['expand'] if instances.size < my_cloud.min_instances
       load = stats[my_ip]["load"] ||= self.send(:load)
-      stats[my_ip]["nominations"] ||= rules.collect do |k,cld_rules|
+      stats[my_ip]["nominations"] ||= my_cloud.dsl_options[:rules].collect do |k,cld_rules|
         t = cld_rules.collect do |r|
           # If the comparison works
           if self.send(r.key.to_sym).to_f.send(r.comparison, r.var.to_f)
             # if we are facing an expansion rule
             if k =~ /expand/
-              k if can_expand?
+              k if instances.size < my_cloud.max_instances
             # if we are facing a contraction rule
             elsif k =~ /contract/
-              k if can_contract?
+              k if instances.size > my_cloud.min_instances
             else
               k
             end
@@ -176,10 +133,6 @@ module Monitors
       nominations.to_json
     end
     
-    def get_hello(_n=nil)
-      'hi there'
-    end
-    
     def my_ip
       @my_ip ||= ohai["ipaddress"]
     end
@@ -190,7 +143,7 @@ module Monitors
 
     def reload_data!
       @stats[my_ip] = {}
-      instances.each {|inst| @stats[inst] = {} }
+      Pool.my_cloud.list.each {|inst| @stats[inst.ip] = {} }
     end    
     
   end
