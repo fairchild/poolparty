@@ -54,17 +54,18 @@ module PoolParty
         dsl_options.include?(m) ? dsl_options[m] : super
       end
       # # Get the access_key
+      #TODO: move the ec2 stuff to ec2.rb
       def access_key
         @access_key ||= load_access_keys_from_environment_var || load_keys_from_file[:access_key]
       end
       def load_access_keys_from_environment_var
-        [ ENV["AWS_ACCESS_KEY"], ENV["AWS_ACCESS_KEY_ID"]].reject {|a| a.nil? }.first
+         ENV['EC2_ACCESS_KEY'] || ENV['AMAZON_ACCESS_KEY_ID'] || ENV['AWS_ACCESS_KEY']
       end
       def secret_access_key
         @secret_access_key ||= load_secret_access_keys_from_environment_var || load_keys_from_file[:secret_access_key]
       end
       def load_secret_access_keys_from_environment_var
-        [ ENV["AWS_SECRET_ACCESS_KEY"] ].reject {|a| a.nil? }.first
+        ENV['EC2_SECRET_KEY'] || ENV['AMAZON_SECRET_ACCESS_KEY'] || ENV['AWS_SECRET_ACCESS_KEY']
       end
       def read_keyfile
         open(get_working_key_file_locations).read
@@ -89,6 +90,7 @@ module PoolParty
         end
         store_keys_in_file
       end
+      
       def reset!
         @keys = nil
       end

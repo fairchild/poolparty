@@ -3,25 +3,21 @@ module PoolParty
     
     # Select a list of instances based on their status
     def nodes(hsh={}, with_neighborhood_default=false)
-      unordered = begin
-        if with_neighborhood_default
-          list_of_instances(with_neighborhood_default).select_with_hash(hsh)
-        else
-          kname = (hsh[:keypair_name] ||self.keypair_name || self.keypair_name || keypair.basename)
-          # Added keypair to filter on either keypair_name or keypair response
-          key_condition = {:keypair_name => kname, :keypair => kname, :key_name => kname}
-          # if hsh.delete(:uncached)
-          #   @nodes = describe_instances.select_with_hash(conditions)
-          # else
-          #   @nodes ||= describe_instances.select_with_hash(conditions)
-          # end
-          # 
-          results = describe_instances.select_with_hash(key_condition)
-          results.select_with_hash(hsh)
-        end
+      if with_neighborhood_default
+        unordered = list_of_instances(with_neighborhood_default).select_with_hash(hsh)
+      else
+        kname = (hsh[:keypair_name] ||self.keypair_name || self.keypair_name || keypair.basename)
+        # Different terms are sometimes used for keypair names, so chekc for matches against any of them
+        key_condition = {:keypair_name => kname, :keypair => kname, :key_name => kname}
+        # if hsh.delete(:cached)
+        #   @nodes ||= describe_instances.select_with_hash(conditions)
+        # else
+        #   @nodes = describe_instances.select_with_hash(conditions)
+        # end
+        result = describe_instances.select_with_hash(key_condition)
+        unordered = result.select_with_hash(hsh)
       end
-      
-      unordered.sort_by(&:launch_time) # provide consistent sorting for nodes 
+      unordered.sort{|a,b| a[:launch_time] <=> b[:launch_time] } # provide consistent sorting for nodes 
     end
     
     # Select the list of instances, either based on the neighborhoods
