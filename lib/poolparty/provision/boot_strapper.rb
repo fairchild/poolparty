@@ -140,8 +140,11 @@ module PoolParty
           "groupadd -f poolparty",
           # "useradd poolparty  --home-dir /var/poolparty  --groups poolparty  --create-home",
           "cd /var/poolparty/dependencies && cp /var/poolparty/dependencies/etc/poolparty/gemrc_template /etc/poolparty",
+          "echo 'deb http://archive.ubuntu.com/ubuntu jaunty universe restricted'>>/etc/apt/sources.list",
+          "echo 'deb http://archive.ubuntu.com/ubuntu jaunty multiverse restricted'>>/etc/apt/sources.list",
           "#{installer} update",
-          "#{installer} install -y ruby ruby1.8-dev irb libopenssl-ruby1.8 build-essential wget",  #optional, but nice to have
+          "#{installer} install -y rsync build-essential wget",
+          "#{installer} install -y ruby ruby-dev libopenssl-ruby",
           "tar -zxvf packages/rubygems-1.3.4.tgz && cd rubygems-1.3.4 && ruby setup.rb --no-ri --no-rdoc && ln -sfv /usr/bin/gem1.8 /usr/bin/gem && cd ../ && rm -rf rubygems-1.3.1*",
           "gem source --add http://gems.github.com",
           "gem source -a http://gems.opscode.com",

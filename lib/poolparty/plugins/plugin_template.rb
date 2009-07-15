@@ -7,6 +7,11 @@ module PoolParty
     # end
     
     class EmptyPlugin < Plugin
+      
+      # This is called when the plugin is instantiated
+      def loaded(opts={}, &block)
+      end
+      
     end
   end
   

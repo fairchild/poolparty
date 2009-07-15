@@ -1,10 +1,6 @@
 # Tasks to be run on the server
 namespace :poolparty do
   namespace :server do                
-    task :init  do
-      PoolParty::Coordinator.init(false)
-    end
-    # bundle, upload and register your bundle on the server
     desc "Bundle, upload and register your ami"
     task :all => [:bundle, :upload, :register] do
       puts "== your ami is ready"
