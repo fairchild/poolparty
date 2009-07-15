@@ -4,22 +4,17 @@
   This serves as the basis for running PoolParty on Amazon's ec2 cloud.
 =end
 require "date"
-require "#{::File.dirname(__FILE__)}/ec2_response_object"
 
 begin
-  require 'EC2'
+  require 'right_aws'
 rescue LoadError
   puts <<-EOM
-Error: In order to use ec2, you need to install the amazon-ec2 gem
+Error: In order to use ec2, you need to install the right_aws gem
 
 Ec2 is the default remoter base for PoolParty. If you intend on using
 a different remoter base, specify it with:
 
 using :remoter_name
-
-in your config file, otherwise, to continue install grempe-amazon-ec2 with
-
-sudo gem install grempe-amazon-ec2 --source http://gems.github.com
 EOM
 end
   
@@ -36,32 +31,51 @@ module PoolParty
   module Remote
     class Ec2 < Remote::RemoterBase
       require "#{::File.dirname(__FILE__)}/ec2_remote_instance"
+      require "#{::File.dirname(__FILE__)}/ec2_response"
       
       dsl_methods :elastic_ips,           # An array of the elastic ips
                   :ebs_volume_id         # The volume id of an ebs volume
       
       default_options({
-        :image_id           => 'ami-bf5eb9d6',
-        :ami                => 'ami-bf5eb9d6',  #Deprecated, but here for backwards compatability
-        # :key_name => ::File.basename(keypair.is_a?(String) ? keypair : keypair.full_filepath),
-        :instance_type      => 'm1.small', # or 'm1.large', 'm1.xlarge', 'c1.medium', or 'c1.xlarge'
-        :addressing_type    => "public",
-        :availability_zone  => "us-east-1a",
-        :access_key         => ENV['AWS_ACCESS_KEY'],
-        :secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY'],
-        :security_group     => ["default"],
-        :keypair_name       => nil,
-        :key_name           => nil
+          :image_id             => 'ami-bf5eb9d6',
+          # :ami                  => 'ami-bf5eb9d6',  #Deprecated, but here for backwards compatability
+          :instance_type        => 'm1.small', # or 'm1.large', 'm1.xlarge', 'c1.medium', or 'c1.xlarge'
+          :addressing_type      => "public",
+          :availability_zone    => "us-east-1a",
+          :access_key           => Default.access_key,
+          :secret_access_key    => Default.secret_access_key,
+          :security_group       => ["default"],
+          :keypair_name         => nil,
+          # :key_name             => nil,
+          :min_count            => 1,
+          :max_count            => 1,
+          :user_data            => '',
+          :addressing_type      => nil,
+          :kernel_id            => nil,
+          :ramdisk_id           => nil,
+          :availability_zone    => nil,
+          :block_device_mappings=> nil
         })
         
-      # alias to image_id
-      # def ami(n=nil)
-      #   if n.nil?
-      #     image_id
-      #   else
-      #     image_id n
-      #   end
-      # end
+       # Alias for keypair_name
+      def key_name(n=nil)
+        if n.nil?
+          dsl_options[:keypair_name]
+        else
+          dsl_options[:key_name] = n
+          dsl_options[:keypair_name] = n
+        end
+      end
+      
+      # Alias for image_id
+      def ami(n=nil)
+        if n.nil?
+          dsl_options[:image_id]
+        else
+          dsl_options[:ami] = n
+          dsl_options[:image_id] = n
+        end
+      end
       
       # Requires a hash of options
       def self.launch_new_instance!(o)
@@ -73,24 +87,30 @@ module PoolParty
       def launch_new_instance!(o={})
         set_vars_from_options o
         keypair_name ||= o[:keypair_name] || keypair || (clouds[o[:cloud_name]].keypair.basename if o[:cloud_name])
-        raise "You must pass a keypair to launch an instance, or else you will not be able to login. options = #{o.inspect}" if !keypair_name 
-        o.merge!( dsl_options.merge(:key_name=>keypair_name, :group_id => security_group) )
-        instance = ec2(o).run_instances(o)
-        
-        begin
-          h = EC2ResponseObject.describe_instance(instance)
-          #h = instance.instancesSet.item.first
-        rescue Exception => e
-          vputs "There was an error:\n\t#{e.inspect}"
-          h = EC2ResponseObject.describe_instance(instance) rescue instance
-          # h = instance
+        raise "You must pass a keypair to launch an instance, or else you will not be able to login. options = #{o.inspect}" if !keypair_name        
+        response_array = ec2(o).run_instances(image_id,
+                                        min_count,
+                                        max_count,
+                                        security_group,
+                                        key_name,
+                                        user_data,
+                                        addressing_type,
+                                        instance_type,
+                                        kernel_id,
+                                        ramdisk_id,
+                                        availability_zone,
+                                        block_device_mappings
+                                        )
+        instances = response_array.collect do |aws_response_hash|
+           Ec2RemoteInstance.new( Ec2Response.pp_format(aws_response_hash) )
         end
-        Ec2RemoteInstance.new(h)
+        #FIXME: This needs to deal with the case when an array is returned if max_instances > 1
+        instances.first
       end
       
       # Terminate an instance by id
       def terminate_instance!(o={})
-        ec2(o).terminate_instances(:instance_id => o[:instance_id])
+        ec2(o).terminate_instances(o[:instance_id])
       end
       
       # Describe an instance's status
@@ -100,33 +120,11 @@ module PoolParty
       end
       
       def describe_instances(o={})
-        ec2_instants = EC2ResponseObject.describe_instances(ec2.describe_instances)
+        ec2_instants = Ec2Response.describe_instances(ec2.describe_instances)
         insts = ec2_instants.select_with_hash(o) if !o.empty?
         ec2_remote_instances = ec2_instants.collect{|i| Ec2RemoteInstance.new(i)}
-        ec2_remote_instances.sort {|a,b| a[:ami_launch_index] <=> b[:ami_launch_index] }
+        ec2_remote_instances.sort {|a,b| a[:launch_index].to_i <=> b[:launch_index].to_i }
       end
-      
-      # TODO: Clean up this method and remove hostnames
-      # def describe_instances(o={})
-      #   id = 0
-      #   set_vars_from_options(dsl_options.merge(o))
-      #   get_instances_description(dsl_options).each_with_index do |h,i|
-      #     if h[:status] == "running"
-      #       inst_name = id == 0 ? "master" : "node#{id}"
-      #       id += 1
-      #     else
-      #       inst_name = "#{h[:status]}_node#{i}"
-      #     end
-      #     h.merge!({
-      #       :name           => inst_name,
-      #       :hostname       => h[:ip],
-      #       :ip             => h[:ip].convert_from_ec2_to_ip,
-      #       # :internal_ip    => h.ip
-      #       :index          => i,  #TODO get the instance id from the aws result instead
-      #       :launching_time => (h[:launching_time])
-      #     })
-      #   end.compact.sort {|a,b| a[:index] <=> b[:index] }
-      # end
       
       # ===================================
       # = Ec2 Specific methods below here =
@@ -134,38 +132,30 @@ module PoolParty
       
       # return or create a new base EC2 connection object that will actually connect to ec2
       def ec2(o={})
-        @ec2 ||= EC2::Base.new( :access_key_id => o[:access_key] || get_access_key, 
-                                :secret_access_key => o[:secret_access_key] || get_secret_access_key
-                              )
-      end
-      def self.ec2(o)
-        @ec2 ||= EC2::Base.new( :access_key_id => o[:access_key], 
-                                :secret_access_key => o[:secret_access_key]
-                              )
+        @ec2 ||=  Rightscale::Ec2.new(access_key, secret_access_key, o)
+        dputs "@ec2 = #{@ec2.inspect}"
+        @ec2
       end
       
-      # Get the ec2 description for the response in a hash format
-      def get_instances_description(o={})
-        #TODO: only use keypair.full_filepath
-        set_vars_from_options dsl_options.merge(o)
-        key_hash = {:keypair => self.keypair_name}
-        out = EC2ResponseObject.get_descriptions(ec2(dsl_options).describe_instances)
-        out = keypair_name ? out.select_with_hash(key_hash) : out
+      def self.ec2(o)
+        @ec2 ||=  Rightscale::Ec2.new(access_key, secret_access_key, o)
       end
-      def get_descriptions(o={})
-        self.class.get_descriptions(o)
-      end
-            
-      # Class method helpers
-      def aws_keys
-        unless @access_key && @secret_access_key
-          aws_keys = {}
-          aws_keys = YAML::load( File.open('/etc/poolparty/aws_keys.yml') ) rescue 'No aws_keys.yml file.   Will try to use enviornment variables'
-          @access_key ||= aws_keys[:access_key] || ENV['AMAZON_ACCESS_KEY_ID'] || ENV['AWS_ACCESS_KEY']
-          @secret_access_key ||= aws_keys[:secret_access_key] || ENV['AMAZON_SECRET_ACCESS_KEY'] || ENV['AWS_SECRET_ACCESS_KEY']
-        end
-        [@access_key, @secret_access_key]
-      end
+      
+      
+      #TODO: is this cruft? or required?
+      # # Get the ec2 description for the response in a hash format
+      # def get_instances_description(o={})
+      #   #TODO: only use keypair.full_filepath
+      #   set_vars_from_options dsl_options.merge(o)
+      #   key_hash = {:keypair => self.keypair_name}
+      #   out = EC2ResponseObject.get_descriptions(ec2(dsl_options).describe_instances)
+      #   out = keypair_name ? out.select_with_hash(key_hash) : out
+      # end
+      # def get_descriptions(o={})
+      #   self.class.get_descriptions(o)
+      # end
+      
+      # helpers
       
       def after_launch_instance(inst)
         if inst
@@ -221,7 +211,7 @@ module PoolParty
           end
         end
       end
-
+      
       # Help create a keypair for the cloud
       # This is a helper to create the keypair and add them to the cloud for you
       def create_keypair
@@ -232,13 +222,13 @@ module PoolParty
           Kernel.system "ec2-add-keypair #{keypair} > #{new_keypair_path} && chmod 600 #{new_keypair_path}"
         end
       end
-    
+      
       # wrapper for remote base to perform a snapshot backup for the ebs volume
       def create_snapshot
         return nil if ebs_volume_id.nil?
         ec2.create_snapshot(:volume_id => ebs_volume_id)
       end
-    
+      
       def has_cert_and_key?
         pub_key && private_key
       end
@@ -252,14 +242,14 @@ module PoolParty
       def private_key
         @private_key ||= ENV["EC2_PRIVATE_KEY"] ? ENV["EC2_PRIVATE_KEY"] : nil
       end
-    
+      
       def custom_minimum_runnable_options
-        [:ami, :availability_zone, :security_group]
+        [:image_id, :availability_zone, :security_group]
       end
-
+      
       # Hook
       #TODO#: Change this so they match with the cap tasks
-      def custom_install_tasks_for(o)        
+      def custom_install_tasks_for(o)
         [
           # "if [ -z $(grep -v '#' /etc/hosts | grep '#{o.name}') ]; then echo \"$(curl http://169.254.169.254/latest/meta-data/public-ipv4) #{o.name}\" >> /etc/hosts; fi",
           "if [ -z \"$(grep -v '#' /etc/hosts | grep '#{o.name}')\" ]; then echo '127.0.0.1 #{o.name}' >> /etc/hosts; fi",
@@ -267,7 +257,7 @@ module PoolParty
           "echo #{o.name} > /etc/hostname"
         ]
       end
-    
+      
       def after_install_tasks_for(o)
         [
           # "cd /var/poolparty && wget http://rubyforge.org/frs/download.php/43666/amazon-ec2-0.3.1.gem -O amazon-ec2.gem 2>&1",
@@ -275,26 +265,10 @@ module PoolParty
         ]
       end
       
-      def get_access_key(n=nil)
-        if n.nil?
-          dsl_options[:access_key] ||= Default.access_key
-        else
-          self.access_key = n
-        end
-      end
-      
-      def get_secret_access_key(n=nil)
-        if n.nil?
-          dsl_options[:secret_access_key] ||= Default.secret_access_key
-        else
-          self.secret_access_key = n
-        end
-      end
-
       def reset_base!
         @describe_instances = @cached_descriptions = nil
-      end      
+      end
     end
-        
+    
   end
 end

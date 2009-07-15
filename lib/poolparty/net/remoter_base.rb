@@ -157,8 +157,8 @@ module PoolParty
         # Wait for 10 minutes for the instance to gain an ip if it doesn't already have one
         500.times do |i|
           if @inst
-            break if @inst[:ip] && @inst[:ip] =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
-            break if @inst[:public_ip] && @inst[:public_ip] =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/            
+            break if @inst[:ip] && @inst[:ip] =~ /[1-9]\d{0,2}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+            break if @inst[:public_ip] && @inst[:public_ip] =~ /[1-9]\d{0,2}\.\d{1,3}\.\d{1,3}\.\d{1,3}/            
             sleep(2)
             @inst = describe_instance(@inst)
             dprint "."
@@ -166,12 +166,12 @@ module PoolParty
             @inst = describe_instances.last
             dprint "."
           end
-        end        
+        end
         dputs "Found an ip"
         dputs "#{@cloud.name} Launched instance #{@inst[:ip]}"
         dputs "   waiting for it to respond"
         
-        # Try for 10 minutes to pint port 22 
+        # Try for 10 minutes to pint port 22
         500.times do |i|
           dprint "."
           if ping_port(@inst[:ip], 22)

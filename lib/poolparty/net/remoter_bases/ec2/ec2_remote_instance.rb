@@ -14,7 +14,7 @@ module PoolParty
         :ramdisk_id       => nil,
         :launch_time      => nil,
         :instance_id      => nil,
-        :ami_launch_index => nil,
+        :launch_index => nil,
         :ip               => nil,
         :public_ip        => nil,
         :internal_ip      => nil
@@ -28,8 +28,15 @@ module PoolParty
       # If an instance is found, this instance's properties will be set to the properties provided
       # If the found instance has properties of the same key as the provided options, the found instance's values will override the passed in options
       def initialize(opts={})
-        opts.delete(:id)  # metavirt passes an id that we do not want to set
+        opts.delete(:id)  # metavirt (in case your using it) passes an id that we do not want to set
         set_vars_from_options(opts) if opts.is_a?(Hash)
+        if key_name != keypair_name
+          if key_name
+            dsl_options[:keypair_name] = key_name
+          else
+            dsl_options[:key_name] = keypair_name
+          end
+        end
         @target_host = public_ip || internal_ip || ip  #set this for the netssh commands
         # super(opts)
       end
