@@ -59,13 +59,13 @@ module PoolParty
         @access_key ||= load_access_keys_from_environment_var || load_keys_from_file[:access_key]
       end
       def load_access_keys_from_environment_var
-         ENV['EC2_ACCESS_KEY'] || ENV['AMAZON_ACCESS_KEY_ID'] || ENV['AWS_ACCESS_KEY']
+         ENV['EC2_ACCESS_KEY'] || ENV['AWS_ACCESS_KEY']
       end
       def secret_access_key
         @secret_access_key ||= load_secret_access_keys_from_environment_var || load_keys_from_file[:secret_access_key]
       end
       def load_secret_access_keys_from_environment_var
-        ENV['EC2_SECRET_KEY'] || ENV['AMAZON_SECRET_ACCESS_KEY'] || ENV['AWS_SECRET_ACCESS_KEY']
+        ENV['EC2_SECRET_KEY'] || ENV['AWS_SECRET_ACCESS_KEY']
       end
       def read_keyfile
         open(get_working_key_file_locations).read

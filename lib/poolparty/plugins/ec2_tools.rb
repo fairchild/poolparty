@@ -2,8 +2,9 @@ module PoolParty
   module Plugin
     # Usage: 
     # 
-    # plugin_name :optional=>'option if any'  do
-    #   extras :cli, :pspell, :mysql
+    # ec2_tools :ami_tools_url =>'option if any'  do
+    #       api_tools_url
+    #       ami_tools_url
     # end
     
     class Ec2Tools < Plugin

@@ -53,17 +53,18 @@ module PoolParty
       def self.pp_format(response_hash)
         munged = {}
         response_hash.each{|k,v| munged[k.to_s.gsub('aws_', '').to_sym] = v}
-        munged[:internal_ip]        = convert_from_ec2_dns_to_ip(munged[:private_dns_name])
-        munged[:public_ip]          = convert_from_ec2_dns_to_ip(munged[:dns_name])
-        munged[:ip]                 = munged[:public_ip]
-        munged[:launch_time]        = parse_datetime(munged[:launch_time])
-        munged[:ami_launch_index]   = munged[:launch_index]  #TODO: deprecate ami_launch_index
-        munged[:key_name]           = munged.delete(:ssh_key_name)
-        munged[:status]             = munged.delete(:state)
+        munged[:internal_ip]      = convert_from_ec2_dns_to_ip(munged[:private_dns_name])
+        munged[:public_ip]        = convert_from_ec2_dns_to_ip(munged[:dns_name])
+        munged[:ip]               = munged[:public_ip]
+        munged[:launch_time]      = parse_datetime(munged[:launch_time])
+        munged[:ami_launch_index] = munged[:launch_index]  #TODO: deprecate ami_launch_index
+        munged[:key_name]         = munged.delete(:ssh_key_name)
+        munged[:status]           = munged.delete(:state)
         munged
       end
       
-      def self.convert_from_ec2_dns_to_ip(str)
+      def self.convert_from_ec2_dns_to_ip(str=nil)
+        return str if str.nil?
         # if using eucalyptus we may have the raw IP already, if so just return it
         return str if str.scan( /^\d{1,3}\.\d{1,3}.\d{1,3}\.\d{1,3}$/ )
         return nil if str.nil?
