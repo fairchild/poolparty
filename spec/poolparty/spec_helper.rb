@@ -1,5 +1,7 @@
 require 'spec'
+require 'right_http_connection'
 require File.expand_path(File.dirname(__FILE__) + '/../../lib/poolparty')
+# require 'right_http_connection'
 
 ENV["POOL_SPEC"] = nil
 ENV["AWS_ACCESS_KEY"] = 'fake_access_key'
@@ -92,14 +94,21 @@ def read_file(path)
 end
 def sample_instances_list
   @sample_instances_lister ||= [
-    {:ip => "127.0.0.1", :name => "master", :launching_time => 2.days.ago}, 
-    {:ip => "127.0.0.2", :name => "node1", :launching_time => 2.days.ago}
+    sample_right_aws_instance(:ip               =>'127.0.0.1',
+                              :private_dns_name => "127.0.0.1", 
+                              :name             => "master", 
+                              :launching_time   => 2.days.ago), 
+    sample_right_aws_instance(:ip               =>'127.0.0.2',
+                              :private_dns_name => "127.0.0.2", 
+                              :name             => "node1", 
+                              :launching_time   => 2.days.ago)
   ]
 end
 
 def sample_instances
   sample_instances_list.map {|h| PoolParty::Remote::RemoteInstance.new(h) }
 end
+
 def stub_list_from_local_for(o)
   @list =<<-EOS
   master 192.168.0.1
@@ -111,18 +120,45 @@ def stub_list_from_local_for(o)
 
   @ris = @list.split(/\n/).map {|line| PoolParty::Remote::RemoteInstance.new(line) }
 end
+
 def stub_remoter_for(o)  
-  @ec2 = EC2::Base.new( :access_key_id => "not a key",  :secret_access_key => "even more not a key")
-  EC2::Base.stub!(:new).and_return @ec2
+  @ec2 = Rightscale::Ec2.new( "not an access key",  "even more not a key")
+  Rightscale::Ec2.stub!(:new).and_return @ec2
   
   o.class.stub!(:ec2).and_return @ec2 
   o.stub!(:instances_by_status).and_return sample_instances
   
   o.stub!(:list_of_instances).and_return sample_instances
-  @ec2.stub!(:run_instances).and_return true
+  @ec2.stub!(:run_instances).and_return [sample_right_aws_instance()]
   @ec2.stub!(:describe_instances).and_return sample_instances
   @ec2.stub!(:describe_instance).and_return sample_instances
 end
+
+def random_string(length=8)
+   (1..length).inject(''){|str,v| str<<rand(9).to_s;str}
+end
+
+def sample_right_aws_instance(o={})
+  {:aws_product_codes=>[],
+    :dns_name=>"192.168.4.198",
+    :aws_state_code=>"16",
+    :private_dns_name=>"10.168.4.0#{random_string(2)}",
+    :aws_reason=>"",
+    :aws_instance_type=>"m1.large",
+    :aws_owner=>"admin",
+    :ami_launch_index=>"0",
+    :aws_launch_time=>"2009-07-11T03:21:02.113Z",
+    :aws_reservation_id=>"r-3753070E",
+    :aws_kernel_id=>"ari-#{random_string}",
+    :ssh_key_name=>"sample_keypair",
+    :aws_state=>"running",
+    :aws_groups=>["default"],
+    :aws_ramdisk_id=>"ari-#{random_string}",
+    :aws_instance_id=>"i-#{random_string}",
+    :aws_availability_zone=>"jordan",
+    :aws_image_id=>"ami-39921602"}.merge(o)
+end
+
 def stub_list_from_remote_for(o, launch_stub=true)
   stub_remoter_for(o)
   o.stub!(:access_key).and_return "NOT A KEY"
@@ -133,6 +169,7 @@ def stub_list_from_remote_for(o, launch_stub=true)
   o.stub!(:launch_new_instance!).and_return sample_instances.first if launch_stub  
   stub_list_of_instances_for(o)
   stub_remoting_methods_for(o)
+  
 end
 def stub_remoting_methods_for(o)
   o.stub!(:other_clouds).and_return []

@@ -9,6 +9,8 @@ describe "Default" do
     ENV.stub!(:[]).with("HOME").and_return "/home"
     ENV.stub!(:[]).with("AWS_ACCESS_KEY").and_return "KEY"
     ENV.stub!(:[]).with("AWS_ACCESS_KEY_ID").and_return nil
+    ENV.stub!(:[]).with("EC2_ACCESS_KEY").and_return "KEY"
+    ENV.stub!(:[]).with("EC2_SECRET_KEY").and_return nil
     ENV.stub!(:[]).with("AWS_SECRET_ACCESS_KEY").and_return "SECRET"
   end
   it "should set the user to root" do
@@ -18,8 +20,7 @@ describe "Default" do
     Default.base_keypair_path.should =~ /\.ec2/
   end
   it "should set the storage_directory to the tmp directory of the current working directory" do
-    # Default.storage_directory.should =~ /var\/poolparty/
-    pending
+    Default.storage_directory.should =~ /var\/poolparty/
   end
   it "should have the vendor_path" do
     ::File.expand_path(Default.vendor_path).should =~ /\/vendor/
@@ -86,6 +87,9 @@ describe "Default" do
           end
           ENV.stub!(:[]).with("AWS_ACCESS_KEY").and_return nil
           ENV.stub!(:[]).with("AWS_SECRET_ACCESS_KEY").and_return nil
+          ENV.stub!(:[]).with("EC2_ACCESS_KEY").and_return nil
+          ENV.stub!(:[]).with("EC2_SECRET_KEY").and_return nil
+          
           Default.reset!
         end
         it "should render the access_key nil" do
