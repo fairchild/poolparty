@@ -14,7 +14,7 @@ module PoolParty
         :ramdisk_id       => nil,
         :launch_time      => nil,
         :instance_id      => nil,
-        :launch_index => nil,
+        :launch_index     => nil,
         :ip               => nil,
         :public_ip        => nil,
         :internal_ip      => nil
@@ -65,6 +65,37 @@ module PoolParty
         string = (cl.name == cloud.name) ? "#{name}.#{my_cloud.name}\t#{name}" : "#{name}.#{my_cloud.name}"
         "#{internal_ip}\t#{string}"
       end
+      
+      # ===========
+      # = helpers =
+      # ===========
+      # def bundle
+      #   rsync :source => private_key, :destination => "/root/aws/"
+      #   rsync :source => cert, :destination => "/root/aws/"
+      #   cmd = "ec2-bundle-vol  --private-key /root/aws/#{private_key} --cert /root/aws/#{cert} --user -d /mnt  -r i386"
+      #   raise "NOT IMPLEMENTED YET"
+      # end
+      # 
+      # def migrate_from_ec2_to_eucalyptus(euca_options={})
+      #   raise "NOT IMPLEMENTED YET"
+      #   bundle_instance
+      #   download_bundle
+      #   bundle_for_eucalyptus
+      #   upload_to_eucalyptus
+      #   register_to_eucalyptus
+      # end
+      # 
+      # def cloud_provider
+      #   Ec2.new(dsl_options)
+      # end
+      # 
+      # # =========================================
+      # # = methods proxied to the cloud provider =
+      # # =========================================
+      # 
+      # def private_key
+      #   cloud_provider.private_key
+      # end
       
     end
   end

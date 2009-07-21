@@ -87,7 +87,7 @@ module PoolParty
       def launch_new_instance!(o={})
         set_vars_from_options o
         keypair_name ||= o[:keypair_name] || keypair || (clouds[o[:cloud_name]].keypair.basename if o[:cloud_name])
-        raise "You must pass a keypair to launch an instance, or else you will not be able to login. options = #{o.inspect}" if !keypair_name        
+        raise "You must pass a keypair to launch an instance, or else you will not be able to login. options = #{o.inspect}" if !keypair_name
         response_array = ec2(o).run_instances(image_id,
                                         min_count,
                                         max_count,
@@ -132,14 +132,24 @@ module PoolParty
       
       # return or create a new base EC2 connection object that will actually connect to ec2
       def ec2(o={})
-        @ec2 ||=  Rightscale::Ec2.new(access_key, secret_access_key, o)
-        dputs "@ec2 = #{@ec2.inspect}"
-        @ec2
+        @ec2 ||= Rightscale::Ec2.new(access_key, secret_access_key, o)
       end
       
-      def self.ec2(o)
-        @ec2 ||=  Rightscale::Ec2.new(access_key, secret_access_key, o)
+      # def self.ec2(o)
+      #   @ec2 ||=  Rightscale::Ec2.new(access_key, secret_access_key, o)
+      # end
+      
+      # Get the aws keys from '/etc/poolparty/aws_keys.yml'
+      def aws_keys
+        unless @access_key && @secret_access_key
+          aws_keys = {}
+          aws_keys = YAML::load( File.open('/etc/poolparty/aws_keys.yml') ) rescue 'No aws_keys.yml file.   Will try to use enviornment variables'
+          @access_key ||= aws_keys[:access_key] || ENV['AMAZON_ACCESS_KEY_ID'] || ENV['AWS_ACCESS_KEY']
+          @secret_access_key ||= aws_keys[:secret_access_key] || ENV['AMAZON_SECRET_ACCESS_KEY'] || ENV['AWS_SECRET_ACCESS_KEY']
+        end
+        [@access_key, @secret_access_key]
       end
+      
       
       
       #TODO: is this cruft? or required?
@@ -238,6 +248,9 @@ module PoolParty
       def pub_key
         @pub_key ||= ENV["EC2_CERT"] ? ENV["EC2_CERT"] : nil
       end
+      def cert
+        pub_key
+      end
       # Private key
       def private_key
         @private_key ||= ENV["EC2_PRIVATE_KEY"] ? ENV["EC2_PRIVATE_KEY"] : nil
@@ -268,6 +281,7 @@ module PoolParty
       def reset_base!
         @describe_instances = @cached_descriptions = nil
       end
+  
     end
     
   end
