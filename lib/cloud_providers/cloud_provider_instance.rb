@@ -39,7 +39,30 @@ module CloudProviders
         raise StandardError.new("cloud_provider has not been implemented for this CloudProviderInstance ")
       end
       
-      # CLOUD PROVIDER METHODS
+      # get the os, if it's not declared
+      def os(sym=nil)
+        if sym
+          dsl_options[:os] = sym
+        else
+          dsl_options[:os] ||= determine_os.to_sym
+        end
+      end
+      alias :platform :os  # Chef uses platform, aliased for conveneince
+      
+      # Determine the os
+      # Default to ubuntu
+      # Send the determine_os.sh script to the node and run it remotely
+      def determine_os
+        scp(:source => Provision::Bootstrapper.determine_os_script, :destination => "/tmp")
+        o = run("chmod +x /tmp/determine_os.sh; /bin/sh /tmp/determine_os.sh").chomp
+        o.empty? ? :ubuntu : o
+      end
+      
+      # Determine if the node is bootstrapped
+      def bootstrapped?
+        # @bootstrapped ||= !run('if [ -f /var/poolparty/bootstrapped ]; then echo "YES"; fi').match(/YES/).nil?
+        @bootstrapped ||= !run('if [ -f /var/poolparty/bootstrapped ]; then echo "YES"; fi').chomp.empty? || false
+      end
       
       # Bootstrap self.  Bootstrap runs as root, even if user is set
       def bootstrap!(opts={})        
@@ -78,31 +101,6 @@ module CloudProviders
       # Terminate self
       def terminate!
         cloud_provider.terminate_instance!(:instance_id => instance_id)
-      end
-      
-      # get the os, if it's not declared
-      def os(sym=nil)
-        if sym
-          dsl_options[:os] = sym
-        else
-          dsl_options[:os] ||= determine_os.to_sym
-        end
-      end
-      alias :platform :os  # Chef uses platform, aliased for conveneince
-      
-      # Determine the os
-      # Default to ubuntu
-      # Send the determine_os.sh script to the node and run it remotely
-      def determine_os
-        scp(:source => Provision::Bootstrapper.determine_os_script, :destination => "/tmp")
-        o = run("chmod +x /tmp/determine_os.sh; /bin/sh /tmp/determine_os.sh").chomp
-        o.empty? ? :ubuntu : o
-      end
-      
-      # Determine if the node is bootstrapped
-      def bootstrapped?
-        # @bootstrapped ||= !run('if [ -f /var/poolparty/bootstrapped ]; then echo "YES"; fi').match(/YES/).nil?
-        @bootstrapped ||= !run('if [ -f /var/poolparty/bootstrapped ]; then echo "YES"; fi').chomp.empty? || false
       end
       
       # Wait for port

@@ -6,7 +6,8 @@ class Keypair
   include SearchablePaths
   has_searchable_paths(:prepend_paths => [Dir.pwd, '/etc/poolparty/keys', "#{ENV["HOME"]}/.ssh/", "#{ENV["HOME"]}/.ec2/", ENV['EC2_CONFIG_DIR']])
   
-  attr_accessor :filepath
+  attr_accessor :filepath 
+  attr_reader :public_key_string
   
   # Create a new key that defaults to id_rsa as the name. 
   def initialize(fpath)
@@ -39,12 +40,9 @@ class Keypair
   # Generate a public key from the private key
   # net/ssh already has this built-in from our extension.
   def public_key
-    if !@public_key_string || @public_key_string.empty?
-      pkey = Net::SSH::KeyFactory.load_private_key(full_filepath)
-      @public_key_string = pkey.public_key
-    else
-      @public_key_string
-    end
+    pkey = Net::SSH::KeyFactory.load_private_key(full_filepath)
+    @public_key_string = pkey.public_key
+    @public_key_string.to_s
   end
   
   def public_key=(str)
