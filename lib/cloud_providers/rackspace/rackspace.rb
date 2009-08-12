@@ -42,11 +42,12 @@ module CloudProviders
     # Prepare a list of files that will be injected into the server at boot time.
     # file list is a hash in the format of 
     # {'/path/to/file.txt => "/etc/remote/path"}
-    def personality_files(files={})      
+    def personality_files(files={})
       injected = files.collect do |local, remote| 
         { 'path'=> remote, 'contents' => Base64.encode64(open(local).read).chomp } 
       end
-      injected <<{'path'=>'/root/.ssh/authorized_keys', 'contents' => Base64.encode64(keypair.public_key).chomp } 
+      injected <<{'path'=>'/root/.ssh/authorized_keys', 
+                  'contents' => Base64.encode64(keypair.public_key).chomp } 
       injected
     end
     
@@ -78,8 +79,9 @@ module CloudProviders
       servers.collect{|resp| RackspaceInstance.from_hash((resp).merge(:cloud=>cloud)) }
     end
     
+    #TODO: this is simply showing all nodes at the moment. This means you can only have one rackspace cloud in your pool
     def nodes(o={})
-      describe_instances(o)
+      @nodes ||= describe_instances(o)
     end
     
   end

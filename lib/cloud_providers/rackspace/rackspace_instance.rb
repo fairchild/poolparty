@@ -24,6 +24,26 @@ module CloudProviders
         new(response, &block)
       end
       
+      def host
+        public_ip
+      end
+      
+      # Set the keypair, or retreive it from the cloud if not already set
+      def keypair(n=nil)
+        if n
+          dsl_options[:keypair] = n
+        elsif cloud
+          dsl_options[:keypair] ||= cloud.keypair
+        else
+          dsl_options[:keypair]
+        end
+      end
+      
+      def inspect
+        keys=[:status, :host_id, :keypair_name, :metadata, :internal_ip, :dns_name, :launch_time, :instance_id, :flavor_id, :cloud_name, :progress, :name, :public_ip, :addresses, :image_id]
+        "#{self.class} #{self.object_id}: #{keys.inject({}){|s,k| s[k]=self.send(k);s}.inspect}"
+      end
+      
       # Terminate the node
       def terminate!
         cloud_provider.api.delete("/servers/#{instance_id}")
@@ -39,6 +59,11 @@ module CloudProviders
       def configure!(opts={})
         #add any CloudProvider configure specific code before or after super
         super
+      end
+      
+      def cloud_provider
+        cloud.cloud_provider
+        
       end
       
     end
