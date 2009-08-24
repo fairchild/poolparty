@@ -26,6 +26,10 @@ module PoolParty
     callback_block do |cld, callback|
     end
     
+    def before_compile
+      validate_all_resources
+    end
+    
     # Freeze the cloud_name so we can't modify it at all, set the plugin_directory
     # call and run instance_eval on the block and then call the after_create callback
     def initialize(n, o={}, &block)
@@ -176,9 +180,15 @@ module PoolParty
     # Take the cloud's resources and compile them down using 
     # the defined (or the default dependency_resolver, chef)
     def compile(caller=nil)
+      callback :before_compile
       FileUtils.mkdir_p tmp_path unless File.directory?(tmp_path)
-      ddputs("Compiling cloud #{self.name} to #{tmp_path/"etc"/"#{dependency_resolver_name}"}")
-      dependency_resolver.compile_to(ordered_resources, tmp_path/"etc"/"#{dependency_resolver_name}", caller)
+      ddputs <<-EOE
+Compiling cloud #{self.name} to #{tmp_path/"etc"/"#{dependency_resolver_name}"} 
+  number of resources: #{ordered_resources.size}
+      EOE
+      out = dependency_resolver.compile_to(ordered_resources, tmp_path/"etc"/"#{dependency_resolver_name}", caller)
+      callback :after_compile
+      out
     end
     
     # Get the os of the first node if it was not explicity defined, we'll assume they are
@@ -192,8 +202,35 @@ module PoolParty
     end
     alias :platform :os
     
+    # The public_ip of the cloud is equivalent to the public_ip
+    # of the cloud's oldest node
     def public_ip
       nodes.first.public_ip
+    end
+    
+    ### MONITORS ###
+    # Create a new monitor on the cloud
+    # == Usage
+    #   monitor :cpu do |v|
+    #     vote_for(:expand) if v > 0.8
+    #   end
+    def monitor(monitor_symbol, &block)
+      monitors[monitor_symbol] ||= PoolParty::Monitor.new(monitor_symbol, &block)
+    end
+    
+    # Run the monitor logic
+    def run_monitor(monitor_name, value)
+      mon = monitors[monitor_name.to_sym]
+      if mon
+        mon.run(value.to_f)
+      else
+        "unhandled monitor"
+      end
+    end
+    
+    # Store the monitors in an array
+    def monitors
+      @monitors ||= {}
     end
     
     ##### Internal methods #####
@@ -214,6 +251,51 @@ module PoolParty
         run_in_context(&b)
       end
     end
+    
+    def validate_all_resources
+      ddputs("Validating all the resources")
+      [:ensure_not_cyclic, :ensure_meta_fun_are_resources].each do |meth|
+        self.send meth
+      end
+    end
+    
+    def ensure_not_cyclic
+      if resources_graph.cyclic?
+        cycles = []
+        
+        resources_graph.edges.each do |edge|
+          if resources_graph.adjacent?(edge.source, edge.target) && resources_graph.adjacent?(edge.target, edge.source) && !cycles.include?(edge.source)
+            cycles << "#{edge.source.class}(#{edge.source.name}) depends on #{edge.target.class}(#{edge.target.name})"
+          end
+        end
+        msg =<<-EOE
+      
+        Your resource graph is cyclic. Two resources depend on each other, Cannot decide which resource
+        to go first. Dying instead. Correct this and then try again.
+      
+          #{cycles.join("\n          ")}
+      
+        Hint: You can see the resource graph by generating it with:
+          cloud compile -g name
+        
+        EOE
+        raise PoolPartyError.create("CyclicResourceGraphError", msg)
+      end
+    end
+    
+    def ensure_meta_fun_are_resources
+      resources.each do |res|
+        
+        if res.meta_notifies
+          res.meta_notifies.each do |ty, arr|
+            arr.each do |nm, action|
+              raise PoolPartyError.create("ResourceNotFound", "A resource required for #{ty}(#{nm}) was not found: #{ty}(#{nm}). Please make sure you've specified this in your configuration.") unless get_resource(ty, nm)
+            end
+          end
+        end
+        
+      end
+    end    
     
   end
 end

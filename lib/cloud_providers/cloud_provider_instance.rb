@@ -65,7 +65,8 @@ module CloudProviders
       end
       
       # Bootstrap self.  Bootstrap runs as root, even if user is set
-      def bootstrap!(opts={})        
+      def bootstrap!(opts={})
+        callback :before_bootstrap
          if !bootstrapped? || opts[:force]
            old_user = user
            @user = "root"
@@ -79,11 +80,14 @@ module CloudProviders
           @user = old_user
           output.chomp if output
         end
+        callback :after_bootstrap
       end
       
       # Configure the node
       def configure!(opts={})
+        ddputs("Configuring: #{self.name}")
         bootstrap! unless bootstrapped?
+        callback :before_configure
         raise StandardError.new("You must pass in a cloud to configure an instance") unless cloud
         cloud.compile(self)
         scp(:source       => keypair.full_filepath, 
@@ -96,6 +100,7 @@ module CloudProviders
         rsync(:source => cloud.tmp_path/"*", :destination => "/")
         run("chmod +x /etc/poolparty/#{File.basename(script_file)}; /bin/sh /etc/poolparty/#{File.basename(script_file)}").chomp
         run(cloud.dependency_resolver.compile_command)
+        callback :after_configure
       end
       
       # Terminate self
@@ -109,21 +114,30 @@ module CloudProviders
       #   public_ip || default public_ip
       #   retry_times || 5
       def wait_for_port(port, opts={})
-        ip          = opts.delete(:public_ip) || public_ip
-        retry_times = opts.delete(:retry_times) || 5
+        ip          = opts.delete(:public_ip)   || public_ip
+        retry_times = opts.delete(:retry_times) || 10
+        pause_time  = opts.delete(:pause_time)  || 1
         
-        retry_times.times {|i| return is_port_open?(ip, port, opts)}
+        retry_times.times do |i| 
+          if is_port_open?(ip, port, opts)
+            return true
+          else
+            sleep pause_time
+          end
+        end
         false
       end
       
       # Wait for a public ip to be assigned, refreshing the instance data from the cloud provider on each query
       # Default timeout value of 60 seconds, can be overriden by passing {:timeout=>seconds}
       def wait_for_public_ip(timeout=60)
+        ddputs("Waiting for public ip")
         begin
           Timeout::timeout(timeout) do
             loop do
               self.refresh!
-              return public_ip if public_ip and public_ip != '0.0.0.0'
+              ddputs("After refreshing, the public_ip is: #{public_ip}")
+              return public_ip if valid_ip?(public_ip)
               print '.'
               sleep 2
             end
@@ -139,9 +153,10 @@ module CloudProviders
       
       # Refresh the node with fresh data from the cloud provider.
       # This is often usefully to update a recently launched instance, in case you want to trigger new behavior once the state changes ot 'running' and an ip is assigned
+      # Added rescue, but not sure if this is a proper fix yet. Will need to test on live instances to ensure
       def refresh!
-        refreshed = cloud_provider.describe_instance(:instance_id => self.instance_id)
-        self.dsl_options.merge!(refreshed.dsl_options)
+        dsl_options = cloud_provider.describe_instance(:instance_id => self.instance_id).dsl_options rescue {}
+        self.dsl_options.merge!(dsl_options)
         self
       end
       
@@ -203,6 +218,11 @@ module CloudProviders
       # Callbacks
       def loaded
       end
+            
+      def on_all_callbacks(call_time, *args, &block)
+        cloud.callback call_time
+        super
+      end
       
       def before_bootstrap
       end
@@ -220,6 +240,10 @@ module CloudProviders
       
       private
       
+      def valid_ip?(ip)
+        ip && ip != '0.0.0.0' && ip != ''
+      end
+
       # Test for open port by opening a socket
       # on the ip and closing the socket
       def is_port_open?(ip, port, opts={})
@@ -229,14 +253,17 @@ module CloudProviders
             begin
               s = TCPSocket.new(ip, port)
               s.close
+              ddputs("Connected to #{ip}:#{port} - Port is open and good to go")
               return true
               puts ','
             rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH
+              ddputs("Port #{port} on #{ip} is not accessible (yet)")
               return false
             end
           end
         rescue Timeout::Error
         end
+        ddputs("Port #{port} on #{ip} is not accessible")
         return false
       end
       

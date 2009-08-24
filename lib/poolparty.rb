@@ -11,7 +11,7 @@ end
 Dir[File.dirname(__FILE__)+"/../vendor/gems/*"].each {|lib| $LOAD_PATH.unshift(File.expand_path("#{lib}/lib")) }
 
 # Load local gems
-%w(dslify parenting json).each do |dep|
+%w(dslify parenting json daemons).each do |dep|
   require dep
 end
 
@@ -57,7 +57,7 @@ require "keypair"
 # PoolParty core
 $LOAD_PATH.unshift(File.dirname(__FILE__)/"poolparty")
 %w( default pool_party_log base dsl_base cloud 
-    installer
+    installer monitor
     pool resource plugin ).each do |lib|
   require "poolparty/#{lib}"
 end
