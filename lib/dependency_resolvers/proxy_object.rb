@@ -32,7 +32,7 @@ module DependencyResolvers
         meth_name
       when Symbol
         @current_printing_method = meth_name
-        self.send(meth_name).to_s
+        DependencyResolvers::Base.handle_print_variable(self.send(meth_name))  #TODO
       else
         raise PoolParty::PoolPartyError.create("ProxyObjectError", "Compilation of #{proxy.inspect} error. Strings and symbols are supported")
       end

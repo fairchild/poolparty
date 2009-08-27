@@ -159,9 +159,9 @@ module DependencyResolvers
         file_pointers.each do |n,f|
           f << "\n#{n} Mash.new unless attribute?(\"#{n}\")\n"
         end
-        variables.each do |var|
-          
-          var_val = handle_print_variable(ProxyObject.new(var, @caller).compile(:value))
+        
+        variables.each do |var|  
+          var_val = ProxyObject.new(var, @caller).compile(:value)
           if var.parent && !var.parent.is_a?(PoolParty::Cloud)
             file_pointers[var.parent.has_method_name] << "#{var.parent.has_method_name}[:#{var.name}] = #{var_val}\n"
           else
