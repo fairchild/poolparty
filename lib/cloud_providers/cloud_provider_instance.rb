@@ -78,6 +78,7 @@ module CloudProviders
         run("chmod +x /etc/poolparty/#{File.basename(script_file)}; /bin/sh /etc/poolparty/#{File.basename(script_file)}").chomp
         run(cloud.dependency_resolver.compile_command)
         callback :after_configure
+        puts "configured #{self.name}"
       end
       
       # Terminate self
@@ -191,9 +192,18 @@ module CloudProviders
         dsl_options.values
       end
       
+      # Return a hash of all the cloud options except for the instances cloud object refrence
       def to_hash
         dsl_options
+        d = dsl_options
+        dsl_options.delete(:cloud)
+        d
       end
+      
+      def inspect
+        to_hash
+      end
+      
       ##end of hash like methods
       
       # Is this instance running?

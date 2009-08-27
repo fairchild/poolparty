@@ -85,6 +85,11 @@ module PoolParty
       @cloud_provider
     end
     
+    # Return the first node from the sorted list of nodes
+    def leader
+      nodes.first
+    end
+    
     # 1.) Launches a new instance,
     # 2.) Waits for the instance to get an ip address
     # 3.) Waits for port 22 to be open
