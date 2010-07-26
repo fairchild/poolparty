@@ -92,7 +92,8 @@ module CloudProviders
       :user_data              => '',
       :kernel_id              => nil,
       :ramdisk_id             => nil,
-      :block_device_mapping  => [{}],
+      :block_device_mapping   => [{}],
+      :monitoring             => 'enabled',
       :disable_api_termination => nil,
       :instance_initiated_shutdown_behavior => nil,
       :subnet_id => nil
@@ -205,6 +206,7 @@ module CloudProviders
         :disable_api_termination => disable_api_termination,
         :instance_initiated_shutdown_behavior => instance_initiated_shutdown_behavior,
         :subnet_id => subnet_id,
+        :monitoring => monitoring
       })
       progress_bar_until("Waiting for node to launch...") do
         wait_for_node(e)
@@ -300,7 +302,7 @@ module CloudProviders
     end
 
     def nodes
-      all_nodes.select {|i| i.in_service? }#describe_instances.select {|i| i.in_service? && security_groups.include?(i.security_groups) }
+      all_nodes.select {|i| i.in_service? } #describe_instances.select {|i| i.in_service? && security_groups.include?(i.security_groups) }
     end
 
     # === Description

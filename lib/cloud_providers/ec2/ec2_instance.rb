@@ -13,7 +13,8 @@ module CloudProviders
       :block_device_mapping => [{}],
       :disable_api_termination => nil,
       :instance_initiated_shutdown_behavior => nil,
-      :subnet_id => nil
+      :subnet_id => nil,
+      :monitoring => true
     )
 
     def initialize(raw_response={})
@@ -34,6 +35,7 @@ module CloudProviders
       # disable_api_termination and instance_initiated_shutdown_behavior don't currently get returned in the request -- you'd need to later call describe_instance_attribute
       self.disable_api_termination              = raw_response["disableApiTermination"] rescue nil
       self.instance_initiated_shutdown_behavior = raw_response["instanceInitiatedShutdownBehavior"] rescue nil
+      self.monitoring                           = (raw_response["monitoring"]['state'] == 'enabled') rescue nil
       super
     end
 
@@ -76,6 +78,7 @@ module CloudProviders
         :security_group       => cloud.security_group_names,
         :user_data            => user_data,
         :instance_type        => instance_type,
+        :monitoring           => monitoring,
         :availability_zone    => availability_zone,
         :block_device_mapping => block_device_mapping,
         :disable_api_termination => disable_api_termination,
@@ -133,6 +136,7 @@ module CloudProviders
       image_file
     end
 
+    # NOTE: EBS AMIs are now the preferred method over S3 AMIs
     # TODO: WIP:  bundle up the instance and register it as a new ami.
     # An image of the running node will be creatd, or
     # if a path to an image file on the remote node is given, that will be used
